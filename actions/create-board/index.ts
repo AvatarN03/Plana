@@ -7,6 +7,9 @@ import db from "@/lib/db";
 
 import { auth } from "@clerk/nextjs/server";
 
+import { createAuditLogs } from "@/lib/create-audit-logs";
+import { ACTION, ENTITY_TYPE } from "@/lib/generated/prisma/enums";
+
 import { InputType, ReturnType } from "./type";
 import { CreateBoard } from "./schema";
 
@@ -19,7 +22,6 @@ const handler = async (data: InputType): Promise<ReturnType> => {
   }
 
   const { title, image } = data;
-  console.log("DATA", data)
 
   const [imageId, imageUrl, imageUrlFull] = image.split("|");
   if (!imageId || !imageUrl ) {
@@ -38,6 +40,13 @@ const handler = async (data: InputType): Promise<ReturnType> => {
         imageUrl,
         imageUrlFull : imageUrlFull || imageUrl
       },
+    });
+
+    await createAuditLogs({
+      entityId: board.id,
+      entityTitle: board.title,
+      entityType: ENTITY_TYPE.BOARD,
+      action: ACTION.CREATE,
     });
   } catch (error) {
     console.log(error)

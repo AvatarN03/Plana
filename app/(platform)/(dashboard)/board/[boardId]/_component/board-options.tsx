@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Popover, PopoverClose, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { useAction } from "@/hooks/use-action";
 
+import { ConfirmModal } from "@/components/modals/confirm-modal";
 import { MoreHorizontal, X } from "lucide-react"
 import { toast } from "sonner";
 
@@ -47,15 +48,22 @@ export const BoardOptions = ({
                         <X className="h-4 w-4 " />
                     </Button>
                 </PopoverClose>
-                <Button
-                    variant={"destructive"}
-                    onClick={onDelete}
-                    disabled={isLoading}
-                    className="rounded-sm w-full mt-4 h-auto p-2 justify-start font-normal text-sm cursor-pointer"
-                >
-                    Delete board
-                </Button>
-
+                <div className="px-2 mt-4">
+                    <ConfirmModal
+                        header="Delete this board?"
+                        description="This will permanently delete the board, along with all lists and cards inside it."
+                        onConfirm={onDelete}
+                        disabled={isLoading}
+                    >
+                        <Button
+                            variant={"destructive"}
+                            disabled={isLoading}
+                            className="rounded-sm w-full h-auto p-2 justify-start font-normal text-sm cursor-pointer"
+                        >
+                            Delete board
+                        </Button>
+                    </ConfirmModal>
+                </div>
             </PopoverContent>
         </Popover>
     )

@@ -7,6 +7,9 @@ import db from "@/lib/db";
 
 import { auth } from "@clerk/nextjs/server";
 
+import { createAuditLogs } from "@/lib/create-audit-logs";
+import { ACTION, ENTITY_TYPE } from "@/lib/generated/prisma/enums";
+
 import { InputType, ReturnType } from "./type";
 import { UpdateBoard } from "./schema";
 
@@ -19,8 +22,6 @@ const handler = async (data: InputType): Promise<ReturnType> => {
   }
 
   const { title, id } = data;
-  console.log("DATA", data)
-
   
   let board;
   
@@ -32,8 +33,14 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       },
       data: {
         title,
-
       },
+    });
+
+    await createAuditLogs({
+      entityId: board.id,
+      entityTitle: board.title,
+      entityType: ENTITY_TYPE.BOARD,
+      action: ACTION.UPDATE,
     });
   } catch (error) {
     console.log(error)

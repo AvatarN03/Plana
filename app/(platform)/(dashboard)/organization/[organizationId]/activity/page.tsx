@@ -1,9 +1,21 @@
-export default function ActivityPage() {
+import { Suspense } from "react";
+import { Separator } from "@/components/ui/separator";
+import { Info } from "../_components/Info";
+import { ActivityList } from "./_components/activity-list";
+
+const ActivityPage = () => {
   return (
-    <div className="w-full">
-      <div className="flex flex-col">
-        <h1 className="text-3xl font-bold">Activity</h1>
+    <div className="w-full mb-20">
+      <Info />
+      <Separator className="my-4" />
+      <div className="px-2 md:px-4">
+        <Suspense fallback={<ActivityList.Skeleton />}>
+          <ActivityList />
+        </Suspense>
       </div>
     </div>
-  )
-}
+  );
+};
+
+export default ActivityPage;
+

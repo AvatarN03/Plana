@@ -39,10 +39,13 @@ const BoardIdLayout = async ({
 }) => {
     const { orgId } = await auth();
 
+    if (!orgId) {
+        redirect("/select-org");
+    }
+
     const resolvedParams = await params;
     const boardId = resolvedParams.boardId;
 
-    console.log(boardId)
     if (!boardId) {
         notFound();
     }

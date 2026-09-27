@@ -7,6 +7,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { useAction } from "@/hooks/use-action";
 import { useCardModal } from "@/hooks/use-card-modal";
 import { CardWithList } from "@/types";
+import { ConfirmModal } from "@/components/modals/confirm-modal";
 import { Copy, Trash } from "lucide-react";
 import { useParams } from "next/navigation";
 import { toast } from "sonner";
@@ -25,18 +26,18 @@ export const Actions = ({
 
     const {onClose} = useCardModal();
 
-    const { execute: executeDelete } = useAction(deleteCard, {
+    const { execute: executeDelete, isLoading: isLoadingDelete } = useAction(deleteCard, {
         onSuccess: (data) => {
-            toast.success(`Card ${data.title} deleted`);
+            toast.success(`Card "${data.title}" deleted`);
             onClose();
         },
         onError: (error) => {
             toast.error(error);
         }
     })
-    const { execute: executeCopy } = useAction(copyCard, {
+    const { execute: executeCopy, isLoading: isLoadingCopy } = useAction(copyCard, {
         onSuccess: (data) => {
-            toast.success(`List ${data.title} copied`);
+            toast.success(`Card "${data.title}" copied`);
             onClose();
 
         },
@@ -46,37 +47,43 @@ export const Actions = ({
     })
 
     const onDelete = () => {
-
         executeDelete({ id: data.id, boardId })
     }
     const onCopy = () => {
-
         executeCopy({ id: data.id, boardId })
     }
 
 
     return (
-        <div className="space-y-4 mt-2">
-            <p className="text-xs font-semibold">Actions</p>
+        <div className="space-y-2 mt-2">
+            <p className="text-xs font-semibold text-neutral-700">Actions</p>
 
             <Button
-                className="flex items-center justify-start "
-                variant={"primary"}
+                className="w-full flex items-center justify-start cursor-pointer"
+                variant={"outline"}
                 size={"sm"}
                 onClick={onCopy}
+                disabled={isLoadingCopy}
             >
-                <Copy className="w-5 h-5 mr-1" />
+                <Copy className="w-4 h-4 mr-2" />
                 Copy
             </Button>
-            <Button
-                className="flex items-center justify-start "
-                variant={"destructive"}
-                size={"sm"}
-                onClick={onDelete}
+            <ConfirmModal
+                header="Delete this card?"
+                description="This will permanently delete this card and its activity history."
+                onConfirm={onDelete}
+                disabled={isLoadingDelete}
             >
-                <Trash className="w-5 h-5 mr-1" />
-                Delete
-            </Button>
+                <Button
+                    className="w-full flex items-center justify-start cursor-pointer"
+                    variant={"destructive"}
+                    size={"sm"}
+                    disabled={isLoadingDelete}
+                >
+                    <Trash className="w-4 h-4 mr-2" />
+                    Delete
+                </Button>
+            </ConfirmModal>
         </div>
     )
 }

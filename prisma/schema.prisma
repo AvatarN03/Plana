@@ -45,10 +45,12 @@ model List {
 }
 
 model Card {
-  id          String  @id @default(uuid())
+  id          String    @id @default(uuid())
   title       String
   order       Int
-  description String? @db.Text
+  description String?   @db.Text
+  priority    PRIORITY  @default(MEDIUM)
+  dueDate     DateTime?
 
   listId String
   list   List   @relation(fields: [listId], references: [id], onDelete: Cascade)
@@ -57,6 +59,13 @@ model Card {
   updated   DateTime @updatedAt
 
   @@index([listId])
+}
+
+enum PRIORITY {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
 }
 
 enum ACTION {

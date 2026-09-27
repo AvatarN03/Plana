@@ -11,6 +11,7 @@ import { List } from "@/lib/generated/prisma/client";
 import { MoreHorizontal, X } from "lucide-react";
 import { useRef } from "react";
 import { toast } from "sonner";
+import { ConfirmModal } from "@/components/modals/confirm-modal";
 
 interface ListOptionsProps {
     data: List,
@@ -76,10 +77,11 @@ export const ListOptions = ({
                     </Button>
                 </PopoverClose>
                 <Button
+                    onClick={onAddCard}
                     variant={"ghost"}
-                    className="w-full h-auto px-5 py-2 justify-start text-center font-normal text-sm rounded-none"
+                    className="w-full h-auto px-5 py-2 justify-start text-left font-normal text-sm rounded-none cursor-pointer"
                 >
-                    Add List
+                    Add card...
                 </Button>
                 <form action={onCopy}>
                     <input type="text"
@@ -92,26 +94,23 @@ export const ListOptions = ({
                     id="boardId"
                     hidden
                     defaultValue={data.boardId} />
-                    <FormSubmit classname="w-full h-auto px-5 py-2 justify-start text-center font-normal text-sm rounded-none" variant="ghost">
-                        Copy List ...
+                    <FormSubmit classname="w-full h-auto px-5 py-2 justify-start text-left font-normal text-sm rounded-none cursor-pointer" variant="ghost">
+                        Copy list...
                     </FormSubmit>
                 </form>
                 <Separator className="my-2" />
-                <form action={onDelete}>
-                    <input type="text"
-                    hidden
-                    name="id"
-                    id="id"
-                    defaultValue={data.id} />
-                    <input type="text"
-                    name="boardId"
-                    id="boardId"
-                    hidden
-                    defaultValue={data.boardId} />
-                    <FormSubmit classname="w-full h-auto px-5 py-2 justify-start text-center font-normal text-sm rounded-sm" variant="destructive">
-                        Delete List
-                    </FormSubmit>
-                </form>
+                <ConfirmModal
+                    header="Delete this list?"
+                    description="This will permanently delete this list and all cards inside it."
+                    onConfirm={() => executeDelete({ id: data.id, boardId: data.boardId })}
+                >
+                    <Button
+                        variant="ghost"
+                        className="w-full h-auto px-5 py-2 justify-start text-left font-normal text-sm rounded-sm text-red-600 hover:text-red-700 hover:bg-red-50 cursor-pointer"
+                    >
+                        Delete list...
+                    </Button>
+                </ConfirmModal>
             </PopoverContent>
         </Popover>
     )

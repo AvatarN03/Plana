@@ -39,6 +39,8 @@ export type CardMinAggregateOutputType = {
   title: string | null
   order: number | null
   description: string | null
+  priority: $Enums.PRIORITY | null
+  dueDate: Date | null
   listId: string | null
   createdAt: Date | null
   updated: Date | null
@@ -49,6 +51,8 @@ export type CardMaxAggregateOutputType = {
   title: string | null
   order: number | null
   description: string | null
+  priority: $Enums.PRIORITY | null
+  dueDate: Date | null
   listId: string | null
   createdAt: Date | null
   updated: Date | null
@@ -59,6 +63,8 @@ export type CardCountAggregateOutputType = {
   title: number
   order: number
   description: number
+  priority: number
+  dueDate: number
   listId: number
   createdAt: number
   updated: number
@@ -79,6 +85,8 @@ export type CardMinAggregateInputType = {
   title?: true
   order?: true
   description?: true
+  priority?: true
+  dueDate?: true
   listId?: true
   createdAt?: true
   updated?: true
@@ -89,6 +97,8 @@ export type CardMaxAggregateInputType = {
   title?: true
   order?: true
   description?: true
+  priority?: true
+  dueDate?: true
   listId?: true
   createdAt?: true
   updated?: true
@@ -99,6 +109,8 @@ export type CardCountAggregateInputType = {
   title?: true
   order?: true
   description?: true
+  priority?: true
+  dueDate?: true
   listId?: true
   createdAt?: true
   updated?: true
@@ -196,6 +208,8 @@ export type CardGroupByOutputType = {
   title: string
   order: number
   description: string | null
+  priority: $Enums.PRIORITY
+  dueDate: Date | null
   listId: string
   createdAt: Date
   updated: Date
@@ -229,6 +243,8 @@ export type CardWhereInput = {
   title?: Prisma.StringFilter<"Card"> | string
   order?: Prisma.IntFilter<"Card"> | number
   description?: Prisma.StringNullableFilter<"Card"> | string | null
+  priority?: Prisma.EnumPRIORITYFilter<"Card"> | $Enums.PRIORITY
+  dueDate?: Prisma.DateTimeNullableFilter<"Card"> | Date | string | null
   listId?: Prisma.StringFilter<"Card"> | string
   createdAt?: Prisma.DateTimeFilter<"Card"> | Date | string
   updated?: Prisma.DateTimeFilter<"Card"> | Date | string
@@ -240,6 +256,8 @@ export type CardOrderByWithRelationInput = {
   title?: Prisma.SortOrder
   order?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
+  priority?: Prisma.SortOrder
+  dueDate?: Prisma.SortOrderInput | Prisma.SortOrder
   listId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updated?: Prisma.SortOrder
@@ -254,6 +272,8 @@ export type CardWhereUniqueInput = Prisma.AtLeast<{
   title?: Prisma.StringFilter<"Card"> | string
   order?: Prisma.IntFilter<"Card"> | number
   description?: Prisma.StringNullableFilter<"Card"> | string | null
+  priority?: Prisma.EnumPRIORITYFilter<"Card"> | $Enums.PRIORITY
+  dueDate?: Prisma.DateTimeNullableFilter<"Card"> | Date | string | null
   listId?: Prisma.StringFilter<"Card"> | string
   createdAt?: Prisma.DateTimeFilter<"Card"> | Date | string
   updated?: Prisma.DateTimeFilter<"Card"> | Date | string
@@ -265,6 +285,8 @@ export type CardOrderByWithAggregationInput = {
   title?: Prisma.SortOrder
   order?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
+  priority?: Prisma.SortOrder
+  dueDate?: Prisma.SortOrderInput | Prisma.SortOrder
   listId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updated?: Prisma.SortOrder
@@ -283,6 +305,8 @@ export type CardScalarWhereWithAggregatesInput = {
   title?: Prisma.StringWithAggregatesFilter<"Card"> | string
   order?: Prisma.IntWithAggregatesFilter<"Card"> | number
   description?: Prisma.StringNullableWithAggregatesFilter<"Card"> | string | null
+  priority?: Prisma.EnumPRIORITYWithAggregatesFilter<"Card"> | $Enums.PRIORITY
+  dueDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Card"> | Date | string | null
   listId?: Prisma.StringWithAggregatesFilter<"Card"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Card"> | Date | string
   updated?: Prisma.DateTimeWithAggregatesFilter<"Card"> | Date | string
@@ -293,6 +317,8 @@ export type CardCreateInput = {
   title: string
   order: number
   description?: string | null
+  priority?: $Enums.PRIORITY
+  dueDate?: Date | string | null
   createdAt?: Date | string
   updated?: Date | string
   list: Prisma.ListCreateNestedOneWithoutCardsInput
@@ -303,6 +329,8 @@ export type CardUncheckedCreateInput = {
   title: string
   order: number
   description?: string | null
+  priority?: $Enums.PRIORITY
+  dueDate?: Date | string | null
   listId: string
   createdAt?: Date | string
   updated?: Date | string
@@ -313,6 +341,8 @@ export type CardUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  priority?: Prisma.EnumPRIORITYFieldUpdateOperationsInput | $Enums.PRIORITY
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   list?: Prisma.ListUpdateOneRequiredWithoutCardsNestedInput
@@ -323,6 +353,8 @@ export type CardUncheckedUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  priority?: Prisma.EnumPRIORITYFieldUpdateOperationsInput | $Enums.PRIORITY
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   listId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -333,6 +365,8 @@ export type CardCreateManyInput = {
   title: string
   order: number
   description?: string | null
+  priority?: $Enums.PRIORITY
+  dueDate?: Date | string | null
   listId: string
   createdAt?: Date | string
   updated?: Date | string
@@ -343,6 +377,8 @@ export type CardUpdateManyMutationInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  priority?: Prisma.EnumPRIORITYFieldUpdateOperationsInput | $Enums.PRIORITY
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -352,6 +388,8 @@ export type CardUncheckedUpdateManyInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  priority?: Prisma.EnumPRIORITYFieldUpdateOperationsInput | $Enums.PRIORITY
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   listId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -372,6 +410,8 @@ export type CardCountOrderByAggregateInput = {
   title?: Prisma.SortOrder
   order?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  priority?: Prisma.SortOrder
+  dueDate?: Prisma.SortOrder
   listId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updated?: Prisma.SortOrder
@@ -386,6 +426,8 @@ export type CardMaxOrderByAggregateInput = {
   title?: Prisma.SortOrder
   order?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  priority?: Prisma.SortOrder
+  dueDate?: Prisma.SortOrder
   listId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updated?: Prisma.SortOrder
@@ -396,6 +438,8 @@ export type CardMinOrderByAggregateInput = {
   title?: Prisma.SortOrder
   order?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  priority?: Prisma.SortOrder
+  dueDate?: Prisma.SortOrder
   listId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updated?: Prisma.SortOrder
@@ -451,11 +495,21 @@ export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
 }
 
+export type EnumPRIORITYFieldUpdateOperationsInput = {
+  set?: $Enums.PRIORITY
+}
+
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
+}
+
 export type CardCreateWithoutListInput = {
   id?: string
   title: string
   order: number
   description?: string | null
+  priority?: $Enums.PRIORITY
+  dueDate?: Date | string | null
   createdAt?: Date | string
   updated?: Date | string
 }
@@ -465,6 +519,8 @@ export type CardUncheckedCreateWithoutListInput = {
   title: string
   order: number
   description?: string | null
+  priority?: $Enums.PRIORITY
+  dueDate?: Date | string | null
   createdAt?: Date | string
   updated?: Date | string
 }
@@ -503,6 +559,8 @@ export type CardScalarWhereInput = {
   title?: Prisma.StringFilter<"Card"> | string
   order?: Prisma.IntFilter<"Card"> | number
   description?: Prisma.StringNullableFilter<"Card"> | string | null
+  priority?: Prisma.EnumPRIORITYFilter<"Card"> | $Enums.PRIORITY
+  dueDate?: Prisma.DateTimeNullableFilter<"Card"> | Date | string | null
   listId?: Prisma.StringFilter<"Card"> | string
   createdAt?: Prisma.DateTimeFilter<"Card"> | Date | string
   updated?: Prisma.DateTimeFilter<"Card"> | Date | string
@@ -513,6 +571,8 @@ export type CardCreateManyListInput = {
   title: string
   order: number
   description?: string | null
+  priority?: $Enums.PRIORITY
+  dueDate?: Date | string | null
   createdAt?: Date | string
   updated?: Date | string
 }
@@ -522,6 +582,8 @@ export type CardUpdateWithoutListInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  priority?: Prisma.EnumPRIORITYFieldUpdateOperationsInput | $Enums.PRIORITY
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -531,6 +593,8 @@ export type CardUncheckedUpdateWithoutListInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  priority?: Prisma.EnumPRIORITYFieldUpdateOperationsInput | $Enums.PRIORITY
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -540,6 +604,8 @@ export type CardUncheckedUpdateManyWithoutListInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   order?: Prisma.IntFieldUpdateOperationsInput | number
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  priority?: Prisma.EnumPRIORITYFieldUpdateOperationsInput | $Enums.PRIORITY
+  dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -551,6 +617,8 @@ export type CardSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   title?: boolean
   order?: boolean
   description?: boolean
+  priority?: boolean
+  dueDate?: boolean
   listId?: boolean
   createdAt?: boolean
   updated?: boolean
@@ -562,6 +630,8 @@ export type CardSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   title?: boolean
   order?: boolean
   description?: boolean
+  priority?: boolean
+  dueDate?: boolean
   listId?: boolean
   createdAt?: boolean
   updated?: boolean
@@ -573,6 +643,8 @@ export type CardSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   title?: boolean
   order?: boolean
   description?: boolean
+  priority?: boolean
+  dueDate?: boolean
   listId?: boolean
   createdAt?: boolean
   updated?: boolean
@@ -584,12 +656,14 @@ export type CardSelectScalar = {
   title?: boolean
   order?: boolean
   description?: boolean
+  priority?: boolean
+  dueDate?: boolean
   listId?: boolean
   createdAt?: boolean
   updated?: boolean
 }
 
-export type CardOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "order" | "description" | "listId" | "createdAt" | "updated", ExtArgs["result"]["card"]>
+export type CardOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "order" | "description" | "priority" | "dueDate" | "listId" | "createdAt" | "updated", ExtArgs["result"]["card"]>
 export type CardInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   list?: boolean | Prisma.ListDefaultArgs<ExtArgs>
 }
@@ -610,6 +684,8 @@ export type $CardPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     title: string
     order: number
     description: string | null
+    priority: $Enums.PRIORITY
+    dueDate: Date | null
     listId: string
     createdAt: Date
     updated: Date
@@ -1041,6 +1117,8 @@ export interface CardFieldRefs {
   readonly title: Prisma.FieldRef<"Card", 'String'>
   readonly order: Prisma.FieldRef<"Card", 'Int'>
   readonly description: Prisma.FieldRef<"Card", 'String'>
+  readonly priority: Prisma.FieldRef<"Card", 'PRIORITY'>
+  readonly dueDate: Prisma.FieldRef<"Card", 'DateTime'>
   readonly listId: Prisma.FieldRef<"Card", 'String'>
   readonly createdAt: Prisma.FieldRef<"Card", 'DateTime'>
   readonly updated: Prisma.FieldRef<"Card", 'DateTime'>

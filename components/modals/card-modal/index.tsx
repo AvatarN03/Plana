@@ -19,35 +19,38 @@ export const CardModal = () => {
 
   const { data: cardData } = useQuery<CardWithList>({
     queryKey: ["card", id],
-    queryFn: () => fetcher(`/api/cards/${id}`)
-  })
+    queryFn: () => fetcher(`/api/cards/${id}`),
+    enabled: !!id,
+  });
 
   const { data: cardAuditLogs } = useQuery<AuditLog[]>({
     queryKey: ["card-log", id],
-    queryFn: () => fetcher(`/api/cards/${id}/log`)
-  })
+    queryFn: () => fetcher(`/api/cards/${id}/log`),
+    enabled: !!id,
+  });
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent>
-        {
-          !cardData ? <Header.Skeleton /> : <Header data={cardData} />
-        }
+        {!cardData ? <Header.Skeleton /> : <Header data={cardData} />}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-2">
-          <div className="col-span-full  md:col-span-3">
+          <div className="col-span-full md:col-span-3">
             <div className="w-full space-y-2">
-              {
-                !cardData ? <Description.Skeleton /> : <Description data={cardData} />
-              }
-              {
-                cardAuditLogs ? <Activity.Skeleton /> : <Activity  />
-              }
+              {!cardData ? (
+                <Description.Skeleton />
+              ) : (
+                <Description data={cardData} />
+              )}
+              {!cardAuditLogs ? (
+                <Activity.Skeleton />
+              ) : (
+                <Activity items={cardAuditLogs} />
+              )}
             </div>
           </div>
-          {
-            !cardData ? <Actions.Skeleton /> : <Actions data={cardData} />
-          }
+          {!cardData ? <Actions.Skeleton /> : <Actions data={cardData} />}
         </div>
       </DialogContent>
     </Dialog>
-  )
-}
+  );
+};

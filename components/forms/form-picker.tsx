@@ -15,6 +15,13 @@ interface FormPickerProps {
 }
 
 
+interface UnsplashPhoto {
+    id: string;
+    urls: { thumb: string; full: string; raw: string; small: string; regular: string };
+    links: { html: string };
+    user: { name: string };
+}
+
 export const FormPicker = ({
     id,
     errors
@@ -22,7 +29,7 @@ export const FormPicker = ({
 
     const { pending } = useFormStatus();
 
-    const [images, setImages] = useState<Array<Record<string, any>>>(defaultImages);
+    const [images, setImages] = useState<UnsplashPhoto[]>(defaultImages as unknown as UnsplashPhoto[]);
     const [isloading, setIsLoading] = useState(true);
     const [selectedImage, setSelectedImage] = useState<string | null>(null)
 
@@ -38,7 +45,7 @@ export const FormPicker = ({
                 })
                 
                 if (result && result.response) {
-                    const newImages = result.response as Array<Record<string, any>>
+                    const newImages = result.response as UnsplashPhoto[]
                     setImages(newImages)
                 }
             } catch (error) {
@@ -69,7 +76,6 @@ export const FormPicker = ({
                             key={image.id}
                             onClick={() => {
                                 if (pending) return;
-                                console.log("click", image.id)
                                 setSelectedImage(image.id)
                             }}
                         >

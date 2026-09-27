@@ -773,6 +773,8 @@ export const CardScalarFieldEnum = {
   title: 'title',
   order: 'order',
   description: 'description',
+  priority: 'priority',
+  dueDate: 'dueDate',
   listId: 'listId',
   createdAt: 'createdAt',
   updated: 'updated'
@@ -867,6 +869,20 @@ export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'In
  * Reference to a field of type 'Int[]'
  */
 export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+/**
+ * Reference to a field of type 'PRIORITY'
+ */
+export type EnumPRIORITYFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PRIORITY'>
+    
+
+
+/**
+ * Reference to a field of type 'PRIORITY[]'
+ */
+export type ListEnumPRIORITYFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PRIORITY[]'>
     
 
 

@@ -9,6 +9,16 @@
 * 🟢 You can import this file directly.
 */
 
+export const PRIORITY = {
+  LOW: 'LOW',
+  MEDIUM: 'MEDIUM',
+  HIGH: 'HIGH',
+  URGENT: 'URGENT'
+} as const
+
+export type PRIORITY = (typeof PRIORITY)[keyof typeof PRIORITY]
+
+
 export const ACTION = {
   CREATE: 'CREATE',
   UPDATE: 'UPDATE',

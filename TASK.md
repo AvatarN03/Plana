@@ -9,8 +9,8 @@ This task tracker governs the phased evolution of Plana into a production-grade,
 | Phase | Description | Status | Progress |
 |---|---|---|---|
 | **Phase 0** | Project Audit, Documentation & Baselines | Completed | 100% |
-| **Phase 1** | P0: Compilation, Middleware & Critical Bug Fixes | In Progress | 0% |
-| **Phase 2** | P0: Complete Audit Logging Engine & Activity Views | Pending | 0% |
+| **Phase 1** | P0: Compilation, Middleware & Critical Bug Fixes | Completed | 100% |
+| **Phase 2** | P0: Complete Audit Logging Engine & Activity Views | In Progress | 0% |
 | **Phase 3** | P0: Destructive Action Safety & UI Polish | Pending | 0% |
 | **Phase 4** | P1: Enhanced Card Management (Priorities, Due Dates, Badges) | Pending | 0% |
 | **Phase 5** | P1: Board Search, Filtering & Productivity | Pending | 0% |
@@ -22,19 +22,19 @@ This task tracker governs the phased evolution of Plana into a production-grade,
 ## Detailed Task Breakdown
 
 ### Phase 1: P0 Compilation, Middleware & Critical Bug Fixes
-- [ ] **1.1 Fix Route Handler Signature & Return in `/api/cards/[cardId]/log`**
+- [x] **1.1 Fix Route Handler Signature & Return in `/api/cards/[cardId]/log`**
   - **Files**: `app/api/cards/[cardId]/log/route.ts`
   - **Objective**: Change `params: { cardId: string }` to `params: Promise<{ cardId: string }>` to comply with Next.js 15/16. Ensure `const { cardId } = await params;` is awaited and `NextResponse.json(auditLogs)` is returned with proper try/catch error handling.
   - **Verification**: Run `npx tsc --noEmit` and verify route handler type error is resolved.
 
-- [ ] **1.2 Fix Nullable `orgId` & Type Inconsistencies in Board Layout & Page**
+- [x] **1.2 Fix Nullable `orgId` & Type Inconsistencies in Board Layout & Page**
   - **Files**: 
     - `app/(platform)/(dashboard)/board/[boardId]/layout.tsx`
     - `app/(platform)/(dashboard)/board/[boardId]/page.tsx`
   - **Objective**: Ensure `orgId` from `await auth()` is validated. If null or undefined, perform `redirect("/select-org")`. Ensure query parameters match Prisma types and resolve `ListWithCards` type mismatch without losing card relations.
   - **Verification**: Run `npx tsc --noEmit` and verify zero errors in `board/[boardId]`.
 
-- [ ] **1.3 Activate Edge Middleware**
+- [x] **1.3 Activate Edge Middleware**
   - **Files**: `proxy.ts` → `middleware.ts`
   - **Objective**: Move `proxy.ts` to `middleware.ts` at project root so Next.js actively executes Clerk route protection, public route matcher, and redirect logic for unauthenticated users and org switching.
   - **Verification**: Test Next.js build recognizes `middleware.ts`.

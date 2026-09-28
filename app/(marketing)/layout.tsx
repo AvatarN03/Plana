@@ -1,20 +1,17 @@
-import React from 'react'
-import { Navbar } from './_components/Navbar'
-import { Footer } from './_components/Footer'
+import React from "react";
+import { Navbar } from "./_components/Navbar";
+import { Footer } from "./_components/Footer";
 
-const layout = ({ children }: { children: React.ReactNode }) => {
+const MarketingLayout = ({ children }: { children: React.ReactNode }) => {
     return (
-        <div className="h-full bg-slate-100">
-            {/* navbar  */}
+        <div className="min-h-screen flex flex-col bg-slate-50 text-neutral-900 selection:bg-blue-100 selection:text-blue-900">
             <Navbar />
-
-            <main className="pt-40 pb-20 bg-slate-100">
+            <main className="flex-1 pt-24 pb-16">
                 {children}
             </main>
-            {/* footer  */}
             <Footer />
         </div>
-    )
-}
+    );
+};
 
-export default layout
+export default MarketingLayout;

@@ -36,7 +36,7 @@ Plana is a **Kanban project management application** for teams and individuals.
 ```
 plana/
 ├── app/
-│   ├── (marketing)/          # Landing page, footer
+│   ├── (marketing)/          # High-converting SaaS landing page (hero, mockup, bento, comparison, CTA, footer)
 │   ├── (platform)/
 │   │   ├── (clerk)/          # /sign-in, /sign-up, /select-org
 │   │   └── (dashboard)/

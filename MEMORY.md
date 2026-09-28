@@ -129,6 +129,12 @@ enum PRIORITY {
   - Explicitly typed `board: Board` in `create-board/index.ts`
 - **Proxy rename**: Renamed `middleware.ts` back to `proxy.ts` to align with Next.js 16 convention (eliminates deprecation warning in build output).
 
+### Session 4: Phase 8 Landing Page Redesign (2026-09-28)
+- **Navbar & Layout**: Glassmorphic sticky header with Clerk session detection (`Go to Workspace →` button for logged-in users). Replaced fixed-overlay footer with standard responsive page footer.
+- **Hero & Mockup**: High-impact SaaS headline and subheadline with dual CTAs. Created `board-mockup.tsx` rendering an authentic 3-column Kanban board with real task badges (Urgent flag, due dates, description indicator).
+- **Features Bento & Comparison**: 4-card `features-bento.tsx` highlighting drag-and-drop, priorities/due dates, audit logging, and starter templates. Created `comparison-section.tsx` contrasting Plana vs bloated legacy PM tools.
+- **CTA Banner**: Dark conversion card `cta-banner.tsx` with glow effect and friction-free signup.
+
 ---
 
 ## 6. New Files Created
@@ -142,6 +148,11 @@ enum PRIORITY {
 | `app/.../activity/_components/activity-list.tsx` | RSC for org-wide activity feed |
 | `hooks/use-board-filters.ts` | Zustand store for board-level search/filter state |
 | `app/.../board/[boardId]/_component/board-filter.tsx` | Search input + filter popover in board navbar |
+| `app/(marketing)/_components/hero-section.tsx` | Landing page hero with modern typography & dual CTAs |
+| `app/(marketing)/_components/board-mockup.tsx` | Interactive, stylized Kanban board preview |
+| `app/(marketing)/_components/features-bento.tsx` | 4-card feature bento grid |
+| `app/(marketing)/_components/comparison-section.tsx` | Plana 2.0 vs legacy PM tools comparison |
+| `app/(marketing)/_components/cta-banner.tsx` | High-conversion bottom signup banner |
 
 ---
 
@@ -162,7 +173,7 @@ npm run build
 ### Current Verification Status
 - `npx tsc --noEmit` → **0 errors** ✅
 - `npm run lint` → **0 errors, 0 warnings** ✅
-- `npm run build` → **Not yet run** (Phase 7.2)
+- `npm run build` → **exit code 0, 34.8s, zero warnings** ✅
 
 ---
 

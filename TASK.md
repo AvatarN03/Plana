@@ -16,6 +16,7 @@ This task tracker governs the phased evolution of Plana into a production-grade,
 | **Phase 5** | P1: Board Search, Filtering & Productivity | ✅ Completed | 100% |
 | **Phase 6** | P1: Board Starter Templates & Empty States | ✅ Completed | 100% |
 | **Phase 7** | Quality Assurance, Verification & Documentation | ✅ Completed | 100% |
+| **Phase 8** | High-Converting SaaS Landing Page Redesign | ✅ Completed | 100% |
 
 ---
 
@@ -90,6 +91,22 @@ This task tracker governs the phased evolution of Plana into a production-grade,
   - `AGENTS.md` — Complete rewrite reflecting Plana 2.0 architecture, all new components, hooks, and schema.
   - `MEMORY.md` — Updated with full session 3 changelog, schema state, verification status.
   - `TASK.md` — All phases marked complete.
+
+---
+
+### Phase 8: High-Converting SaaS Landing Page Redesign
+- [x] **8.1 Navbar & Layout Polish**
+  - Sticky glassmorphic navbar with backdrop-blur, active Clerk user/org link ("Go to Workspace →").
+  - Fixed-height footer changed to natural flex page footer with branding, policies, and copyright.
+- [x] **8.2 Hero Section & Stylized Kanban Mockup**
+  - Headline, subheadline, dual CTAs ("Get Plana for free", "Sign in to workspace").
+  - Rich `BoardMockup` component showing 3 columns, realistic task badges (Urgent flag, due dates, description indicator).
+- [x] **8.3 Feature Bento Grid & Comparison**
+  - 4-card `FeaturesBento` highlighting Fluid Drag & Drop, Priorities/Due Dates, Audit Trails, and Starter Templates.
+  - `ComparisonSection` comparing Plana's focused execution vs bloated enterprise PM tools.
+- [x] **8.4 Conversion Banner & Final QA**
+  - Sleek dark `CtaBanner` with glow accent and direct sign-up link.
+  - Verification: `npx tsc --noEmit` (0 errors), `npm run lint` (0 errors, 0 warnings), `npm run build` (compiled in 34.8s, 0 errors).
 
 ---
 

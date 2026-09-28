@@ -26,6 +26,14 @@ const handler = async (data: InputType): Promise<ReturnType> => {
   let card;
 
   try {
+    const updateData: Record<string, unknown> = {};
+    if (values.title !== undefined) updateData.title = values.title;
+    if (values.description !== undefined) updateData.description = values.description;
+    if (values.priority !== undefined) updateData.priority = values.priority;
+    if (values.dueDate !== undefined) {
+      updateData.dueDate = values.dueDate ? new Date(values.dueDate) : null;
+    }
+
     card = await db.card.update({
       where: {
         id,
@@ -35,9 +43,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
           },
         },
       },
-      data: {
-        ...values
-      },
+      data: updateData,
     });
 
     await createAuditLogs({

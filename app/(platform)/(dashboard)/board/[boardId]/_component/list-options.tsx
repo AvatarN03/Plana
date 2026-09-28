@@ -44,11 +44,8 @@ export const ListOptions = ({
         }
     })
 
-    const onDelete = (formData:FormData)=>{
-        const id  = formData.get("id") as string;
-        const boardId  = formData.get("boardId") as string;
-        executeDelete({id, boardId})
-    }
+
+
     const onCopy = (formData:FormData)=>{
         const id  = formData.get("id") as string;
         const boardId  = formData.get("boardId") as string;

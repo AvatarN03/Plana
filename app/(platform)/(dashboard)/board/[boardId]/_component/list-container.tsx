@@ -2,13 +2,15 @@
 
 import { List, Card } from "@/lib/generated/prisma/client";
 import { ListForm } from "./list-form";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ListItem } from "./list-item";
 import { DragDropContext, Droppable } from "@hello-pangea/dnd";
 import { useAction } from "@/hooks/use-action";
 import { updateListOrder } from "@/actions/update-list-order";
 import { toast } from "sonner";
 import { updateCardOrder } from "@/actions/update-card-order";
+import { useBoardFilters } from "@/hooks/use-board-filters";
+import { isPast, isToday } from "date-fns";
 
 // extend prisma List type to include cards relation
 export type ListWithCards = List & {
@@ -33,14 +35,47 @@ export const ListContainer = ({
 }: ListContainerProps) => {
 
     const [orderedData, setOrderedData] = useState(data);
+    const { searchQuery, priorityFilter, dueFilter } = useBoardFilters();
+
+    const displayData = useMemo(() => {
+        const query = searchQuery.trim().toLowerCase();
+        if (!query && !priorityFilter && dueFilter === "ALL") {
+            return orderedData;
+        }
+
+        return orderedData.map((list) => ({
+            ...list,
+            cards: list.cards.filter((card) => {
+                if (query && !card.title.toLowerCase().includes(query)) {
+                    return false;
+                }
+                if (priorityFilter && card.priority !== priorityFilter) {
+                    return false;
+                }
+                if (dueFilter === "OVERDUE") {
+                    if (!card.dueDate) return false;
+                    const d = new Date(card.dueDate);
+                    return isPast(d) && !isToday(d);
+                }
+                if (dueFilter === "DUE_TODAY") {
+                    if (!card.dueDate) return false;
+                    return isToday(new Date(card.dueDate));
+                }
+                if (dueFilter === "HAS_DUE") {
+                    return Boolean(card.dueDate);
+                }
+                return true;
+            })
+        }));
+    }, [orderedData, searchQuery, priorityFilter, dueFilter]);
 
     const { execute: executeOrderList } = useAction(updateListOrder, {
-        onSuccess: (data) => toast.success("List Order is updated"),
+        onSuccess: () => toast.success("List Order is updated"),
         onError: (error) => toast.error(error)
     })
 
     const { execute: executeOrderCard } = useAction(updateCardOrder, {
-        onSuccess: (data) => toast.success("Card Order is updated"),
+        onSuccess: () => toast.success("Card Order is updated"),
         onError: (error) => toast.error(error)
     })
 
@@ -138,9 +173,10 @@ export const ListContainer = ({
                     <ol
                         {...provided.droppableProps}
                         ref={provided.innerRef}
-                        className="flex gap-x-3 h-full">
+                        className="flex gap-x-3 h-full"
+                    >
                         {
-                            orderedData.map((list, index) => (
+                            displayData.map((list, index) => (
                                 <ListItem
                                     key={list.id}
                                     index={index}
@@ -152,6 +188,13 @@ export const ListContainer = ({
                         {provided.placeholder}
 
                         <ListForm />
+
+                        {orderedData.length === 0 && (
+                            <div className="flex flex-col items-center justify-center p-6 bg-black/20 text-white rounded-md border border-white/20 h-40 w-72 shrink-0 text-center space-y-1.5 backdrop-blur-xs">
+                                <p className="font-semibold text-sm">No lists on this board</p>
+                                <p className="text-xs text-white/80">Click &quot;Add a list&quot; to begin organizing your workflow.</p>
+                            </div>
+                        )}
 
                         <div className="flex shrink w-1" />
                     </ol>

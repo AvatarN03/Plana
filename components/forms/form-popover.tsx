@@ -46,7 +46,8 @@ export const FormPopover = (
 
         const title = fromData.get('title') as string
         const image = fromData.get('cover') as string
-        await execute({ title, image })
+        const template = (fromData.get('template') as "BLANK" | "SOFTWARE" | "PERSONAL") || undefined
+        await execute({ title, image, template })
     }
     return (
         <Popover >
@@ -66,8 +67,23 @@ export const FormPopover = (
                     <div className="space-y-4">
                         <FormPicker id="cover" errors={fieldErrors} />
                         <FormInput label="Board name" id="title" type="text" placeholder="e.g. Project Alpha" errors={fieldErrors} />
+                        <div className="space-y-1.5">
+                            <label htmlFor="template" className="text-xs font-semibold text-neutral-700">
+                                Starter Template
+                            </label>
+                            <select
+                                name="template"
+                                id="template"
+                                defaultValue="BLANK"
+                                className="w-full text-xs p-2 border rounded-md bg-white text-neutral-800 focus:outline-none focus:ring-1 focus:ring-neutral-900 cursor-pointer"
+                            >
+                                <option value="BLANK">Blank Board (Start from scratch)</option>
+                                <option value="SOFTWARE">Software Kanban (Backlog → Todo → Doing → Review → Done)</option>
+                                <option value="PERSONAL">Personal Tasks (Ideas → Todo → Doing → Done)</option>
+                            </select>
+                        </div>
                     </div>
-                    <FormSubmit classname="w-full" >
+                    <FormSubmit classname="w-full cursor-pointer" >
                         Create board
                     </FormSubmit>
                 </form>

@@ -1,6 +1,5 @@
 import Logo from "@/components/custom/Logo"
 import { Button } from "@/components/ui/button"
-import Link from "next/link"
 
 export const Footer = () => {
     return (

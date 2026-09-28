@@ -38,4 +38,3 @@ Activity.Skeleton = function ActivitySkeleton() {
     </div>
   );
 };
-}

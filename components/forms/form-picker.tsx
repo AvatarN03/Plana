@@ -15,11 +15,13 @@ interface FormPickerProps {
 }
 
 
-interface UnsplashPhoto {
+interface FormPickerImage {
     id: string;
-    urls: { thumb: string; full: string; raw: string; small: string; regular: string };
-    links: { html: string };
-    user: { name: string };
+    urls: { thumb: string; full: string; [key: string]: string };
+    links?: { html: string };
+    user?: { name: string };
+    alt?: string;
+    alt_description?: string;
 }
 
 export const FormPicker = ({
@@ -29,7 +31,7 @@ export const FormPicker = ({
 
     const { pending } = useFormStatus();
 
-    const [images, setImages] = useState<UnsplashPhoto[]>(defaultImages as unknown as UnsplashPhoto[]);
+    const [images, setImages] = useState<FormPickerImage[]>(defaultImages as FormPickerImage[]);
     const [isloading, setIsLoading] = useState(true);
     const [selectedImage, setSelectedImage] = useState<string | null>(null)
 
@@ -45,11 +47,11 @@ export const FormPicker = ({
                 })
                 
                 if (result && result.response) {
-                    const newImages = result.response as UnsplashPhoto[]
+                    const newImages = result.response as FormPickerImage[]
                     setImages(newImages)
                 }
             } catch (error) {
-                setImages(defaultImages)
+                setImages(defaultImages as FormPickerImage[])
                 console.error('Error fetching images:', error);
             } finally {
                 setIsLoading(false);
@@ -103,12 +105,14 @@ export const FormPicker = ({
                                     </div>
                                 )
                             }
-                            <Link
-                                href={image.links.html}
-                                target="_blank"
-                                className="bg-black/50 text-white group-hover:opacity-100 opacity-0 absolute bottom-0 left-0 truncate text-xs w-full p-1 text-center">
-                                {image.user.name}
-                            </Link>
+                            {image.links && image.user && (
+                                <Link
+                                    href={image.links.html}
+                                    target="_blank"
+                                    className="bg-black/50 text-white group-hover:opacity-100 opacity-0 absolute bottom-0 left-0 truncate text-xs w-full p-1 text-center">
+                                    {image.user.name}
+                                </Link>
+                            )}
 
                         </div>
                     ))

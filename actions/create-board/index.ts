@@ -9,6 +9,7 @@ import { auth } from "@clerk/nextjs/server";
 
 import { createAuditLogs } from "@/lib/create-audit-logs";
 import { ACTION, ENTITY_TYPE } from "@/lib/generated/prisma/enums";
+import { Board } from "@/lib/generated/prisma/client";
 
 import { InputType, ReturnType } from "./type";
 import { CreateBoard } from "./schema";
@@ -21,7 +22,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     };
   }
 
-  const { title, image } = data;
+  const { title, image, template } = data;
 
   const [imageId, imageUrl, imageUrlFull] = image.split("|");
   if (!imageId || !imageUrl ) {
@@ -29,7 +30,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       error: "Missing field values",
     };
   }
-  let board;
+  let board: Board;
   
   try {
     board = await db.board.create({
@@ -41,6 +42,26 @@ const handler = async (data: InputType): Promise<ReturnType> => {
         imageUrlFull : imageUrlFull || imageUrl
       },
     });
+
+    if (template === "SOFTWARE") {
+      const templateLists = ["Backlog", "To Do", "In Progress", "In Review", "Done"];
+      await db.list.createMany({
+        data: templateLists.map((listTitle, index) => ({
+          title: listTitle,
+          boardId: board.id,
+          order: index + 1,
+        })),
+      });
+    } else if (template === "PERSONAL") {
+      const templateLists = ["Ideas", "To Do", "In Progress", "Done"];
+      await db.list.createMany({
+        data: templateLists.map((listTitle, index) => ({
+          title: listTitle,
+          boardId: board.id,
+          order: index + 1,
+        })),
+      });
+    }
 
     await createAuditLogs({
       entityId: board.id,

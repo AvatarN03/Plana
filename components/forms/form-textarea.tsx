@@ -4,7 +4,6 @@ import { forwardRef, KeyboardEventHandler } from "react";
 import { Label } from "../ui/label";
 import { cn } from "@/lib/utils";
 import { Textarea } from "../ui/textarea";
-import { defaultImages } from "@/constant/image";
 import { FormErrors } from "./form-errors";
 import { useFormStatus } from "react-dom";
 

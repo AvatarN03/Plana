@@ -8,7 +8,7 @@ import { MobileSidebar } from './MobileSidebar'
 
 import { OrganizationSwitcher, UserButton } from '@clerk/nextjs'
 import { FormPopover } from '../../../../components/forms/form-popover'
-import { ThemeToggle } from '../../../../(marketing)/_components/theme-toggle'
+import { ThemeToggle } from '../../../(marketing)/_components/theme-toggle'
 
 const Navbar = () => {
     return (
@@ -24,7 +24,7 @@ const Navbar = () => {
                     </div>
                     <FormPopover  side="bottom" sideOffSet={20} align="start">
                         <Button size={"sm"}
-                            className='rounded-sm py-1.5 px-2 h-auto hidden md:block cursor-pointer'
+                            className='rounded-sm py-1.5 px-2 h-auto hidden md:block cursor-pointer bg-[var(--landing-orange)] text-[var(--landing-orange-foreground)] hover:brightness-110'
                         >Create</Button>
                     </FormPopover>
                     <FormPopover align="start" side="bottom" sideOffSet={20}>

@@ -1,11 +1,8 @@
 import { OrganizationList } from "@clerk/nextjs"
+import { ArrowRight } from "lucide-react";
 
 const CreateOrganization = ()=>{
-    return <OrganizationList 
-        hidePersonal
-        afterCreateOrganizationUrl={"/organization/:id"}
-        afterSelectOrganizationUrl={"/organization/:id"}
-    />
+    return <div className="w-full"><div className="mb-8"><p className="mb-3 text-[10px] font-mono uppercase tracking-[0.18em] text-[var(--landing-orange)]">Workspace routing</p><h1 className="text-3xl font-semibold tracking-[-0.05em] text-[var(--landing-text)]">Choose where to work<span className="text-[var(--landing-orange)]">.</span></h1><p className="mt-3 text-sm leading-6 text-[var(--landing-muted)]">Select an existing workspace or create a new one to keep projects, boards, and activity together.</p></div><OrganizationList hidePersonal afterCreateOrganizationUrl={"/organization/:id"} afterSelectOrganizationUrl={"/organization/:id"} appearance={{ variables: { colorPrimary: "var(--landing-orange)", colorText: "var(--landing-text)", colorTextSecondary: "var(--landing-muted)", colorBackground: "var(--landing-panel)", colorInputBackground: "var(--landing-panel-strong)" }, elements: { card: "!bg-[var(--landing-panel)] !border !border-[var(--landing-line)] !shadow-none !rounded-none", headerTitle: "!hidden", headerSubtitle: "!hidden", organizationPreviewMainIdentifier: "!text-[var(--landing-text)]", organizationPreviewSecondaryIdentifier: "!text-[var(--landing-muted)]", organizationSwitcherTrigger: "!rounded-none !border-[var(--landing-line)]", formButtonPrimary: "!bg-[var(--landing-orange)] !text-[var(--landing-orange-foreground)] !rounded-none" } }} /><div className="mt-6 flex items-center gap-2 text-[10px] font-mono text-[var(--landing-muted)]"><ArrowRight className="size-3 text-[var(--landing-orange)]" /> Switch workspaces anytime from the top bar.</div></div>
 }
 
 export default CreateOrganization;

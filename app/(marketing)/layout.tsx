@@ -4,9 +4,9 @@ import { Footer } from "./_components/Footer";
 
 const MarketingLayout = ({ children }: { children: React.ReactNode }) => {
     return (
-        <div className="min-h-screen flex flex-col bg-slate-50 text-neutral-900 selection:bg-blue-100 selection:text-blue-900">
+        <div className="landing-shell min-h-screen flex flex-col selection:bg-orange-500/30 selection:text-[var(--landing-text)]">
             <Navbar />
-            <main className="flex-1 pt-24 pb-16">
+            <main className="flex-1 pt-16">
                 {children}
             </main>
             <Footer />

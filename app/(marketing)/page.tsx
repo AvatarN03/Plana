@@ -1,8 +1,4 @@
-import { HeroSection } from "./_components/hero-section";
-import { BoardMockup } from "./_components/board-mockup";
-import { FeaturesBento } from "./_components/features-bento";
-import { ComparisonSection } from "./_components/comparison-section";
-import { CtaBanner } from "./_components/cta-banner";
+import { LandingPage } from "./_components/landing-page";
 
 export const metadata = {
     title: "Plana — Simple Project Management for Fast Execution",
@@ -10,17 +6,7 @@ export const metadata = {
 };
 
 const MarketingPage = () => {
-    return (
-        <div className="space-y-8 sm:space-y-16 pb-8">
-            <HeroSection />
-            <div className="px-4 sm:px-6">
-                <BoardMockup />
-            </div>
-            <FeaturesBento />
-            <ComparisonSection />
-            <CtaBanner />
-        </div>
-    );
+    return <LandingPage />;
 };
 
 export default MarketingPage;

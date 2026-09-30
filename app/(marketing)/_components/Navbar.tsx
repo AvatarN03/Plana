@@ -17,7 +17,7 @@ export const Navbar = async () => {
                     <ThemeToggle />
                     {userId ? (
                         <>
-                            <Button size="sm" className="hidden sm:inline-flex cursor-pointer bg-[var(--landing-orange)] text-black hover:bg-[var(--landing-orange)]/90" asChild>
+                            <Button size="sm" className="hidden sm:inline-flex cursor-pointer bg-[var(--landing-orange)] text-[var(--landing-orange-foreground)] hover:bg-[var(--landing-orange)]/90" asChild>
                                 <Link href={orgId ? `/organization/${orgId}` : "/select-org"}>
                                     Go to Workspace
                                     <ArrowRight className="w-4 h-4 ml-1.5" />
@@ -32,7 +32,7 @@ export const Navbar = async () => {
                                     Log in
                                 </Link>
                             </Button>
-                            <Button size="sm" className="cursor-pointer bg-[var(--landing-orange)] text-black hover:bg-[var(--landing-orange)]/90" asChild>
+                            <Button size="sm" className="cursor-pointer bg-[var(--landing-orange)] text-[var(--landing-orange-foreground)] hover:bg-[var(--landing-orange)]/90" asChild>
                                 <Link href="/sign-up">
                                     Get Plana Free
                                 </Link>

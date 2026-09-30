@@ -135,6 +135,7 @@
   --landing-text: #f5f4ee;
   --landing-muted: #a3a39a;
   --landing-orange: #ff7619;
+  --landing-orange-foreground: #fff8ef;
   --landing-orange-soft: #321d11;
   background: var(--landing-bg);
   color: var(--landing-text);
@@ -148,6 +149,7 @@
   --landing-text: #171613;
   --landing-muted: #47443d;
   --landing-orange: #d95405;
+  --landing-orange-foreground: #fffaf4;
   --landing-orange-soft: #fff0e5;
 }
 
@@ -158,10 +160,31 @@
   opacity: 0.22;
 }
 
+.mesh-flow {
+  background-image:
+    radial-gradient(ellipse at 18% 28%, color-mix(in srgb, var(--landing-orange) 18%, transparent) 0%, transparent 34%),
+    radial-gradient(ellipse at 86% 72%, color-mix(in srgb, var(--landing-orange) 12%, transparent) 0%, transparent 36%),
+    repeating-linear-gradient(118deg, transparent 0 22px, color-mix(in srgb, var(--landing-line) 58%, transparent) 23px, transparent 24px 46px);
+  background-size: 120% 120%, 140% 140%, 100% 100%;
+  animation: mesh-drift 18s ease-in-out infinite alternate;
+  mix-blend-mode: screen;
+}
+
+@keyframes mesh-drift {
+  from { background-position: 0% 0%, 100% 100%, 0 0; }
+  to { background-position: 14% 8%, 86% 92%, 18px -12px; }
+}
+
 .landing-shell .rounded-md,
 .landing-shell .rounded-lg,
 .landing-shell .rounded-xl {
   border-radius: 0;
+}
+
+.landing-shell a[class*="bg-[var(--landing-orange)]"],
+.landing-shell button[class*="bg-[var(--landing-orange)]"],
+.landing-shell span[class*="bg-[var(--landing-orange)]"] {
+  color: var(--landing-orange-foreground) !important;
 }
 
 :is(.hero-board, .landing-shell main > div > section:first-of-type > div:last-child) {

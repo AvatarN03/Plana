@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   },
   description: siteConfig.description,
   icons: {
-    icon: "/plana-logo.svg",
+    icon: "/plana-icon.svg",
   }
 };
 

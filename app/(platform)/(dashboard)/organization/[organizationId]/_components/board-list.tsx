@@ -30,8 +30,8 @@ export const BoardList = async () => {
     return (
         <div className="space-y-4">
             <div className="flex items-center justify-between">
-                <div className="flex items-center font-semibold text-lg text-neutral-800">
-                    <LayoutGrid className='w-5 h-5 mr-2 text-neutral-600' />
+                <div className="flex items-center font-semibold text-lg text-[var(--landing-text)]">
+                    <LayoutGrid className='w-5 h-5 mr-2 text-[var(--landing-orange)]' />
                     Your boards ({boards.length})
                 </div>
             </div>
@@ -42,7 +42,7 @@ export const BoardList = async () => {
                         <Link
                             key={board.id}
                             href={`/board/${board.id}`}
-                            className='relative aspect-video rounded-md object-cover bg-no-repeat bg-center bg-cover w-full h-full p-2.5 group overflow-hidden bg-sky-700 shadow-2xs hover:shadow-xs transition'
+                            className='relative aspect-video object-cover bg-no-repeat bg-center bg-cover w-full h-full p-2.5 group overflow-hidden bg-sky-700 border border-[var(--landing-line)] shadow-2xs hover:border-[var(--landing-orange)] transition'
                             style={{ backgroundImage: `url(${board.imageUrl})` }}
                         >
                             <div className="absolute inset-0 bg-black/30 group-hover:bg-black/45 transition-colors w-full h-full" />
@@ -56,26 +56,26 @@ export const BoardList = async () => {
                 <FormPopover align='center' side='right'>
                     <div 
                         role="button" 
-                        className="aspect-video flex flex-col gap-y-1.5 bg-neutral-100 hover:bg-neutral-200/80 rounded-md border border-dashed border-neutral-300 w-full h-full relative justify-center transition items-center cursor-pointer p-4 text-center"
+                        className="aspect-video flex flex-col gap-y-1.5 bg-[var(--landing-panel)] hover:bg-[var(--landing-panel-strong)] border border-dashed border-[var(--landing-line)] w-full h-full relative justify-center transition items-center cursor-pointer p-4 text-center"
                     >
                         <div className="w-7 h-7 rounded-full bg-white shadow-2xs flex items-center justify-center text-neutral-700">
-                            <Plus className="w-4 h-4" />
+                            <Plus className="w-4 h-4 text-[var(--landing-orange)]" />
                         </div>
-                        <p className='text-xs font-medium text-neutral-700'>Create a board</p>
-                        <span className='text-[10px] text-neutral-500'>{remaining} free boards remaining</span>
+                        <p className='text-xs font-medium text-[var(--landing-text)]'>Create a board</p>
+                        <span className='text-[10px] text-[var(--landing-muted)]'>{remaining} free boards remaining</span>
                         <Hint
                             sideOffSet={40}
                             description={`Free workspaces include up to ${MAX_FREE_BOARDS} active boards.`}>
-                            <HelpCircle className='absolute bottom-3 right-3 h-3.5 w-3.5 text-neutral-400' />
+                            <HelpCircle className='absolute bottom-3 right-3 h-3.5 w-3.5 text-[var(--landing-muted)]' />
                         </Hint>
                     </div>
                 </FormPopover>
             </div>
 
             {boards.length === 0 && (
-                <div className="p-6 text-center border rounded-lg bg-neutral-50/50 mt-4">
-                    <p className="text-sm font-medium text-neutral-700">No boards created yet</p>
-                    <p className="text-xs text-neutral-500 mt-1">Click &quot;Create a board&quot; above to launch your first project workflow.</p>
+                <div className="p-6 text-center border border-[var(--landing-line)] bg-[var(--landing-panel)] mt-4">
+                    <p className="text-sm font-medium text-[var(--landing-text)]">No boards created yet</p>
+                    <p className="text-xs text-[var(--landing-muted)] mt-1">Click &quot;Create a board&quot; above to launch your first project workflow.</p>
                 </div>
             )}
         </div>

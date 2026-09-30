@@ -5,7 +5,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
     return (
         <>
             <Navbar />
-            <div className="h-full">
+            <div className="h-full bg-[var(--landing-bg)] text-[var(--landing-text)]">
                 {children}
             </div>
         </>

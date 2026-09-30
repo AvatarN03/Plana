@@ -8,10 +8,11 @@ import { MobileSidebar } from './MobileSidebar'
 
 import { OrganizationSwitcher, UserButton } from '@clerk/nextjs'
 import { FormPopover } from '../../../../components/forms/form-popover'
+import { ThemeToggle } from '../../../../(marketing)/_components/theme-toggle'
 
 const Navbar = () => {
     return (
-        <nav className='fixed top-0 h-14 w-full px-4 bg-slate-50 shadow-md  flex  items-center border-b-2 z-50'>
+        <nav className='fixed top-0 h-14 w-full px-4 bg-[var(--landing-bg)]/95 backdrop-blur-md flex items-center border-b border-[var(--landing-line)] z-50'>
             <div className="max-w-7xl mx-auto flex w-full items-center">
 
                 {/* TODO:mobile menu   */}
@@ -34,6 +35,7 @@ const Navbar = () => {
                     </FormPopover>
                 </div>
                 <div className="ml-auto flex items-center gap-x-2">
+                    <ThemeToggle />
                     <OrganizationSwitcher
                         hidePersonal
                         afterCreateOrganizationUrl="/organization/:id"
@@ -46,6 +48,8 @@ const Navbar = () => {
                                     justifyContent: "center",
                                     alignContent: "center",
                                 },
+                                organizationSwitcherTrigger: "text-[var(--landing-text)] border border-[var(--landing-line)] rounded-none",
+                                organizationSwitcherPopoverCard: "bg-[var(--landing-panel)] border-[var(--landing-line)]",
                             },
                         }}
                     />

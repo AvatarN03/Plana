@@ -65,13 +65,13 @@ const Sidebar = ({ storageKey = "t-sidebar-state" }: SidebarProps) => {
 
   return (
     <>
-      <div className="font-medium text-xs flex items-center mb-1">
-        <span className="pl-4">WorkSpaces</span>
+      <div className="font-medium text-xs flex items-center mb-1 text-[var(--landing-muted)]">
+        <span className="pl-4 font-mono uppercase tracking-wider">Workspaces</span>
         <Button
           asChild
           variant={"ghost"}
           size={"icon"}
-          className="ml-auto"
+          className="ml-auto text-[var(--landing-muted)] hover:bg-[var(--landing-panel-strong)]"
         >
           <Link
             href="/select-org"

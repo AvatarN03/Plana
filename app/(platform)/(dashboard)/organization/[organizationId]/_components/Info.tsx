@@ -26,7 +26,7 @@ export const Info = () => {
                 <p className="font-semibold text-xl">
                     {organization?.name}
                 </p>
-                <div className="flex items-center text-xs text-muted-foreground">
+                <div className="flex items-center text-xs text-[var(--landing-muted)]">
                     <CreditCard className="w-3 h-3 mr-2" />
                     Free
                 </div>

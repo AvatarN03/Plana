@@ -151,6 +151,7 @@
   --landing-orange: #d95405;
   --landing-orange-foreground: #fffaf4;
   --landing-orange-soft: #fff0e5;
+  color-scheme: light;
 }
 
 .landing-grid {
@@ -181,9 +182,46 @@
   border-radius: 0;
 }
 
+.project-logo {
+  filter: brightness(0) saturate(100%) invert(49%) sepia(96%) saturate(1900%) hue-rotate(348deg) brightness(101%) contrast(101%);
+}
+
+.landing-shell.light-mode h1,
+.landing-shell.light-mode h2,
+.landing-shell.light-mode h3,
+.landing-shell.light-mode h4,
+.landing-shell.light-mode h5,
+.landing-shell.light-mode h6 {
+  color: var(--landing-text) !important;
+}
+
+/* Light mode owns the foreground cascade. Reapply semantic exceptions below. */
+.landing-shell.light-mode :where(p, a, button, span, h1, h2, h3, h4, h5, h6, li, label) {
+  color: var(--landing-text) !important;
+}
+
+.landing-shell.light-mode p,
+.landing-shell.light-mode nav a,
+.landing-shell.light-mode section > div > div > p {
+  color: var(--landing-text);
+}
+
+.landing-shell.light-mode [class*="text-[var(--landing-muted)]"] {
+  color: var(--landing-muted) !important;
+}
+
+.landing-shell.light-mode [class*="text-[var(--landing-orange)]"] {
+  color: var(--landing-orange) !important;
+}
+
+.landing-shell.light-mode [class*="text-[var(--landing-orange-foreground)]"],
+.landing-shell.light-mode a[class*="bg-[var(--landing-orange)]"],
+.landing-shell.light-mode button[class*="bg-[var(--landing-orange)]"] {
+  color: var(--landing-orange-foreground) !important;
+}
+
 .landing-shell a[class*="bg-[var(--landing-orange)]"],
-.landing-shell button[class*="bg-[var(--landing-orange)]"],
-.landing-shell span[class*="bg-[var(--landing-orange)]"] {
+.landing-shell button[class*="bg-[var(--landing-orange)]"] {
   color: var(--landing-orange-foreground) !important;
 }
 

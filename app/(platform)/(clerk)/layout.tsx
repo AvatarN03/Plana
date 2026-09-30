@@ -10,7 +10,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
     <div className="landing-shell min-h-screen bg-[var(--landing-bg)] text-[var(--landing-text)]">
       <header className="flex h-16 items-center justify-between border-b border-[var(--landing-line)] px-5 sm:px-8">
-        <Link href="/" className="flex items-center gap-2 text-sm font-bold tracking-[0.08em]"><span className="h-2 w-2 bg-[var(--landing-orange)]" /> PLANA</Link>
+        <Link href="/" className="flex items-center gap-2 text-sm font-bold tracking-[0.08em] text-[var(--landing-text)]"><Image src="/plana-icon.svg" alt="Plana" width={18} height={18} className="project-logo h-[18px] w-[18px]" /> PLANA</Link>
         <div className="flex items-center gap-3"><span className="hidden text-[10px] font-mono text-[var(--landing-muted)] sm:inline">WORKSPACE ACCESS</span><ThemeToggle /></div>
       </header>
       <main className="grid min-h-[calc(100vh-4rem)] lg:grid-cols-[1fr_480px]">

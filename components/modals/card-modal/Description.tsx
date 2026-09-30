@@ -73,9 +73,9 @@ export const Description = ({ data }: DescriptionProps) => {
 
     return (
         <div className="flex items-start gap-x-3 w-full">
-            <AlignLeft className="h-5 w-5 mt-.5 text-neutral-700" />
+            <AlignLeft className="h-5 w-5 mt-0.5 text-[var(--landing-orange)]" />
             <div className="w-full">
-                <p className="font-semibold text-neutral-700 mb-2">
+                <p className="font-semibold text-[var(--landing-text)] mb-2">
                     Description
                 </p>
                 {
@@ -83,15 +83,15 @@ export const Description = ({ data }: DescriptionProps) => {
                         <div className="">
                             <form action={onSubmit} ref={formRef}>
                                 <FormTextArea
-                                errors={fieldErrors}
+                                    errors={fieldErrors}
                                     ref={textAreaRef}
                                     id="description"
                                     placeholder="Add more detail to description ..."
-                                    classname="w-full mt-2 "
+                                    classname="w-full mt-2"
                                     defaultValue={description || undefined}
                                 />
                                 <div className="flex items-center gap-x-4 mt-4">
-                                    <FormSubmit>
+                                    <FormSubmit classname="bg-[var(--landing-orange)] text-[var(--landing-orange-foreground)] hover:brightness-110 rounded-none text-xs font-bold">
                                         Save
                                     </FormSubmit>
                                     <Button
@@ -99,6 +99,7 @@ export const Description = ({ data }: DescriptionProps) => {
                                         variant={"ghost"}
                                         size={"sm"}
                                         onClick={disableEditing}
+                                        className="text-[var(--landing-muted)] hover:text-[var(--landing-text)] rounded-none"
                                     >
                                         Cancel
                                     </Button>
@@ -106,8 +107,8 @@ export const Description = ({ data }: DescriptionProps) => {
                             </form>
                         </div>
                     ) : (
-                        <div onClick={enableEditing} role="button" className="bg-neutral-200 min-h-24 text-sm font-medium p-3 rounded-md">
-                            {description || "Add more detail to your card...."}
+                        <div onClick={enableEditing} role="button" className="bg-[var(--landing-panel-strong)] border border-[var(--landing-line)] hover:border-[var(--landing-orange)] min-h-24 text-sm font-medium p-3 rounded-none text-[var(--landing-text)] transition cursor-pointer">
+                            {description || "Add more detail to your card..."}
                         </div>
                     )
                 }
@@ -122,8 +123,8 @@ export const Description = ({ data }: DescriptionProps) => {
 Description.Skeleton = function DescriptionSkeleton() {
     return (
         <div className="flex flex-col gap-y-2 w-full">
-            <Skeleton className=" w-24 h-7 rounded-md bg-neutral-200" />
-            <Skeleton className=" w-full h-36 rounded-md bg-neutral-200" />
+            <Skeleton className="w-24 h-7 rounded-sm border border-[var(--landing-line)]" />
+            <Skeleton className="w-full h-36 rounded-sm border border-[var(--landing-line)]" />
         </div>
     )
 }

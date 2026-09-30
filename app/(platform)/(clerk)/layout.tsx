@@ -23,7 +23,15 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
             <p className="flex items-center gap-2 text-[10px] font-mono text-[var(--landing-muted)]"><Check className="size-3 text-emerald-500" /> Built for focused execution <ArrowUpRight className="ml-1 size-3 text-[var(--landing-orange)]" /></p>
           </div>
         </section>
-        <section className="flex items-center justify-center px-5 py-12 sm:px-10"><div className="w-full max-w-[360px]"><div className="mb-8 lg:hidden"><p className="text-[10px] font-mono uppercase tracking-[0.2em] text-[var(--landing-orange)]">Workspace access</p><h1 className="mt-3 text-3xl font-semibold tracking-[-0.05em]">Move work forward<span className="text-[var(--landing-orange)]">.</span></h1></div>{children}</div></section>
+        <section className="flex items-center justify-center px-5 py-12 sm:px-8">
+          <div className="w-full max-w-[440px]">
+            <div className="mb-8 lg:hidden">
+              <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-[var(--landing-orange)]">Workspace access</p>
+              <h1 className="mt-3 text-3xl font-semibold tracking-[-0.05em]">Move work forward<span className="text-[var(--landing-orange)]">.</span></h1>
+            </div>
+            {children}
+          </div>
+        </section>
       </main>
     </div>
   )

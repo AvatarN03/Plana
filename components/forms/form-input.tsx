@@ -44,7 +44,7 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(({
 
                 {
                     label &&
-                    <Label htmlFor={id} className="text-sm font-semiBold text-neutral-700 leading-6 peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                    <Label htmlFor={id} className="text-xs font-semibold text-[var(--landing-text)] leading-6 peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
                         {label} {required && <span className="text-red-500">*</span>}
                     </Label>
                 }
@@ -57,7 +57,7 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(({
                     onBlur={onBlur}
                     disabled={pending || disabled}
                     placeholder={placeholder}
-                    className={cn("p-1 h-7 rounded-sm py-2 text-xl", classname)}
+                    className={cn("h-8 rounded-none px-2 text-sm bg-[var(--landing-panel-strong)] border-[var(--landing-line)] text-[var(--landing-text)] focus-visible:ring-1 focus-visible:ring-[var(--landing-orange)]", classname)}
                     aria-describedby={`${id}-error`}
                 />
             </div>

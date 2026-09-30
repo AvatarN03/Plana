@@ -59,7 +59,7 @@ export const CardMeta = ({ data }: CardMetaProps) => {
     <div className="flex flex-wrap items-center gap-4 text-xs mt-1 mb-4">
       {/* Priority Selector */}
       <div className="flex flex-col gap-1">
-        <span className="font-semibold text-neutral-500 uppercase tracking-wider text-[10px]">
+        <span className="font-semibold text-[var(--landing-muted)] uppercase tracking-wider text-[10px] font-mono">
           Priority
         </span>
         <Popover>
@@ -67,20 +67,20 @@ export const CardMeta = ({ data }: CardMetaProps) => {
             <Button
               variant="outline"
               size="sm"
-              className={`h-7 px-2.5 font-medium border cursor-pointer ${currentPriority.color}`}
+              className={`h-7 px-2.5 font-medium border rounded-none cursor-pointer ${currentPriority.color}`}
             >
               <Flag className="w-3.5 h-3.5 mr-1.5" />
               {currentPriority.label}
             </Button>
           </PopoverTrigger>
-          <PopoverContent className="w-44 p-1.5" align="start">
+          <PopoverContent className="w-44 p-1.5 border-[var(--landing-line)] bg-[var(--landing-panel)] text-[var(--landing-text)] rounded-none shadow-xl" align="start">
             <div className="space-y-1">
               {priorities.map((item) => (
                 <button
                   key={item.value}
                   type="button"
                   onClick={() => onPriorityChange(item.value)}
-                  className="w-full flex items-center justify-between px-2.5 py-1.5 text-xs rounded-md hover:bg-neutral-100 transition cursor-pointer"
+                  className="w-full flex items-center justify-between px-2.5 py-1.5 text-xs rounded-none hover:bg-[var(--landing-panel-strong)] text-[var(--landing-text)] transition cursor-pointer"
                 >
                   <span className="flex items-center gap-2">
                     <span
@@ -96,7 +96,7 @@ export const CardMeta = ({ data }: CardMetaProps) => {
                     />
                     {item.label}
                   </span>
-                  {data.priority === item.value && <Check className="w-3.5 h-3.5 text-neutral-700" />}
+                  {data.priority === item.value && <Check className="w-3.5 h-3.5 text-[var(--landing-orange)]" />}
                 </button>
               ))}
             </div>
@@ -106,7 +106,7 @@ export const CardMeta = ({ data }: CardMetaProps) => {
 
       {/* Due Date Selector */}
       <div className="flex flex-col gap-1">
-        <span className="font-semibold text-neutral-500 uppercase tracking-wider text-[10px]">
+        <span className="font-semibold text-[var(--landing-muted)] uppercase tracking-wider text-[10px] font-mono">
           Due Date
         </span>
         <Popover>
@@ -114,29 +114,29 @@ export const CardMeta = ({ data }: CardMetaProps) => {
             <Button
               variant="outline"
               size="sm"
-              className={`h-7 px-2.5 font-medium border cursor-pointer ${
+              className={`h-7 px-2.5 font-medium border rounded-none cursor-pointer ${
                 isOverdue
-                  ? "bg-red-50 text-red-700 border-red-300 hover:bg-red-100"
+                  ? "bg-red-500/10 text-red-400 border-red-500/30 hover:bg-red-500/20"
                   : isDueToday
-                  ? "bg-amber-50 text-amber-700 border-amber-300 hover:bg-amber-100"
+                  ? "bg-amber-500/10 text-amber-400 border-amber-500/30 hover:bg-amber-500/20"
                   : dueDate
-                  ? "bg-neutral-50 text-neutral-700 border-neutral-300 hover:bg-neutral-100"
-                  : "text-neutral-500 hover:text-neutral-800"
+                  ? "bg-[var(--landing-panel-strong)] text-[var(--landing-text)] border-[var(--landing-line)] hover:border-[var(--landing-orange)]"
+                  : "border-[var(--landing-line)] text-[var(--landing-muted)] hover:text-[var(--landing-text)]"
               }`}
             >
               {isOverdue ? (
-                <AlertCircle className="w-3.5 h-3.5 mr-1.5 text-red-600" />
+                <AlertCircle className="w-3.5 h-3.5 mr-1.5 text-red-500" />
               ) : isDueToday ? (
-                <Clock className="w-3.5 h-3.5 mr-1.5 text-amber-600" />
+                <Clock className="w-3.5 h-3.5 mr-1.5 text-amber-500" />
               ) : (
-                <CalendarIcon className="w-3.5 h-3.5 mr-1.5 text-neutral-500" />
+                <CalendarIcon className="w-3.5 h-3.5 mr-1.5 text-[var(--landing-muted)]" />
               )}
               {dueDate ? format(dueDate, "MMM d, yyyy") : "Add due date"}
             </Button>
           </PopoverTrigger>
-          <PopoverContent className="w-64 p-3" align="start">
+          <PopoverContent className="w-64 p-3 border-[var(--landing-line)] bg-[var(--landing-panel)] text-[var(--landing-text)] rounded-none shadow-xl" align="start">
             <div className="space-y-3">
-              <p className="text-xs font-semibold text-neutral-700">Set due date</p>
+              <p className="text-xs font-semibold text-[var(--landing-text)]">Set due date</p>
               <input
                 type="date"
                 defaultValue={dueDate ? format(dueDate, "yyyy-MM-dd") : ""}
@@ -144,14 +144,14 @@ export const CardMeta = ({ data }: CardMetaProps) => {
                   const val = e.target.value;
                   onDateChange(val || null);
                 }}
-                className="w-full text-xs p-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-black"
+                className="w-full text-xs p-2 border border-[var(--landing-line)] bg-[var(--landing-panel-strong)] text-[var(--landing-text)] rounded-none focus:outline-none focus:border-[var(--landing-orange)]"
               />
               {dueDate && (
                 <Button
                   size="sm"
                   variant="ghost"
                   onClick={() => onDateChange(null)}
-                  className="w-full text-xs text-red-600 hover:text-red-700 hover:bg-red-50 h-7 cursor-pointer"
+                  className="w-full text-xs text-red-500 hover:text-red-400 hover:bg-red-500/10 h-7 cursor-pointer rounded-none"
                 >
                   Remove due date
                 </Button>

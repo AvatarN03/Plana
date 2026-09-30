@@ -56,16 +56,16 @@ export const Actions = ({
 
     return (
         <div className="space-y-2 mt-2">
-            <p className="text-xs font-semibold text-neutral-700">Actions</p>
+            <p className="text-xs font-semibold text-[var(--landing-text)]">Actions</p>
 
             <Button
-                className="w-full flex items-center justify-start cursor-pointer"
+                className="w-full flex items-center justify-start cursor-pointer border-[var(--landing-line)] bg-[var(--landing-panel)] hover:bg-[var(--landing-panel-strong)] text-[var(--landing-text)] rounded-none"
                 variant={"outline"}
                 size={"sm"}
                 onClick={onCopy}
                 disabled={isLoadingCopy}
             >
-                <Copy className="w-4 h-4 mr-2" />
+                <Copy className="w-4 h-4 mr-2 text-[var(--landing-orange)]" />
                 Copy
             </Button>
             <ConfirmModal
@@ -75,7 +75,7 @@ export const Actions = ({
                 disabled={isLoadingDelete}
             >
                 <Button
-                    className="w-full flex items-center justify-start cursor-pointer"
+                    className="w-full flex items-center justify-start cursor-pointer rounded-none"
                     variant={"destructive"}
                     size={"sm"}
                     disabled={isLoadingDelete}
@@ -92,9 +92,9 @@ export const Actions = ({
 Actions.Skeleton = function ActionSkeleton() {
     return (
         <div className="w-full space-y-2 mt-2">
-            <Skeleton className="w-24 h-7 rounded-md bg-neutral-200" />
-            <Skeleton className="w-full h-7 rounded-md bg-neutral-200" />
-            <Skeleton className="w-full h-7 rounded-md bg-neutral-200" />
+            <Skeleton className="w-24 h-7 rounded-sm border border-[var(--landing-line)]" />
+            <Skeleton className="w-full h-7 rounded-sm border border-[var(--landing-line)]" />
+            <Skeleton className="w-full h-7 rounded-sm border border-[var(--landing-line)]" />
         </div>
     )
 }

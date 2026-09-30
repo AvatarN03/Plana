@@ -26,18 +26,18 @@ export const ActivityItem = ({ data }: ActivityItemProps) => {
     <li className="flex items-center gap-x-2.5">
       <Avatar className="h-8 w-8 shrink-0">
         <AvatarImage src={data.userImage} />
-        <AvatarFallback className="text-xs font-semibold bg-neutral-200">
+        <AvatarFallback className="text-xs font-semibold bg-[var(--landing-panel-strong)] text-[var(--landing-text)] border border-[var(--landing-line)]">
           {data.userName?.[0] || "U"}
         </AvatarFallback>
       </Avatar>
       <div className="flex flex-col space-y-0.5">
-        <p className="text-sm text-neutral-700">
-          <span className="font-semibold text-neutral-900">
+        <p className="text-sm text-[var(--landing-muted)]">
+          <span className="font-semibold text-[var(--landing-text)]">
             {data.userName}
           </span>{" "}
           {generateLogMessage(data)}
         </p>
-        <p className="text-xs text-muted-foreground">
+        <p className="text-[11px] font-mono text-[var(--landing-muted)]">
           {format(new Date(data.createdAt), "MMM d, yyyy 'at' h:mm a")}
         </p>
       </div>

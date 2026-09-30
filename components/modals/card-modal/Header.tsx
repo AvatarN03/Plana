@@ -47,7 +47,7 @@ export const Header = ({ data }: HeaderProps) => {
 
     return (
         <div className="flex items-center gap-x-3 mb-6 w-full">
-            <Layout className="w-8 h-8 mr-1 text-neutral-600" />
+            <Layout className="w-8 h-8 mr-1 text-[var(--landing-orange)]" />
             <div className="w-full">
                 <form action={onSubmit}>
                     <FormInput
@@ -55,10 +55,10 @@ export const Header = ({ data }: HeaderProps) => {
                         id="title"
                         onBlur={onBlur}
                         defaultValue={title}
-                        classname="font-semibold text-xl px-1 bg-transparent border-transparent border relative mb-0.5 -left-1.5 w-[95%] text-neutral-700 focus-visible:bg-white focus-visible:border-black" />
+                        classname="font-semibold text-xl px-1 bg-transparent border-transparent border relative mb-0.5 -left-1.5 w-[95%] text-[var(--landing-text)] focus-visible:bg-[var(--landing-panel-strong)] focus-visible:border-[var(--landing-line)]" />
                         <input type="submit" hidden />
                 </form>
-                <p className="text-sm text-foreground">in list <span className="underline">{data.list.title}</span></p>
+                <p className="text-sm text-[var(--landing-muted)]">in list <span className="underline text-[var(--landing-text)]">{data.list.title}</span></p>
             </div>
         </div>
     )
@@ -68,10 +68,10 @@ export const Header = ({ data }: HeaderProps) => {
 Header.Skeleton = function HeaderSkeleton() {
     return (
         <div className="flex items-start gap-x-3 mb-8">
-            <Skeleton className="w-12 h-12 rounded-md bg-neutral-200" />
+            <Skeleton className="w-12 h-12 rounded-sm border border-[var(--landing-line)]" />
             <div className="flex flex-col gap-2">
-                <Skeleton className="w-24 h-7 rounded-md bg-neutral-200" />
-                <Skeleton className="w-16 h-6 rounded-md bg-neutral-200" />
+                <Skeleton className="w-24 h-7 rounded-sm border border-[var(--landing-line)]" />
+                <Skeleton className="w-16 h-6 rounded-sm border border-[var(--landing-line)]" />
             </div>
         </div>
     )

@@ -7,7 +7,7 @@ export const Footer = () => {
             <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
                 <div className="flex flex-col sm:flex-row items-center gap-3 text-center sm:text-left">
                     <Image src="/plana-icon.svg" alt="Plana logo" width={18} height={18} className="project-logo h-[18px] w-[18px]" />
-                    <Link href="/" className="text-sm font-bold tracking-[0.08em] text-[var(--landing-text)]">■ PLANA</Link>
+                    <Link href="/" className="text-sm font-bold tracking-[0.08em] text-[var(--landing-text)]">PLANA</Link>
                     <span className="hidden sm:inline text-[var(--landing-line)]">|</span>
                     <p className="text-xs text-[var(--landing-muted)]">
                         Simple project management. Clear workflows. Fast execution.

@@ -58,7 +58,7 @@ export const BoardList = async () => {
                         role="button" 
                         className="aspect-video flex flex-col gap-y-1.5 bg-[var(--landing-panel)] hover:bg-[var(--landing-panel-strong)] border border-dashed border-[var(--landing-line)] w-full h-full relative justify-center transition items-center cursor-pointer p-4 text-center"
                     >
-                        <div className="w-7 h-7 rounded-full bg-white shadow-2xs flex items-center justify-center text-neutral-700">
+                        <div className="w-7 h-7 rounded-full bg-[var(--landing-panel-strong)] border border-[var(--landing-line)] shadow-2xs flex items-center justify-center">
                             <Plus className="w-4 h-4 text-[var(--landing-orange)]" />
                         </div>
                         <p className='text-xs font-medium text-[var(--landing-text)]'>Create a board</p>
@@ -85,12 +85,12 @@ export const BoardList = async () => {
 BoardList.Skeleton = function BoardList_loading() {
     return (
         <div className="space-y-4">
-            <Skeleton className="h-6 w-36" />
+            <Skeleton className="h-6 w-36 rounded-sm border border-[var(--landing-line)]" />
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                <Skeleton className='aspect-video w-full h-full rounded-md' />
-                <Skeleton className='aspect-video w-full h-full rounded-md' />
-                <Skeleton className='aspect-video w-full h-full rounded-md' />
-                <Skeleton className='aspect-video w-full h-full rounded-md' />
+                <Skeleton className='aspect-video w-full h-full rounded-sm border border-[var(--landing-line)]' />
+                <Skeleton className='aspect-video w-full h-full rounded-sm border border-[var(--landing-line)]' />
+                <Skeleton className='aspect-video w-full h-full rounded-sm border border-[var(--landing-line)]' />
+                <Skeleton className='aspect-video w-full h-full rounded-sm border border-[var(--landing-line)]' />
             </div>
         </div>
     )

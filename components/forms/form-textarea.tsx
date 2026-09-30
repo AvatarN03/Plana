@@ -44,7 +44,7 @@ export const FormTextArea = forwardRef<HTMLTextAreaElement, FormTextAreaProps>((
             <div className="space-y-1 w-full">
                 {
                     label && (
-                        <Label htmlFor={id} className="text-xs font-semibold text-neutral-700" >
+                        <Label htmlFor={id} className="text-xs font-semibold text-[var(--landing-text)]" >
                             {label}
                         </Label>
                     )
@@ -57,7 +57,7 @@ export const FormTextArea = forwardRef<HTMLTextAreaElement, FormTextAreaProps>((
                     onBlur={onBlur}
                     onClick={onClick}
                     onKeyDown={onKeyDown}
-                    className={cn("resize-none focus-visible:ring-0 focus-visible:ring-offset-0 ring-0 focus:ring-0 outline-none shadow-sm", classname)}
+                    className={cn("resize-none focus-visible:ring-1 focus-visible:ring-[var(--landing-orange)] outline-none border-[var(--landing-line)] bg-[var(--landing-panel-strong)] text-[var(--landing-text)] rounded-none text-sm", classname)}
                     defaultValue={defaultValue}
                     required={required}
                     disabled={pending || disabled}

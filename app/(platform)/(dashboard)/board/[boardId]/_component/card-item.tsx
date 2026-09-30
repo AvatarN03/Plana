@@ -32,30 +32,30 @@ export const CardItem = ({ data, index }: CardItemProps) => {
           {...provided.draggableProps}
           onClick={() => cardModal.onOpen(data.id)}
           role="button"
-          className="rounded-md text-sm p-3 bg-white border border-neutral-200/80 hover:border-neutral-400 shadow-2xs hover:shadow-xs transition-all space-y-2 cursor-pointer"
+          className="rounded-none text-sm p-3 bg-[var(--landing-panel)] border border-[var(--landing-line)] hover:border-[var(--landing-orange)] shadow-2xs transition-all space-y-2 cursor-pointer"
         >
-          <p className="font-medium text-neutral-800 leading-snug break-words">
+          <p className="font-medium text-[var(--landing-text)] leading-snug break-words">
             {data.title}
           </p>
 
           {hasBadges && (
-            <div className="flex flex-wrap items-center gap-1.5 pt-1 text-[11px]">
+            <div className="flex flex-wrap items-center gap-1.5 pt-1 text-[11px] font-mono">
               {/* Priority badge */}
               {data.priority === "URGENT" && (
-                <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-red-50 text-red-700 border border-red-200 font-medium">
-                  <Flag className="w-2.5 h-2.5 text-red-600" />
+                <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-none bg-red-500/15 text-red-400 border border-red-500/30 font-medium">
+                  <Flag className="w-2.5 h-2.5 text-red-400" />
                   Urgent
                 </span>
               )}
               {data.priority === "HIGH" && (
-                <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-amber-50 text-amber-700 border border-amber-200 font-medium">
-                  <Flag className="w-2.5 h-2.5 text-amber-600" />
+                <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-none bg-amber-500/15 text-amber-400 border border-amber-500/30 font-medium">
+                  <Flag className="w-2.5 h-2.5 text-amber-400" />
                   High
                 </span>
               )}
               {data.priority === "LOW" && (
-                <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-slate-50 text-slate-600 border border-slate-200 font-medium">
-                  <Flag className="w-2.5 h-2.5 text-slate-500" />
+                <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-none bg-slate-500/15 text-slate-300 border border-slate-500/30 font-medium">
+                  <Flag className="w-2.5 h-2.5 text-slate-400" />
                   Low
                 </span>
               )}
@@ -63,12 +63,12 @@ export const CardItem = ({ data, index }: CardItemProps) => {
               {/* Due Date badge */}
               {dueDate && (
                 <span
-                  className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded border font-medium ${
+                  className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-none border font-medium ${
                     isOverdue
-                      ? "bg-red-50 text-red-700 border-red-200"
+                      ? "bg-red-500/15 text-red-400 border-red-500/30"
                       : isDueToday
-                      ? "bg-amber-50 text-amber-700 border-amber-200"
-                      : "bg-neutral-50 text-neutral-600 border-neutral-200"
+                      ? "bg-amber-500/15 text-amber-400 border-amber-500/30"
+                      : "bg-[var(--landing-panel-strong)] text-[var(--landing-muted)] border-[var(--landing-line)]"
                   }`}
                 >
                   <Clock className="w-2.5 h-2.5" />
@@ -80,7 +80,7 @@ export const CardItem = ({ data, index }: CardItemProps) => {
               {data.description && (
                 <span
                   title="This card has a description"
-                  className="text-neutral-400 p-0.5"
+                  className="text-[var(--landing-muted)] p-0.5"
                 >
                   <AlignLeft className="w-3.5 h-3.5" />
                 </span>

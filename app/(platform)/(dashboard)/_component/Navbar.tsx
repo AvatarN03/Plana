@@ -48,8 +48,12 @@ const Navbar = () => {
                                     justifyContent: "center",
                                     alignContent: "center",
                                 },
-                                organizationSwitcherTrigger: "text-[var(--landing-text)] border border-[var(--landing-line)] rounded-none",
-                                organizationSwitcherPopoverCard: "bg-[var(--landing-panel)] border-[var(--landing-line)]",
+                                organizationSwitcherTrigger: "text-[var(--landing-text)] border border-[var(--landing-line)] rounded-none hover:bg-[var(--landing-panel-strong)]",
+                                organizationSwitcherPopoverCard: "!bg-[var(--landing-panel)] !border !border-[var(--landing-line)] !shadow-xl !rounded-none",
+                                organizationPreviewMainIdentifier: "!text-[var(--landing-text)] font-semibold",
+                                organizationPreviewSecondaryIdentifier: "!text-[var(--landing-muted)]",
+                                organizationSwitcherPopoverActionButton: "!text-[var(--landing-text)] hover:!bg-[var(--landing-panel-strong)]",
+                                organizationSwitcherPopoverActionButtonText: "!text-[var(--landing-text)]",
                             },
                         }}
                     />

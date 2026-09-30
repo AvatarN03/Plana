@@ -30,17 +30,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <ClerkProvider>
-
-
         <body
-          className={`${montserrat.className} antialiased min-h-screen`}
+          className={`${montserrat.className} antialiased min-h-screen landing-shell`}
         >
           {children}
         </body>
       </ClerkProvider>
-
     </html>
   );
 }

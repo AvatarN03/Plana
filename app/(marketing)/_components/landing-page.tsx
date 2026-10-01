@@ -111,6 +111,47 @@ function Board({ compact = false }: { compact?: boolean }) {
   );
 }
 
+function HeroPhotoCollage() {
+  return (
+    <div className="hero-collage" aria-label="A calm, organized workspace with notes and a laptop">
+      <div
+        className="hero-photo hero-photo-left"
+        style={{
+          backgroundImage:
+            "url(https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=85)",
+        }}
+      >
+        <span className="hero-photo-label">01 / focus</span>
+      </div>
+      <div
+        className="hero-photo hero-photo-main"
+        style={{
+          backgroundImage:
+            "url(https://images.unsplash.com/photo-1497215842964-222b430dc094?auto=format&fit=crop&w=1400&q=85)",
+        }}
+      >
+        <div className="hero-photo-note">
+          <span className="hero-photo-note-dot" />
+          <span>make space for good work</span>
+        </div>
+      </div>
+      <div
+        className="hero-photo hero-photo-right"
+        style={{
+          backgroundImage:
+            "url(https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1100&q=85)",
+        }}
+      >
+        <span className="hero-photo-label">02 / flow</span>
+      </div>
+      <div className="hero-collage-caption">
+        <span>Plana workspace</span>
+        <span>clear / calm / moving</span>
+      </div>
+    </div>
+  );
+}
+
 const workspaces = [
   {
     name: "Product Launch",
@@ -169,12 +210,12 @@ export function LandingPage() {
           <div className="mb-7 flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.18em] text-[var(--landing-orange)]">
             <span className="size-1.5 bg-[var(--landing-orange)]" /> Kanban workspace
           </div>
-          <h1 className="max-w-xl text-5xl font-semibold leading-[0.98] tracking-[-0.07em] sm:text-7xl">
+          <h1 className="max-w-xl text-5xl font-bold leading-[0.98] tracking-[-0.07em] sm:text-7xl">
             Organize work.
             <br />
             <span className="text-[var(--landing-orange)]">Move it forward.</span>
           </h1>
-          <p className="mt-7 max-w-md text-sm leading-7 text-[var(--landing-muted)] sm:text-base">
+          <p className="mt-7 max-w-md text-base font-medium leading-7 text-[var(--landing-text)]/80 sm:text-lg">
             A focused workspace for turning projects, tasks, and ideas into clear workflows. Less noise. More momentum.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
@@ -203,7 +244,7 @@ export function LandingPage() {
             <span>Progress</span>
           </div>
         </div>
-        <Board />
+        <HeroPhotoCollage />
       </section>
 
       {/* 01. Boards */}
@@ -435,4 +476,3 @@ export function LandingPage() {
     </div>
   );
 }
-

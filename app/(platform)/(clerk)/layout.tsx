@@ -16,7 +16,19 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       <main className="grid min-h-[calc(100vh-4rem)] lg:grid-cols-[1fr_480px]">
         <section className="relative hidden overflow-hidden border-r border-[var(--landing-line)] px-10 py-12 lg:block xl:px-20">
           <div className="landing-grid pointer-events-none absolute inset-0" />
-          <div className="absolute inset-0"><Image src="/auth-banner.png" alt="A bright Plana workspace with orange desk lamps and plants" fill priority className="object-cover opacity-55 mix-blend-screen" /><div className="absolute inset-0 bg-[linear-gradient(90deg,var(--landing-bg)_0%,color-mix(in_srgb,var(--landing-bg)_82%,transparent)_52%,color-mix(in_srgb,var(--landing-bg)_28%,transparent)_100%)]" /><div className="mesh-flow absolute inset-0 opacity-45" /></div>
+          <div className="absolute inset-0">
+            <div
+              role="img"
+              aria-label="A warm, organized creative workspace"
+              className="absolute inset-0 bg-cover bg-center opacity-55 mix-blend-screen"
+              style={{
+                backgroundImage:
+                  "url(https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1800&q=85)",
+              }}
+            />
+            <div className="absolute inset-0 bg-[linear-gradient(90deg,var(--landing-bg)_0%,color-mix(in_srgb,var(--landing-bg)_82%,transparent)_52%,color-mix(in_srgb,var(--landing-bg)_28%,transparent)_100%)]" />
+            <div className="mesh-flow absolute inset-0 opacity-45" />
+          </div>
           <div className="relative flex h-full max-w-2xl flex-col justify-between">
             <div><p className="mb-6 text-[10px] font-mono uppercase tracking-[0.2em] text-[var(--landing-orange)]">A clear place to work</p><h1 className="max-w-xl text-5xl font-semibold leading-[0.98] tracking-[-0.07em] xl:text-7xl">Bring your work<br /><span className="text-[var(--landing-orange)]">into motion.</span></h1><p className="mt-7 max-w-md text-sm leading-7 text-[var(--landing-muted)]">Plana keeps projects visible, tasks actionable, and teams aligned without the usual layers of noise.</p></div>
             <div className="relative border border-[var(--landing-line)] bg-[var(--landing-panel)] p-5 shadow-[18px_18px_0_-10px_var(--landing-orange)]"><div className="mb-5 flex items-center justify-between border-b border-[var(--landing-line)] pb-3 text-[10px] font-mono"><span className="flex items-center gap-2"><Layers className="size-3 text-[var(--landing-orange)]" /> PRODUCT LAUNCH</span><span className="text-emerald-500">● ACTIVE</span></div><div className="grid grid-cols-3 gap-2"><div className="border border-[var(--landing-line)] p-3"><span className="text-[9px] font-mono text-[var(--landing-muted)]">BACKLOG</span><p className="mt-5 text-xs font-semibold">Research</p><p className="mt-2 text-[9px] font-mono text-[var(--landing-muted)]">03 tasks</p></div><div className="border border-[var(--landing-orange)] p-3"><span className="text-[9px] font-mono text-[var(--landing-orange)]">IN PROGRESS</span><p className="mt-5 text-xs font-semibold">Launch page</p><p className="mt-2 text-[9px] font-mono text-[var(--landing-muted)]">02 tasks</p></div><div className="border border-[var(--landing-line)] p-3"><span className="text-[9px] font-mono text-emerald-500">DONE</span><p className="mt-5 text-xs font-semibold">Design system</p><p className="mt-2 text-[9px] font-mono text-[var(--landing-muted)]">04 tasks</p></div></div><div className="mt-5 flex items-center gap-2 text-[10px] font-mono text-[var(--landing-muted)]"><MoveRight className="size-3 text-[var(--landing-orange)]" /> Make the next step obvious.</div></div>

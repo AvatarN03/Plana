@@ -1,442 +1,345 @@
 "use client";
 
-import { ArrowRight, ChevronRight, Radio, Sparkles } from "lucide-react";
+import { ArrowRight, ChevronRight, Sparkles } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 
-const heroTasks = [
-  "Research competitors",
-  "Landing page",
-  "Authentication",
-  "Database schema",
-];
-
-function Task({
-  title,
-  done = false,
-  accent = false,
-}: {
-  title: string;
-  done?: boolean;
-  accent?: boolean;
-}) {
-  return (
-    <div
-      className={`border p-2.5 ${
-        accent
-          ? "border-[var(--landing-orange)]"
-          : "border-[var(--landing-line)]"
-      } bg-[var(--landing-panel)]`}
-    >
-      <div className="flex items-center justify-between text-[9px] font-mono text-[var(--landing-orange)]">
-        <span>#work</span>
-        {accent && <span className="size-1.5 rounded-full bg-red-500" />}
-      </div>
-      <p
-        className={`mt-1.5 text-[11px] font-semibold leading-tight ${
-          done
-            ? "line-through text-[var(--landing-muted)]"
-            : "text-[var(--landing-text)]"
-        }`}
-      >
-        {title}
-      </p>
-      <div className="mt-2 text-[9px] font-mono text-[var(--landing-muted)]">
-        <span className="text-emerald-500">✓ 2/3</span> &nbsp;◷ Oct 28
-      </div>
-    </div>
-  );
-}
-
-function Board({ compact = false }: { compact?: boolean }) {
-  return (
-    <div
-      className={`${
-        compact ? "" : "hero-board"
-      } border border-[var(--landing-line)] bg-[var(--landing-panel)] shadow-[0_25px_80px_rgba(0,0,0,0.35)] ${
-        compact ? "p-4" : ""
-      }`}
-    >
-      <div className="flex h-10 items-center justify-between border-b border-[var(--landing-line)] px-3 text-[10px] font-mono text-[var(--landing-muted)]">
-        <span className="flex items-center gap-2">
-          <span className="flex gap-1">
-            <i className="size-2 rounded-full bg-red-500" />
-            <i className="size-2 rounded-full bg-amber-400" />
-            <i className="size-2 rounded-full bg-emerald-500" />
-          </span>
-          <span className="hidden sm:inline">
-            plana.app / workspace / product-launch
-          </span>
-        </span>
-        <span className="text-emerald-500">● live</span>
-      </div>
-      <div className="grid grid-cols-3 gap-2.5 overflow-hidden p-3 sm:p-4">
-        <div className="min-w-[145px] border border-[var(--landing-line)] p-2">
-          <div className="mb-2 text-[9px] font-mono text-[var(--landing-text)]">
-            BACKLOG{" "}
-            <span className="float-right text-[var(--landing-muted)]">2 +</span>
-          </div>
-          <Task title={heroTasks[0]} />
-          <div className="mt-2">
-            <Task title="Define requirements" />
-          </div>
-        </div>
-        <div className="min-w-[145px] border border-[var(--landing-orange)] p-2">
-          <div className="mb-2 text-[9px] font-mono text-[var(--landing-orange)]">
-            TODO <span className="float-right">3 +</span>
-          </div>
-          <Task title={heroTasks[1]} accent />
-          <div className="mt-2">
-            <Task title={heroTasks[2]} />
-          </div>
-          <div className="mt-2">
-            <Task title={heroTasks[3]} />
-          </div>
-        </div>
-        <div className="min-w-[145px] border border-[var(--landing-line)] p-2">
-          <div className="mb-2 text-[9px] font-mono text-emerald-500">
-            DONE <span className="float-right">2 +</span>
-          </div>
-          <Task title="Project setup" done />
-          <div className="mt-2">
-            <Task title="Design system" done />
-          </div>
-        </div>
-      </div>
-      <div className="border-t border-[var(--landing-line)] px-4 py-2 text-[9px] font-mono text-[var(--landing-muted)]">
-        <span className="text-[var(--landing-orange)]">●</span> Click a card to
-        inspect · Drag to advance columns
-      </div>
-    </div>
-  );
-}
-
-function HeroPhotoCollage() {
-  return (
-    <div className="hero-collage" aria-label="A calm, organized workspace with notes and a laptop">
-      <div
-        className="hero-photo hero-photo-left"
-        style={{
-          backgroundImage:
-            "url(https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=85)",
-        }}
-      >
-        <span className="hero-photo-label">01 / focus</span>
-      </div>
-      <div
-        className="hero-photo hero-photo-main"
-        style={{
-          backgroundImage:
-            "url(https://images.unsplash.com/photo-1497215842964-222b430dc094?auto=format&fit=crop&w=1400&q=85)",
-        }}
-      >
-        <div className="hero-photo-note">
-          <span className="hero-photo-note-dot" />
-          <span>make space for good work</span>
-        </div>
-      </div>
-      <div
-        className="hero-photo hero-photo-right"
-        style={{
-          backgroundImage:
-            "url(https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1100&q=85)",
-        }}
-      >
-        <span className="hero-photo-label">02 / flow</span>
-      </div>
-      <div className="hero-collage-caption">
-        <span>Plana workspace</span>
-        <span>clear / calm / moving</span>
-      </div>
-    </div>
-  );
-}
-
+/* ── Interactive Workspaces for Section 04 ── */
 const workspaces = [
   {
     name: "Product Launch",
-    tasks: 6,
+    tasks: 9,
+    tag: "Core Engineering",
     desc: "Cross-functional roadmap, sprint milestones, and launch readiness.",
     lists: [
-      { name: "BACKLOG", items: ["Competitor benchmarking", "User persona interviews"] },
-      { name: "IN PROGRESS", items: ["Stripe webhook handling", "Onboarding flow"] },
-      { name: "DONE", items: ["Design system", "Landing page"] },
+      { name: "BACKLOG", items: ["Research competitors", "Define requirements", "User interviews"] },
+      { name: "IN PROGRESS", items: ["Landing page redesign", "Dashboard UI", "Authentication flow"] },
+      { name: "DONE", items: ["Design tokens", "Database schema", "Project setup"] },
     ],
   },
   {
     name: "Website Redesign",
-    tasks: 5,
+    tasks: 6,
+    tag: "Marketing & Brand",
     desc: "High-conversion marketing site, new branding, and performance audits.",
     lists: [
       { name: "IDEAS", items: ["Interactive workflow diagram", "Dark mode preview"] },
       { name: "BUILDING", items: ["Hero 3D perspective plate", "Responsive nav"] },
-      { name: "DEPLOYED", items: ["Font Montserrat setup"] },
+      { name: "DEPLOYED", items: ["Font Montserrat setup", "SEO metadata"] },
     ],
   },
   {
     name: "Mobile App",
-    tasks: 6,
+    tasks: 7,
+    tag: "Mobile Team",
     desc: "Native iOS & Android experience with offline caching and biometric auth.",
     lists: [
       { name: "TODO", items: ["Push notification service", "Biometric unlock"] },
-      { name: "IN DEV", items: ["Offline SQLite cache", "Card gestures"] },
-      { name: "SHIPPED", items: ["OAuth token refresh", "App icon pack"] },
+      { name: "IN DEV", items: ["Offline SQLite cache", "Card gestures", "Token refresh"] },
+      { name: "SHIPPED", items: ["App icon pack", "Splash screen"] },
     ],
   },
   {
     name: "Personal Tasks",
-    tasks: 4,
+    tasks: 5,
+    tag: "Individual Focus",
     desc: "Focused daily execution, reading list, and developer workflow notes.",
     lists: [
       { name: "TODAY", items: ["Merge pull request #42", "Audit log query index"] },
-      { name: "THIS WEEK", items: ["Turbopack build optimizations"] },
+      { name: "THIS WEEK", items: ["Turbopack build optimizations", "API caching"] },
       { name: "DONE", items: ["Prisma schema push"] },
     ],
   },
 ];
 
 export function LandingPage() {
-  const [active, setActive] = useState(0);
-  const currentWorkspace = workspaces[active];
+  const [activeWorkspace, setActiveWorkspace] = useState(0);
+  const currentWorkspace = workspaces[activeWorkspace];
 
   return (
     <div className="relative overflow-hidden">
+      {/* Background Ambience */}
       <div className="mesh-flow pointer-events-none absolute inset-0" />
       <div className="landing-grid pointer-events-none absolute inset-0" />
 
-      {/* Hero */}
-      <section className="relative mx-auto grid max-w-6xl items-center gap-12 px-5 pb-20 pt-20 lg:grid-cols-[0.82fr_1.18fr] lg:gap-14 lg:pb-28 lg:pt-28">
-        <div>
-          <div className="mb-7 flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.18em] text-[var(--landing-orange)]">
-            <span className="size-1.5 bg-[var(--landing-orange)]" /> Kanban workspace
+      {/* ── HERO SECTION ── */}
+      <section className="relative mx-auto grid max-w-6xl items-center gap-12 px-5 pb-20 pt-28 lg:grid-cols-[0.88fr_1.12fr] lg:gap-14 lg:pb-28 lg:pt-32">
+        <div className="animate-fade-in-up">
+          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[var(--landing-line)] bg-[var(--landing-panel)] px-3.5 py-1.5 text-xs font-bold uppercase tracking-[0.16em] text-[var(--landing-orange)]">
+            <span className="size-2 rounded-full bg-[var(--landing-orange)] animate-pulse" />
+            Kanban Workspace
           </div>
-          <h1 className="max-w-xl text-5xl font-bold leading-[0.98] tracking-[-0.07em] sm:text-7xl">
+
+          <h1 className="max-w-xl text-5xl font-extrabold leading-[1.02] tracking-tight sm:text-7xl text-[var(--landing-text)]">
             Organize work.
             <br />
-            <span className="text-[var(--landing-orange)]">Move it forward.</span>
+            <span className="text-[var(--landing-orange)]">
+              Move it forward.
+            </span>
           </h1>
-          <p className="mt-7 max-w-md text-base font-medium leading-7 text-[var(--landing-text)]/80 sm:text-lg">
-            A focused workspace for turning projects, tasks, and ideas into clear workflows. Less noise. More momentum.
+
+          <p className="mt-6 max-w-lg text-lg font-medium leading-relaxed text-[var(--landing-text)]/85 sm:text-xl">
+            A focused workspace for turning projects, tasks, and ideas into
+            clear workflows. Less noise. More momentum.
           </p>
-          <div className="mt-8 flex flex-wrap gap-3">
+
+          <div className="mt-8 flex flex-wrap items-center gap-3">
             <Link
               href="/sign-up"
-              className="inline-flex h-11 items-center gap-2 bg-[var(--landing-orange)] px-5 text-xs font-bold text-[var(--landing-orange-foreground)] transition hover:brightness-110"
+              className="inline-flex h-12 items-center gap-2 rounded-lg bg-[var(--landing-orange)] px-6 text-sm font-bold text-[var(--landing-orange-foreground)] transition-all duration-200 hover:brightness-110 hover:shadow-[0_0_24px_rgba(255,118,25,0.35)]"
             >
               Get started <ArrowRight className="size-4" />
             </Link>
             <a
               href="#product"
-              className="inline-flex h-11 items-center gap-2 border border-[var(--landing-line)] bg-[var(--landing-panel)] px-5 text-xs font-semibold text-[var(--landing-text)] transition hover:border-[var(--landing-orange)]"
+              className="inline-flex h-12 items-center gap-2 rounded-lg border border-[var(--landing-line)] bg-[var(--landing-panel)] px-6 text-sm font-bold text-[var(--landing-text)] transition-all duration-200 hover:border-[var(--landing-orange)] hover:bg-[var(--landing-panel-strong)]"
             >
-              Explore the workspace <Sparkles className="size-3.5 text-[var(--landing-orange)]" />
+              Explore demo <Sparkles className="size-4 text-[var(--landing-orange)]" />
             </a>
           </div>
-          <div className="mt-8 flex flex-wrap gap-3 text-[10px] font-mono text-[var(--landing-muted)]">
+
+          <div className="mt-10 flex flex-wrap items-center gap-3 text-xs font-semibold text-[var(--landing-text)]/70">
             <span>Boards</span>
             <span>·</span>
             <span>Lists</span>
             <span>·</span>
             <span>Cards</span>
             <span>·</span>
-            <span className="text-[var(--landing-orange)]">Movement</span>
+            <span className="text-[var(--landing-orange)] font-bold">Movement</span>
             <span>·</span>
             <span>Progress</span>
           </div>
         </div>
-        <HeroPhotoCollage />
+
+        {/* Real Direct Kanban Board Image in Hero */}
+        <div className="hero-board-perspective rounded-2xl border border-[var(--landing-line)] bg-[var(--landing-panel)] overflow-hidden shadow-2xl transition-all duration-300">
+          <Image
+            src="/hero-board.png"
+            alt="Plana Kanban Board Workspace"
+            width={712}
+            height={573}
+            priority
+            className="w-full h-auto object-cover rounded-2xl select-none"
+          />
+        </div>
       </section>
 
-      {/* 01. Boards */}
+      {/* ── 01. BOARDS SECTION ── */}
       <section
         id="product"
-        className="relative scroll-mt-20 border-y border-[var(--landing-line)] bg-[var(--landing-panel)]/50 px-5 py-20"
+        className="relative scroll-mt-20 border-y border-[var(--landing-line)] bg-[var(--landing-panel)]/40 px-5 py-24"
       >
-        <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[0.9fr_1.1fr]">
-          <div className="order-2 lg:order-1">
-            <div className="mb-5 text-[10px] font-mono uppercase tracking-[0.18em] text-[var(--landing-orange)]">
+        <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
+          <div className="rounded-xl border border-[var(--landing-line)] bg-[var(--landing-panel)] p-2 shadow-xl hover:border-[var(--landing-orange)]/60 transition-colors duration-300">
+            <Image
+              src="/boards-preview.png"
+              alt="Plana Board View"
+              width={666}
+              height={254}
+              className="w-full h-auto rounded-lg object-cover"
+            />
+          </div>
+
+          <div>
+            <div className="mb-4 inline-block text-xs font-bold uppercase tracking-[0.2em] text-[var(--landing-orange)]">
               01. Boards
             </div>
-            <h2 className="max-w-lg text-4xl font-semibold leading-tight tracking-[-0.05em] sm:text-5xl">
+            <h2 className="text-3xl font-bold leading-tight tracking-tight sm:text-5xl text-[var(--landing-text)]">
               Everything starts with a board
               <span className="text-[var(--landing-orange)]">.</span>
             </h2>
-            <p className="mt-5 max-w-lg text-sm leading-7 text-[var(--landing-muted)]">
-              Give every project a visible structure. Shape a workflow that makes the next step obvious to every designer, developer, and product owner.
+            <p className="mt-5 text-base sm:text-lg font-medium leading-relaxed text-[var(--landing-text)]/80">
+              Boards give projects a visible structure. Instead of burying action items inside deep spreadsheet rows or buried Slack threads, Plana renders your entire delivery pipeline as a crisp horizontal landscape.
             </p>
-            <div className="mt-7 flex flex-wrap items-center gap-2 text-[10px] font-mono text-[var(--landing-muted)]">
-              <span className="border border-[var(--landing-line)] bg-[var(--landing-panel)] px-3 py-2">
+            <div className="mt-8 flex flex-wrap items-center gap-2 text-xs font-semibold text-[var(--landing-text)]/80">
+              <span className="rounded-md border border-[var(--landing-line)] bg-[var(--landing-panel)] px-3.5 py-2">
                 Idea → Backlog
               </span>
-              <ChevronRight className="size-3" />
-              <span className="border border-[var(--landing-orange)] bg-[var(--landing-orange-soft)] px-3 py-2 text-[var(--landing-orange)]">
+              <ChevronRight className="size-4 text-[var(--landing-orange)]" />
+              <span className="rounded-md border border-[var(--landing-orange)] bg-[var(--landing-orange-soft)] px-3.5 py-2 text-[var(--landing-orange)] font-bold">
                 In progress
               </span>
-              <ChevronRight className="size-3" />
-              <span className="border border-[var(--landing-line)] bg-[var(--landing-panel)] px-3 py-2">
+              <ChevronRight className="size-4 text-[var(--landing-orange)]" />
+              <span className="rounded-md border border-[var(--landing-line)] bg-[var(--landing-panel)] px-3.5 py-2">
                 Done
               </span>
             </div>
           </div>
-          <Board compact />
         </div>
       </section>
 
-      {/* 02. Workflow */}
+      {/* ── 02. WORKFLOW SECTION ── */}
       <section
         id="workflow"
-        className="relative scroll-mt-20 mx-auto max-w-6xl px-5 py-20"
+        className="relative scroll-mt-20 mx-auto max-w-6xl px-5 py-24"
       >
-        <div className="grid items-center gap-12 lg:grid-cols-[0.75fr_1.25fr]">
+        <div className="grid items-center gap-12 lg:grid-cols-[0.9fr_1.1fr]">
           <div>
-            <div className="mb-5 text-[10px] font-mono uppercase tracking-[0.18em] text-[var(--landing-orange)]">
+            <div className="mb-4 inline-block text-xs font-bold uppercase tracking-[0.2em] text-[var(--landing-orange)]">
               02. Workflow
             </div>
-            <h2 className="max-w-md text-4xl font-semibold leading-tight tracking-[-0.05em] sm:text-5xl">
+            <h2 className="text-3xl font-bold leading-tight tracking-tight sm:text-5xl text-[var(--landing-text)]">
               Turn ideas into an actual workflow
               <span className="text-[var(--landing-orange)]">.</span>
             </h2>
-            <p className="mt-5 max-w-md text-sm leading-7 text-[var(--landing-muted)]">
-              Start with raw thoughts in your backlog. Shape them into structured cards, prioritize, and guide them steadily through execution.
+            <p className="mt-5 text-base sm:text-lg font-medium leading-relaxed text-[var(--landing-text)]/80">
+              Start with raw thoughts in your backlog. Shape them into structured cards, estimate priorities, and glide them steadily through execution toward Done.
             </p>
+            <ul className="mt-6 space-y-2.5 text-sm font-semibold text-[var(--landing-text)]/80">
+              <li className="flex items-center gap-2">
+                <span className="size-1.5 rounded-full bg-[var(--landing-orange)]" />
+                Zero bloated forms — write only what is needed
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="size-1.5 rounded-full bg-[var(--landing-orange)]" />
+                Tactile rectangular cards with smooth rounded corners
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="size-1.5 rounded-full bg-[var(--landing-orange)]" />
+                Instant drag-and-drop feedback across lists
+              </li>
+            </ul>
           </div>
-          <div className="border border-[var(--landing-line)] bg-[var(--landing-panel)] p-5">
-            <div className="border-b border-[var(--landing-line)] pb-3 text-[10px] font-mono">
-              <span className="mr-2 text-[var(--landing-orange)]">■</span> PLAN.01 // CAPTURE
-            </div>
-            <div className="grid min-h-[230px] place-items-center bg-[linear-gradient(90deg,transparent_49.8%,var(--landing-line)_50%,transparent_50.2%),linear-gradient(0deg,transparent_49.8%,var(--landing-line)_50%,transparent_50.2%)] bg-[size:33.33%_100%,100%_50%]">
-              <div className="flex items-center gap-3 sm:gap-7">
-                <div className="space-y-4">
-                  <div className="w-24 -rotate-3 border border-[var(--landing-line)] bg-[var(--landing-panel-strong)] p-3 text-[10px] text-[var(--landing-muted)]">
-                    ──────<br />────<br />───●
-                  </div>
-                  <div className="w-24 rotate-2 border border-[var(--landing-line)] bg-[var(--landing-panel-strong)] p-3 text-[10px] text-[var(--landing-muted)]">
-                    ────<br />──────<br />────────
-                  </div>
-                </div>
-                <span className="text-2xl text-[var(--landing-orange)]">→</span>
-                <span className="grid size-16 place-items-center bg-[var(--landing-text)] text-2xl text-[var(--landing-bg)] font-mono">
-                  ●
-                </span>
-                <span className="text-2xl text-[var(--landing-orange)]">→</span>
-                <div className="w-28 border border-[var(--landing-orange)] bg-[var(--landing-panel-strong)] p-3 text-[10px] text-[var(--landing-muted)]">
-                  ━━━━━━<br />──────<br />──□
-                </div>
-              </div>
-            </div>
+
+          <div className="rounded-xl border border-[var(--landing-line)] bg-[var(--landing-panel)] p-2 shadow-xl hover:border-[var(--landing-orange)]/60 transition-colors duration-300">
+            <Image
+              src="/workflow-preview.png"
+              alt="Plana Workflow Illustration"
+              width={602}
+              height={462}
+              className="w-full h-auto rounded-lg object-cover"
+            />
           </div>
         </div>
       </section>
 
-      {/* 03. Activity */}
+      {/* ── 03. ACTIVITY & CARD ANATOMY ── */}
       <section
         id="activity"
-        className="relative scroll-mt-20 border-y border-[var(--landing-line)] bg-[var(--landing-panel)]/50 px-5 py-20"
+        className="relative scroll-mt-20 border-y border-[var(--landing-line)] bg-[var(--landing-panel)]/40 px-5 py-24"
       >
-        <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
-          <div className="border border-[var(--landing-line)] bg-[var(--landing-panel)] p-4">
-            <div className="flex items-center justify-between border-b border-[var(--landing-line)] pb-4 text-[10px] font-mono">
-              <span className="flex items-center gap-2 font-bold text-[var(--landing-text)]">
-                <Radio className="size-3 text-emerald-500" /> WORKSPACE ACTIVITY AUDIT
-              </span>
-              <span className="text-emerald-500">● STREAM ACTIVE</span>
+        <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
+          <div className="space-y-4">
+            <div className="rounded-xl border border-[var(--landing-line)] bg-[var(--landing-panel)] p-2 shadow-xl hover:border-[var(--landing-orange)]/60 transition-colors duration-300">
+              <Image
+                src="/activity-preview.png"
+                alt="Workspace Activity Audit Stream"
+                width={620}
+                height={222}
+                className="w-full h-auto rounded-lg object-cover"
+              />
             </div>
-            {[
-              "Prashanth moved 'Landing Page' to In Progress.",
-              "Aditi completed 'Database Schema' in Done.",
-              "Rahul added a checklist to 'Authentication'.",
-            ].map((item, i) => (
-              <div
-                key={item}
-                className="flex items-start gap-3 border-b border-[var(--landing-line)] py-4 text-[10px] last:border-b-0"
-              >
-                <span className="grid size-5 shrink-0 place-items-center bg-[var(--landing-orange)] text-[9px] font-bold text-[var(--landing-orange-foreground)]">
-                  {i + 1}
-                </span>
-                <div>
-                  <p className="font-semibold text-[var(--landing-text)]">{item}</p>
-                  <p className="mt-1 font-mono text-[9px] text-[var(--landing-muted)]">
-                    {i * 15 + 5} minutes ago · Product Launch
-                  </p>
-                </div>
-              </div>
-            ))}
+            <div className="rounded-xl border border-[var(--landing-line)] bg-[var(--landing-panel)] p-2 shadow-xl hover:border-[var(--landing-orange)]/60 transition-colors duration-300">
+              <Image
+                src="/card-anatomy.png"
+                alt="Card Anatomy Details"
+                width={615}
+                height={368}
+                className="w-full h-auto rounded-lg object-cover"
+              />
+            </div>
           </div>
+
           <div>
-            <div className="mb-5 text-[10px] font-mono uppercase tracking-[0.18em] text-[var(--landing-orange)]">
-              03. Timeline
+            <div className="mb-4 inline-block text-xs font-bold uppercase tracking-[0.2em] text-[var(--landing-orange)]">
+              03. Timeline &amp; Cards
             </div>
-            <h2 className="text-4xl font-semibold leading-tight tracking-[-0.05em] sm:text-5xl">
-              Know what changed<span className="text-[var(--landing-orange)]">.</span>
+            <h2 className="text-3xl font-bold leading-tight tracking-tight sm:text-5xl text-[var(--landing-text)]">
+              Know what changed
+              <span className="text-[var(--landing-orange)]">.</span>
             </h2>
-            <p className="mt-5 max-w-md text-sm leading-7 text-[var(--landing-muted)]">
-              Never ask “what’s the status of this ticket?” in standup again. Every movement, assignee change, and completion lives in one clear activity stream.
+            <p className="mt-5 text-base sm:text-lg font-medium leading-relaxed text-[var(--landing-text)]/80">
+              Never ask &ldquo;what&apos;s the status of this ticket?&rdquo; in standup again. Plana logs every card movement, assignee change, and subtask completion into an immutable workspace activity stream.
+            </p>
+            <p className="mt-4 text-base sm:text-lg font-medium leading-relaxed text-[var(--landing-text)]/80">
+              Click any card to reveal its full execution anatomy: interactive subtask checklists, assigned owners, due date warnings, and live revision histories.
             </p>
           </div>
         </div>
       </section>
 
-      {/* 04. Workspace */}
-      <section className="relative mx-auto max-w-6xl px-5 py-20">
-        <div className="border border-[var(--landing-line)] bg-[var(--landing-panel)] p-7 sm:p-10">
-          <div className="mb-5 text-[10px] font-mono uppercase tracking-[0.18em] text-[var(--landing-orange)]">
-            04. Workspace
+      {/* ── 04. DYNAMIC INTERACTIVE WORKSPACES ── */}
+      <section className="relative mx-auto max-w-6xl px-5 py-24">
+        <div className="rounded-2xl border border-[var(--landing-line)] bg-[var(--landing-panel)] p-7 sm:p-10 shadow-2xl">
+          <div className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-[var(--landing-orange)]">
+            04. Dynamic Workspaces
           </div>
-          <h2 className="max-w-xl text-4xl font-semibold leading-tight tracking-[-0.05em] sm:text-5xl">
+          <h2 className="max-w-xl text-3xl font-bold leading-tight tracking-tight sm:text-5xl text-[var(--landing-text)]">
             One workspace. Every project
             <span className="text-[var(--landing-orange)]">.</span>
           </h2>
-          <p className="mt-5 max-w-xl text-sm leading-7 text-[var(--landing-muted)]">
-            Organize concurrent initiatives under a single cohesive roof. Jump between active releases, design sprints, and personal focus boards.
+          <p className="mt-4 max-w-2xl text-base sm:text-lg font-medium leading-relaxed text-[var(--landing-text)]/80">
+            Organize multiple concurrent initiatives under a single cohesive roof. Click any project tab below to preview live boards and lists.
           </p>
 
-          <div className="mt-8 grid gap-2 sm:grid-cols-4">
+          {/* Interactive Workspace Selectors */}
+          <div className="mt-8 grid gap-3 sm:grid-cols-4">
             {workspaces.map((ws, i) => (
               <button
                 key={ws.name}
                 type="button"
-                onClick={() => setActive(i)}
-                className={`border p-4 text-left transition cursor-pointer ${
-                  active === i
-                    ? "border-[var(--landing-orange)] bg-[var(--landing-orange-soft)]"
-                    : "border-[var(--landing-line)] bg-[var(--landing-panel)] hover:border-[var(--landing-orange)]"
+                onClick={() => setActiveWorkspace(i)}
+                className={`rounded-xl border p-4 text-left transition-all duration-200 cursor-pointer ${
+                  activeWorkspace === i
+                    ? "border-[var(--landing-orange)] bg-[var(--landing-orange-soft)] shadow-[0_0_20px_rgba(255,118,25,0.12)]"
+                    : "border-[var(--landing-line)] bg-[var(--landing-panel-strong)] hover:border-[var(--landing-orange)]/60"
                 }`}
               >
-                <div className="flex justify-between text-[9px] font-mono text-[var(--landing-orange)]">
+                <div className="flex justify-between text-xs font-bold text-[var(--landing-orange)]">
                   <span>0{i + 1}</span>
                   <span>{ws.tasks} tasks</span>
                 </div>
-                <p className="mt-3 text-xs font-bold text-[var(--landing-text)]">{ws.name}</p>
-                <p className="mt-1 text-[10px] leading-4 text-[var(--landing-muted)]">
+                <p className="mt-2.5 text-sm font-bold text-[var(--landing-text)]">
+                  {ws.name}
+                </p>
+                <p className="mt-1 text-xs font-medium leading-relaxed text-[var(--landing-text)]/70">
                   {ws.desc}
                 </p>
               </button>
             ))}
           </div>
 
-          {/* Interactive Workspace Board Preview */}
-          <div className="mt-6 border border-[var(--landing-line)] bg-[var(--landing-panel-strong)] p-4">
-            <div className="mb-3 flex items-center justify-between text-[10px] font-mono text-[var(--landing-muted)]">
-              <span className="font-semibold text-[var(--landing-text)]">
-                ACTIVE WORKSPACE: <span className="text-[var(--landing-orange)]">{currentWorkspace.name}</span>
+          {/* Interactive Dynamic Board Preview */}
+          <div
+            key={activeWorkspace}
+            className="mt-6 rounded-xl border border-[var(--landing-line)] bg-[var(--landing-panel-strong)] p-5 animate-fade-in-up"
+          >
+            <div className="mb-4 flex flex-wrap items-center justify-between gap-2 border-b border-[var(--landing-line)] pb-3">
+              <div className="flex items-center gap-2">
+                <span className="size-2 rounded-full bg-emerald-500" />
+                <span className="text-sm font-bold text-[var(--landing-text)]">
+                  ACTIVE BOARD:{" "}
+                  <span className="text-[var(--landing-orange)]">
+                    {currentWorkspace.name}
+                  </span>
+                </span>
+                <span className="rounded bg-[var(--landing-panel)] px-2 py-0.5 text-[11px] font-semibold text-[var(--landing-text)]/70">
+                  {currentWorkspace.tag}
+                </span>
+              </div>
+              <span className="text-xs font-semibold text-[var(--landing-text)]/70">
+                {currentWorkspace.tasks} tracked cards · Live
               </span>
-              <span>{currentWorkspace.tasks} tracked cards</span>
             </div>
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
               {currentWorkspace.lists.map((list) => (
                 <div
                   key={list.name}
-                  className="border border-[var(--landing-line)] bg-[var(--landing-panel)] p-3"
+                  className="rounded-lg border border-[var(--landing-line)] bg-[var(--landing-panel)] p-3.5 shadow-sm transition-colors duration-200 hover:border-[var(--landing-orange)]/70"
                 >
-                  <div className="mb-2 flex items-center justify-between text-[9px] font-mono text-[var(--landing-muted)]">
-                    <span className="font-bold text-[var(--landing-text)]">{list.name}</span>
-                    <span>{list.items.length}</span>
+                  <div className="mb-3 flex items-center justify-between text-xs font-bold text-[var(--landing-text)]">
+                    <span>{list.name}</span>
+                    <span className="rounded bg-[var(--landing-panel-strong)] px-2 py-0.5 text-[10px] text-[var(--landing-orange)]">
+                      {list.items.length}
+                    </span>
                   </div>
                   <div className="space-y-2">
                     {list.items.map((item) => (
                       <div
                         key={item}
-                        className="border border-[var(--landing-line)] bg-[var(--landing-panel-strong)] p-2 text-[11px] font-medium text-[var(--landing-text)]"
+                        className="rounded-md border border-[var(--landing-line)] bg-[var(--landing-panel-strong)] p-3 text-xs font-semibold text-[var(--landing-text)] transition-all duration-200 hover:border-[var(--landing-orange)] hover:translate-x-1"
                       >
                         {item}
                       </div>
@@ -449,26 +352,26 @@ export function LandingPage() {
         </div>
       </section>
 
-      {/* CTA */}
+      {/* ── CALL TO ACTION ── */}
       <section className="relative border-t border-[var(--landing-line)] px-5 py-28 text-center">
         <div className="mx-auto max-w-2xl">
-          <div className="mb-5 text-[10px] font-mono uppercase tracking-[0.18em] text-[var(--landing-orange)]">
+          <div className="mb-4 inline-block text-xs font-bold uppercase tracking-[0.2em] text-[var(--landing-orange)]">
             Get started today
           </div>
-          <h2 className="text-5xl font-semibold tracking-[-0.07em] sm:text-6xl">
+          <h2 className="text-4xl font-extrabold tracking-tight sm:text-6xl text-[var(--landing-text)]">
             Put your work in motion
             <span className="text-[var(--landing-orange)]">.</span>
           </h2>
-          <p className="mx-auto mt-5 max-w-md text-sm leading-7 text-[var(--landing-muted)]">
+          <p className="mx-auto mt-5 max-w-md text-base sm:text-lg font-medium leading-relaxed text-[var(--landing-text)]/80">
             Plan clearly. Work together. Finish with confidence.
           </p>
           <Link
             href="/sign-up"
-            className="mt-8 inline-flex h-11 items-center gap-2 bg-[var(--landing-orange)] px-6 text-xs font-bold text-[var(--landing-orange-foreground)] transition hover:brightness-110"
+            className="mt-8 inline-flex h-12 items-center gap-2 rounded-lg bg-[var(--landing-orange)] px-8 text-sm font-bold text-[var(--landing-orange-foreground)] transition-all duration-200 hover:brightness-110 hover:shadow-[0_0_24px_rgba(255,118,25,0.35)]"
           >
             Get started <ArrowRight className="size-4" />
           </Link>
-          <p className="mt-7 text-[10px] font-mono text-[var(--landing-muted)]">
+          <p className="mt-6 text-xs font-semibold text-[var(--landing-text)]/60">
             No credit card required · Free workspaces · Export anytime
           </p>
         </div>
@@ -476,3 +379,4 @@ export function LandingPage() {
     </div>
   );
 }
+

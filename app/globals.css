@@ -57,6 +57,8 @@
   --landing-orange: #ff7619;
   --landing-orange-foreground: #fff8ef;
   --landing-orange-soft: #321d11;
+  --landing-photo-blend: screen;
+  --landing-photo-opacity: 0.55;
 
   --background: var(--landing-bg);
   --foreground: var(--landing-text);
@@ -104,6 +106,8 @@ body.light-mode,
   --landing-orange: #d95405;
   --landing-orange-foreground: #fffaf4;
   --landing-orange-soft: #fff0e5;
+  --landing-photo-blend: multiply;
+  --landing-photo-opacity: 0.85;
   color-scheme: light;
 }
 
@@ -166,6 +170,34 @@ body.light-mode,
   background-size: 48px 48px;
   mask-image: linear-gradient(to bottom, black 0%, transparent 78%);
   opacity: 0.22;
+}
+
+/* Decorative photo layer — blend/opacity are theme aware (screen in dark, multiply in light) */
+.landing-photo {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: var(--landing-photo-opacity, 0.55);
+  mix-blend-mode: var(--landing-photo-blend, screen);
+}
+
+/* Scrim over the photo — light mode keeps it thinner so the image reads through */
+.landing-photo-wash {
+  background: linear-gradient(
+    90deg,
+    var(--landing-bg) 0%,
+    color-mix(in srgb, var(--landing-bg) 82%, transparent) 52%,
+    color-mix(in srgb, var(--landing-bg) 28%, transparent) 100%
+  );
+}
+
+.landing-shell.light-mode .landing-photo-wash {
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--landing-bg) 82%, transparent) 0%,
+    color-mix(in srgb, var(--landing-bg) 48%, transparent) 52%,
+    color-mix(in srgb, var(--landing-bg) 8%, transparent) 100%
+  );
 }
 
 .mesh-flow {

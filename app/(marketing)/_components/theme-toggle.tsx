@@ -38,7 +38,7 @@ export function ThemeToggle() {
             type="button"
             onClick={toggle}
             aria-label="Toggle theme"
-            className="grid size-8 place-items-center border border-[var(--landing-line)] text-[var(--landing-muted)] hover:text-[var(--landing-orange)] transition-colors cursor-pointer"
+            className="grid size-8 place-items-center rounded-md border border-[var(--landing-line)] text-[var(--landing-muted)] hover:text-[var(--landing-orange)] transition-colors cursor-pointer"
         >
             {light ? <Moon className="size-3.5" /> : <Sun className="size-3.5" />}
         </button>

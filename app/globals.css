@@ -68,6 +68,7 @@
   --landing-orange-soft: #321d11;
   --landing-photo-blend: screen;
   --landing-photo-opacity: 0.55;
+  --body-pattern: color-mix(in srgb, var(--landing-orange) 15%, transparent);
 
   --background: var(--landing-bg);
   --foreground: var(--landing-text);
@@ -117,6 +118,7 @@ body.light-mode,
   --landing-orange-soft: #fff0e5;
   --landing-photo-blend: normal;
   --landing-photo-opacity: 1;
+  --body-pattern: color-mix(in srgb, var(--landing-orange) 18%, transparent);
   color-scheme: light;
 }
 
@@ -136,8 +138,15 @@ body.light-mode,
     height: 100%;
   }
 
-  body {
-    @apply bg-background text-foreground min-h-screen antialiased;
+  body,
+  body.landing-shell {
+    @apply text-foreground min-h-screen antialiased;
+    background-color: var(--landing-bg);
+    background-image:
+      linear-gradient(to right, var(--body-pattern) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--body-pattern) 1px, transparent 1px);
+    background-size: 36px 36px;
+    background-attachment: fixed;
   }
 }
 
@@ -176,15 +185,13 @@ body.light-mode,
 }
 
 .landing-shell {
-  background: var(--landing-bg);
   color: var(--landing-text);
 }
 
 .landing-grid {
   background-image: linear-gradient(var(--landing-line) 1px, transparent 1px), linear-gradient(90deg, var(--landing-line) 1px, transparent 1px);
   background-size: 48px 48px;
-  mask-image: linear-gradient(to bottom, black 0%, transparent 78%);
-  opacity: 0.22;
+  opacity: 0.18;
 }
 
 /* Decorative photo layer — blend/opacity are theme aware */
@@ -201,7 +208,7 @@ body.light-mode,
   mix-blend-mode: normal;
 }
 
-/* Scrim over the photo — in light mode, linear-gradient left-to-right from 0.5 to 0 */
+/* Scrim over the photo — in light mode, linear opacity decrease from left (0.72–0.75) to right (0) */
 .landing-photo-wash {
   background: linear-gradient(90deg,
       var(--landing-bg) 0%,
@@ -211,36 +218,12 @@ body.light-mode,
 
 .landing-shell.light-mode .landing-photo-wash {
   background: linear-gradient(90deg,
-      color-mix(in srgb, var(--landing-bg) 50%, transparent) 0%,
+      color-mix(in srgb, var(--landing-bg) 75%, transparent) 0%,
       transparent 100%);
   opacity: 1;
 }
 
-.landing-shell.light-mode .mesh-flow {
-  display: none;
-}
-
-.mesh-flow {
-  background-image:
-    radial-gradient(ellipse at 18% 28%, color-mix(in srgb, var(--landing-orange) 18%, transparent) 0%, transparent 34%),
-    radial-gradient(ellipse at 86% 72%, color-mix(in srgb, var(--landing-orange) 12%, transparent) 0%, transparent 36%),
-    repeating-linear-gradient(118deg, transparent 0 22px, color-mix(in srgb, var(--landing-line) 58%, transparent) 23px, transparent 24px 46px);
-  background-size: 120% 120%, 140% 140%, 100% 100%;
-  animation: mesh-drift 18s ease-in-out infinite alternate;
-  mix-blend-mode: screen;
-}
-
-@keyframes mesh-drift {
-  from {
-    background-position: 0% 0%, 100% 100%, 0 0;
-  }
-
-  to {
-    background-position: 14% 8%, 86% 92%, 18px -12px;
-  }
-}
-
-/* ── Smooth entrance animations (no blank/white screen on scroll) ── */
+/* ── Smooth entrance animations ── */
 @keyframes fade-in-up {
   from {
     opacity: 0;
@@ -270,74 +253,9 @@ body.light-mode,
   color: var(--landing-text);
 }
 
-.landing-shell.light-mode [class*="text-[var(--landing-muted)]"] {
-  color: var(--landing-muted);
-}
-
-.landing-shell.light-mode [class*="text-[var(--landing-orange)]"] {
-  color: var(--landing-orange);
-}
-
-.landing-shell.light-mode [class*="text-[var(--landing-orange-foreground)]"],
-.landing-shell.light-mode a[class*="bg-[var(--landing-orange)]"],
-.landing-shell.light-mode button[class*="bg-[var(--landing-orange)]"] {
-  color: var(--landing-orange-foreground) !important;
-}
-
 .landing-shell a[class*="bg-[var(--landing-orange)]"],
 .landing-shell button[class*="bg-[var(--landing-orange)]"] {
   color: var(--landing-orange-foreground) !important;
-}
-
-/* ── 3D Hero Perspective ── */
-.hero-board-perspective {
-  position: relative;
-  transform: perspective(1200px) rotateX(2deg) rotateY(-4deg) rotateZ(-1deg);
-  transform-style: preserve-3d;
-  transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 600ms ease;
-  box-shadow: 20px 28px 0 -16px color-mix(in srgb, var(--landing-orange) 20%, transparent), 0 30px 80px rgb(0 0 0 / 36%);
-}
-
-.hero-board-perspective::before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  inset: 12px -16px -16px 16px;
-  border-radius: 0.375rem;
-  border: 1px solid color-mix(in srgb, var(--landing-orange) 40%, transparent);
-  background: color-mix(in srgb, var(--landing-orange) 6%, transparent);
-  transform: translateZ(-36px) skewY(2deg);
-  pointer-events: none;
-}
-
-.hero-board-perspective::after {
-  content: "";
-  position: absolute;
-  z-index: -2;
-  right: 10%;
-  bottom: -32px;
-  width: 45%;
-  height: 54px;
-  background: var(--landing-orange);
-  opacity: 0.16;
-  filter: blur(28px);
-  transform: translateZ(-50px);
-  pointer-events: none;
-}
-
-.hero-board-perspective:hover {
-  transform: perspective(1200px) rotateX(0deg) rotateY(-1deg) rotateZ(0deg) translateY(-6px);
-  box-shadow: 20px 28px 0 -16px color-mix(in srgb, var(--landing-orange) 30%, transparent), 0 40px 90px rgb(0 0 0 / 42%);
-}
-
-@media (max-width: 767px) {
-  .hero-board-perspective {
-    transform: none;
-  }
-
-  .hero-board-perspective:hover {
-    transform: translateY(-3px);
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -354,14 +272,14 @@ body.light-mode,
   }
 }
 
-/* ── Clerk Overrides & Integration ── */
+/* ── Clerk Overrides & Integration (Zero Rounded Corners) ── */
 .cl-rootBox {
   width: 100% !important;
 }
 
 .cl-cardBox {
   box-shadow: 0 16px 32px -12px rgba(0, 0, 0, 0.4) !important;
-  border-radius: 0.375rem !important;
+  border-radius: 0 !important;
   background: transparent !important;
   width: 100% !important;
 }
@@ -369,7 +287,7 @@ body.light-mode,
 .cl-card {
   background: var(--landing-panel) !important;
   border: 1px solid var(--landing-line) !important;
-  border-radius: 0.375rem !important;
+  border-radius: 0 !important;
   box-shadow: none !important;
   color: var(--landing-text) !important;
   padding: 2rem 1.75rem !important;
@@ -393,7 +311,7 @@ body.light-mode,
   background: var(--landing-panel-strong) !important;
   border: 1px solid var(--landing-line) !important;
   color: var(--landing-text) !important;
-  border-radius: 0.5rem !important;
+  border-radius: 0 !important;
   font-weight: 600 !important;
   font-size: 0.8125rem !important;
   transition: all 180ms ease !important;
@@ -434,7 +352,7 @@ body.light-mode,
 .cl-formFieldInput {
   background: var(--landing-panel-strong) !important;
   border: 1px solid var(--landing-line) !important;
-  border-radius: 0.5rem !important;
+  border-radius: 0 !important;
   color: var(--landing-text) !important;
   font-size: 0.875rem !important;
   transition: border-color 150ms ease, box-shadow 150ms ease !important;
@@ -448,7 +366,7 @@ body.light-mode,
 .cl-formButtonPrimary {
   background: var(--landing-orange) !important;
   color: var(--landing-orange-foreground) !important;
-  border-radius: 0.5rem !important;
+  border-radius: 0 !important;
   font-weight: 700 !important;
   font-size: 0.875rem !important;
   letter-spacing: 0.01em !important;
@@ -496,7 +414,7 @@ body.light-mode,
 .cl-identityPreview {
   background: var(--landing-panel-strong) !important;
   border: 1px solid var(--landing-line) !important;
-  border-radius: 0.5rem !important;
+  border-radius: 0 !important;
 }
 
 .cl-identityPreviewText {
@@ -532,21 +450,21 @@ body.light-mode,
 
 .cl-organizationPreviewAvatarContainer {
   border: 1px solid var(--landing-line) !important;
-  border-radius: 0.375rem !important;
+  border-radius: 0 !important;
 }
 
 .cl-organizationSwitcherTrigger {
   border: 1px solid var(--landing-line) !important;
   color: var(--landing-text) !important;
   background: var(--landing-panel-strong) !important;
-  border-radius: 0.375rem !important;
+  border-radius: 0 !important;
 }
 
 .cl-organizationListCreateOrganizationBtn {
   border: 1px solid var(--landing-line) !important;
   color: var(--landing-text) !important;
   background: var(--landing-panel-strong) !important;
-  border-radius: 0.375rem !important;
+  border-radius: 0 !important;
   font-weight: 600 !important;
   transition: all 180ms ease !important;
 }
@@ -581,7 +499,7 @@ body.light-mode,
 .cl-modalContent {
   background: var(--landing-panel) !important;
   border: 1px solid var(--landing-line) !important;
-  border-radius: 0.375rem !important;
+  border-radius: 0 !important;
   color: var(--landing-text) !important;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6) !important;
   padding: 1.5rem !important;
@@ -603,7 +521,7 @@ body.light-mode,
   color: var(--landing-text) !important;
   border: 1px solid var(--landing-line) !important;
   background: var(--landing-panel-strong) !important;
-  border-radius: 0.375rem !important;
+  border-radius: 0 !important;
   font-weight: 600 !important;
 }
 
@@ -616,7 +534,7 @@ body.light-mode,
 .cl-fileDropArea {
   border: 1px dashed var(--landing-line) !important;
   background: var(--landing-panel-strong) !important;
-  border-radius: 0.375rem !important;
+  border-radius: 0 !important;
   color: var(--landing-muted) !important;
 }
 
@@ -624,7 +542,7 @@ body.light-mode,
   color: var(--landing-text) !important;
   border: 1px solid var(--landing-line) !important;
   background: var(--landing-panel) !important;
-  border-radius: 0.375rem !important;
+  border-radius: 0 !important;
 }
 
 .cl-organizationListPreviewItem {

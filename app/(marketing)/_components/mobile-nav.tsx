@@ -21,7 +21,7 @@ export function MobileNav({ userId, orgId }: MobileNavProps) {
         type="button"
         onClick={() => setIsOpen(!isOpen)}
         aria-label="Toggle navigation menu"
-        className="grid size-9 place-items-center rounded-md border border-[var(--landing-line)] bg-[var(--landing-panel)] text-[var(--landing-text)] hover:text-[var(--landing-orange)] transition-colors cursor-pointer"
+        className="grid size-9 place-items-center rounded-none border border-[var(--landing-line)] bg-[var(--landing-panel)] text-[var(--landing-text)] hover:text-[var(--landing-orange)] transition-colors cursor-pointer"
       >
         {isOpen ? <X className="size-4" /> : <Menu className="size-4" />}
       </button>
@@ -62,7 +62,7 @@ export function MobileNav({ userId, orgId }: MobileNavProps) {
           <div className="mt-6 pt-6 border-t border-[var(--landing-line)] flex flex-col gap-3">
             {userId ? (
               <Button
-                className="w-full bg-[var(--landing-orange)] text-[var(--landing-orange-foreground)] font-bold rounded-md h-11"
+                className="w-full bg-[var(--landing-orange)] text-[var(--landing-orange-foreground)] font-bold rounded-none h-11"
                 asChild
               >
                 <Link
@@ -77,7 +77,7 @@ export function MobileNav({ userId, orgId }: MobileNavProps) {
               <>
                 <Button
                   variant="outline"
-                  className="w-full border-[var(--landing-line)] bg-[var(--landing-panel)] text-[var(--landing-text)] font-semibold rounded-md h-11"
+                  className="w-full border-[var(--landing-line)] bg-[var(--landing-panel)] text-[var(--landing-text)] font-semibold rounded-none h-11"
                   asChild
                 >
                   <Link href="/sign-in" onClick={close}>
@@ -85,7 +85,7 @@ export function MobileNav({ userId, orgId }: MobileNavProps) {
                   </Link>
                 </Button>
                 <Button
-                  className="w-full bg-[var(--landing-orange)] text-[var(--landing-orange-foreground)] font-bold rounded-md h-11"
+                  className="w-full bg-[var(--landing-orange)] text-[var(--landing-orange-foreground)] font-bold rounded-none h-11"
                   asChild
                 >
                   <Link href="/sign-up" onClick={close}>

@@ -1,7 +1,7 @@
 import { LandingPage } from "./_components/landing-page";
 
 export const metadata = {
-    title: "Plana — Simple Project Management for Fast Execution",
+    title: "Project Management",
     description: "A focused, high-performance Kanban project and task management workspace for teams and individuals.",
 };
 

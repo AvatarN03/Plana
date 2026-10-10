@@ -1,15 +1,23 @@
-"use client";
-
+import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeft, ArrowUpRight, Check, Layers, MoveRight, ShieldCheck } from "lucide-react";
+import { ArrowLeft, Check, Layers, MoveRight, ShieldCheck } from "lucide-react";
 import { ThemeToggle } from "../../(marketing)/_components/theme-toggle";
+
+export const metadata: Metadata = {
+  title: "Plana Auth Page",
+  description: "Planner auth page - Sign in or sign up to your Plana workspace.",
+  keywords: ["Plana", "planner auth page", "Plana Auth Page", "authentication", "sign in", "sign up"],
+  other: {
+    "planner-auth-page": "true",
+  },
+};
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="landing-shell min-h-screen bg-[var(--landing-bg)] text-[var(--landing-text)] transition-colors duration-300">
+    <div className="landing-shell min-h-screen text-[var(--landing-text)] transition-colors duration-300">
       {/* Top Bar */}
-      <header className="flex h-16 items-center justify-between border-b border-[var(--landing-line)] px-5 sm:px-8 bg-[var(--landing-bg)]">
+      <header className="flex h-16 items-center justify-between border-b border-[var(--landing-line)] px-5 sm:px-8 bg-[var(--landing-bg)]/80 backdrop-blur-md">
         <Link
           href="/"
           className="flex items-center gap-2 text-sm font-bold tracking-[0.08em] text-[var(--landing-text)] hover:opacity-90 transition-opacity"
@@ -35,7 +43,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       <main className="grid min-h-[calc(100vh-4rem)] lg:grid-cols-[1.1fr_480px] xl:grid-cols-[1.25fr_500px]">
         {/* Left Visual Showcase (Desktop) */}
         <section className="relative hidden overflow-hidden border-r border-[var(--landing-line)] px-10 py-12 lg:flex lg:flex-col lg:justify-between xl:px-16">
-          <div className="landing-grid pointer-events-none absolute inset-0" />
           <div className="absolute inset-0">
             <div
               role="img"
@@ -47,7 +54,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
               }}
             />
             <div className="landing-photo-wash absolute inset-0" />
-            <div className="mesh-flow absolute inset-0 opacity-40" />
           </div>
 
           {/* Top Headline Content */}
@@ -66,7 +72,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           </div>
 
           {/* Center Micro Kanban Card */}
-          <div className="relative z-10 my-8 rounded-md border border-[var(--landing-line)] bg-[var(--landing-panel)] p-5 shadow-[12px_12px_0_-6px_var(--landing-orange)]">
+          <div className="relative z-10 my-8 rounded-none border border-[var(--landing-line)] bg-[var(--landing-panel)] p-5 shadow-[12px_12px_0_-6px_var(--landing-orange)]">
             <div className="mb-4 flex items-center justify-between border-b border-[var(--landing-line)] pb-3 text-[10px] font-mono">
               <span className="flex items-center gap-2 text-[var(--landing-text)] font-semibold">
                 <Layers className="size-3 text-[var(--landing-orange)]" /> PRODUCT LAUNCH
@@ -76,7 +82,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
             <div className="grid grid-cols-3 gap-2.5">
               {/* Backlog Column */}
-              <div className="rounded-sm border border-[var(--landing-line)] bg-[var(--landing-panel-strong)] p-3">
+              <div className="rounded-none border border-[var(--landing-line)] bg-[var(--landing-panel-strong)] p-3">
                 <div className="flex items-center justify-between text-[9px] font-mono text-[var(--landing-muted)]">
                   <span>BACKLOG</span>
                   <span>03</span>
@@ -86,7 +92,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
               </div>
 
               {/* In Progress Column */}
-              <div className="rounded-sm border border-[var(--landing-orange)] bg-[var(--landing-panel-strong)] p-3">
+              <div className="rounded-none border border-[var(--landing-orange)] bg-[var(--landing-panel-strong)] p-3">
                 <div className="flex items-center justify-between text-[9px] font-mono text-[var(--landing-orange)] font-semibold">
                   <span>IN PROGRESS</span>
                   <span>02</span>
@@ -96,7 +102,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
               </div>
 
               {/* Done Column */}
-              <div className="rounded-sm border border-[var(--landing-line)] bg-[var(--landing-panel-strong)] p-3">
+              <div className="rounded-none border border-[var(--landing-line)] bg-[var(--landing-panel-strong)] p-3">
                 <div className="flex items-center justify-between text-[9px] font-mono text-[var(--landing-muted)]">
                   <span>DONE</span>
                   <span>04</span>

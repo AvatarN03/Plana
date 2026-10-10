@@ -1,9 +1,9 @@
 "use client";
 
-import { ArrowRight, ChevronRight, Sparkles, CheckSquare, Clock, Layers, ArrowUpRight } from "lucide-react";
+import { ArrowRight, ChevronRight, Sparkles, CheckSquare, Clock, Layers } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
 import { useState } from "react";
+import { HeroKanbanMotion } from "./hero-kanban-motion";
 
 /* ── Interactive Workspaces for Section 04 ── */
 const workspaces = [
@@ -25,7 +25,7 @@ const workspaces = [
     desc: "High-conversion marketing site, new branding, and performance audits.",
     lists: [
       { name: "IDEAS", items: ["Interactive workflow diagram", "Dark mode preview"] },
-      { name: "BUILDING", items: ["Hero 3D perspective plate", "Responsive nav"] },
+      { name: "BUILDING", items: ["Hero motion visual", "Responsive nav"] },
       { name: "DEPLOYED", items: ["Font Montserrat setup", "SEO metadata"] },
     ],
   },
@@ -59,19 +59,15 @@ export function LandingPage() {
 
   return (
     <div className="relative overflow-hidden">
-      {/* Background Ambience */}
-      <div className="mesh-flow pointer-events-none absolute inset-0" />
-      <div className="landing-grid pointer-events-none absolute inset-0" />
-
       {/* ── HERO SECTION ── */}
-      <section className="relative mx-auto grid max-w-6xl items-center gap-12 px-5 pb-16 pt-10 sm:pt-14 sm:pb-24 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14 lg:pt-16">
+      <section className="relative mx-auto grid max-w-7xl 2xl:max-w-[1440px] items-center gap-10 px-4 sm:px-6 lg:px-8 pb-16 pt-10 sm:pt-14 sm:pb-24 lg:grid-cols-2 lg:gap-12 lg:pt-16">
         <div className="animate-fade-in-up">
-          <div className="mb-5 inline-flex items-center gap-2 rounded-sm border border-[var(--landing-line)] bg-[var(--landing-panel)] px-3 py-1.5 text-xs font-mono uppercase tracking-[0.18em] text-[var(--landing-orange)]">
-            <span className="size-1.5 rounded-sm bg-[var(--landing-orange)]" />
+          <div className="mb-4 inline-flex items-center gap-2 rounded-none border border-[var(--landing-line)] bg-[var(--landing-panel)] px-2.5 py-1 text-[11px] font-mono uppercase tracking-[0.18em] text-[var(--landing-orange)]">
+            <span className="size-1.5 rounded-none bg-[var(--landing-orange)]" />
             Kanban Workspace
           </div>
 
-          <h1 className="max-w-xl text-5xl font-extrabold leading-[1.02] tracking-tight sm:text-6xl lg:text-7xl text-[var(--landing-text)]">
+          <h1 className="max-w-xl text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.08] tracking-tight text-[var(--landing-text)]">
             Organize work.
             <br />
             <span className="text-[var(--landing-orange)]">
@@ -79,27 +75,27 @@ export function LandingPage() {
             </span>
           </h1>
 
-          <p className="mt-6 max-w-lg text-base sm:text-lg font-medium leading-relaxed text-[var(--landing-text)]/85">
+          <p className="mt-5 max-w-lg text-sm sm:text-base lg:text-lg font-normal leading-relaxed text-[var(--landing-muted)]">
             A focused workspace for turning projects, tasks, and ideas into
             clear workflows. Less noise. More momentum.
           </p>
 
-          <div className="mt-8 flex flex-wrap items-center gap-3">
+          <div className="mt-7 flex flex-wrap items-center gap-3">
             <Link
               href="/sign-up"
-              className="inline-flex h-11 items-center gap-2 rounded-md bg-[var(--landing-orange)] px-6 text-sm font-bold text-[var(--landing-orange-foreground)] transition-all duration-200 hover:brightness-110 hover:shadow-[0_0_20px_rgba(255,118,25,0.3)]"
+              className="inline-flex h-10 items-center gap-2 rounded-none bg-[var(--landing-orange)] px-5 text-sm font-semibold text-[var(--landing-orange-foreground)] transition-all duration-200 hover:brightness-110 hover:shadow-[0_0_20px_rgba(255,118,25,0.3)]"
             >
               Get started <ArrowRight className="size-4" />
             </Link>
             <a
               href="#product"
-              className="inline-flex h-11 items-center gap-2 rounded-md border border-[var(--landing-line)] bg-[var(--landing-panel)] px-6 text-sm font-bold text-[var(--landing-text)] transition-all duration-200 hover:border-[var(--landing-orange)] hover:bg-[var(--landing-panel-strong)]"
+              className="inline-flex h-10 items-center gap-2 rounded-none border border-[var(--landing-line)] bg-[var(--landing-panel)] px-5 text-sm font-semibold text-[var(--landing-text)] transition-all duration-200 hover:border-[var(--landing-orange)] hover:bg-[var(--landing-panel-strong)]"
             >
               Explore demo <Sparkles className="size-4 text-[var(--landing-orange)]" />
             </a>
           </div>
 
-          <div className="mt-10 flex flex-wrap items-center gap-3 text-xs font-mono font-medium text-[var(--landing-muted)]">
+          <div className="mt-8 flex flex-wrap items-center gap-2.5 text-[11px] font-mono font-medium text-[var(--landing-muted)]">
             <span>BOARDS</span>
             <span>·</span>
             <span>LISTS</span>
@@ -112,27 +108,18 @@ export function LandingPage() {
           </div>
         </div>
 
-        {/* Hero Perspective Board */}
-        <div className="hero-board-perspective rounded-md border border-[var(--landing-line)] bg-[var(--landing-panel)] overflow-hidden shadow-2xl transition-all duration-300">
-          <Image
-            src="/hero-board.png"
-            alt="Plana Kanban Board Workspace"
-            width={712}
-            height={573}
-            priority
-            className="w-full h-auto object-cover rounded-md select-none"
-          />
-        </div>
+        {/* Right Visual Area: Live Autoplay Kanban Motion */}
+        <HeroKanbanMotion />
       </section>
 
       {/* ── 01. BOARDS SECTION ── */}
       <section
         id="product"
-        className="relative scroll-mt-20 border-y border-[var(--landing-line)] bg-[var(--landing-panel)]/40 px-5 py-20 sm:py-24"
+        className="relative scroll-mt-20 px-4 sm:px-6 lg:px-8 py-20 sm:py-24"
       >
-        <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
+        <div className="mx-auto grid max-w-7xl 2xl:max-w-[1440px] items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
           {/* Live Crisp Micro-Board Preview (Productivity-First) */}
-          <div className="rounded-md border border-[var(--landing-line)] bg-[var(--landing-panel)] p-4 shadow-xl">
+          <div className="rounded-none border border-[var(--landing-line)] bg-[var(--landing-panel)] p-4 shadow-xl">
             <div className="mb-4 flex items-center justify-between border-b border-[var(--landing-line)] pb-3 text-xs font-mono">
               <span className="flex items-center gap-2 font-bold text-[var(--landing-text)]">
                 <Layers className="size-3.5 text-[var(--landing-orange)]" /> SPRINT BOARD VIEW
@@ -142,13 +129,13 @@ export function LandingPage() {
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {/* Backlog */}
-              <div className="rounded-sm border border-[var(--landing-line)] bg-[var(--landing-panel-strong)] p-3">
+              <div className="rounded-none border border-[var(--landing-line)] bg-[var(--landing-panel-strong)] p-3">
                 <div className="flex items-center justify-between text-[10px] font-mono text-[var(--landing-muted)]">
                   <span>BACKLOG</span>
-                  <span className="rounded-sm bg-[var(--landing-panel)] px-1.5 py-0.5 text-[10px]">2</span>
+                  <span className="rounded-none bg-[var(--landing-panel)] px-1.5 py-0.5 text-[10px]">2</span>
                 </div>
                 <div className="mt-3 space-y-2">
-                  <div className="rounded-sm border border-[var(--landing-line)] bg-[var(--landing-panel)] p-2.5">
+                  <div className="rounded-none border border-[var(--landing-line)] bg-[var(--landing-panel)] p-2.5">
                     <span className="text-[9px] font-mono text-[var(--landing-orange)]">#research</span>
                     <p className="mt-1 text-xs font-semibold text-[var(--landing-text)]">Competitor benchmark</p>
                     <div className="mt-2 flex items-center justify-between text-[10px] text-[var(--landing-muted)] font-mono">
@@ -156,7 +143,7 @@ export function LandingPage() {
                       <span>Oct 28</span>
                     </div>
                   </div>
-                  <div className="rounded-sm border border-[var(--landing-line)] bg-[var(--landing-panel)] p-2.5">
+                  <div className="rounded-none border border-[var(--landing-line)] bg-[var(--landing-panel)] p-2.5">
                     <span className="text-[9px] font-mono text-[var(--landing-muted)]">#specs</span>
                     <p className="mt-1 text-xs font-semibold text-[var(--landing-text)]">Define v2 roadmap</p>
                   </div>
@@ -164,13 +151,13 @@ export function LandingPage() {
               </div>
 
               {/* In Progress */}
-              <div className="rounded-sm border border-[var(--landing-orange)] bg-[var(--landing-orange-soft)]/40 p-3">
+              <div className="rounded-none border border-[var(--landing-orange)] bg-[var(--landing-orange-soft)]/40 p-3">
                 <div className="flex items-center justify-between text-[10px] font-mono text-[var(--landing-orange)] font-bold">
                   <span>IN PROGRESS</span>
-                  <span className="rounded-sm bg-[var(--landing-orange)]/20 px-1.5 py-0.5 text-[10px] text-[var(--landing-orange)]">2</span>
+                  <span className="rounded-none bg-[var(--landing-orange)]/20 px-1.5 py-0.5 text-[10px] text-[var(--landing-orange)]">2</span>
                 </div>
                 <div className="mt-3 space-y-2">
-                  <div className="rounded-sm border border-[var(--landing-orange)] bg-[var(--landing-panel)] p-2.5 shadow-sm">
+                  <div className="rounded-none border border-[var(--landing-orange)] bg-[var(--landing-panel)] p-2.5 shadow-sm">
                     <span className="text-[9px] font-mono text-[var(--landing-orange)] font-bold">#frontend · HIGH</span>
                     <p className="mt-1 text-xs font-semibold text-[var(--landing-text)]">Landing page polish</p>
                     <div className="mt-2 flex items-center justify-between text-[10px] text-[var(--landing-muted)] font-mono">
@@ -178,7 +165,7 @@ export function LandingPage() {
                       <span className="text-[var(--landing-orange)] font-semibold">Today</span>
                     </div>
                   </div>
-                  <div className="rounded-sm border border-[var(--landing-line)] bg-[var(--landing-panel)] p-2.5">
+                  <div className="rounded-none border border-[var(--landing-line)] bg-[var(--landing-panel)] p-2.5">
                     <span className="text-[9px] font-mono text-[var(--landing-orange)]">#backend</span>
                     <p className="mt-1 text-xs font-semibold text-[var(--landing-text)]">Clerk auth routing</p>
                   </div>
@@ -186,18 +173,18 @@ export function LandingPage() {
               </div>
 
               {/* Done */}
-              <div className="rounded-sm border border-[var(--landing-line)] bg-[var(--landing-panel-strong)] p-3">
+              <div className="rounded-none border border-[var(--landing-line)] bg-[var(--landing-panel-strong)] p-3">
                 <div className="flex items-center justify-between text-[10px] font-mono text-[var(--landing-muted)]">
                   <span>DONE</span>
-                  <span className="rounded-sm bg-[var(--landing-panel)] px-1.5 py-0.5 text-[10px]">2</span>
+                  <span className="rounded-none bg-[var(--landing-panel)] px-1.5 py-0.5 text-[10px]">2</span>
                 </div>
                 <div className="mt-3 space-y-2">
-                  <div className="rounded-sm border border-[var(--landing-line)] bg-[var(--landing-panel)] p-2.5 opacity-80">
+                  <div className="rounded-none border border-[var(--landing-line)] bg-[var(--landing-panel)] p-2.5 opacity-80">
                     <span className="text-[9px] font-mono text-[var(--landing-muted)]">#infra</span>
                     <p className="mt-1 text-xs font-semibold text-[var(--landing-text)] line-through">Prisma schema v7</p>
                     <span className="mt-2 block text-[10px] font-mono text-[var(--landing-orange)]">✓ Completed</span>
                   </div>
-                  <div className="rounded-sm border border-[var(--landing-line)] bg-[var(--landing-panel)] p-2.5 opacity-80">
+                  <div className="rounded-none border border-[var(--landing-line)] bg-[var(--landing-panel)] p-2.5 opacity-80">
                     <span className="text-[9px] font-mono text-[var(--landing-muted)]">#design</span>
                     <p className="mt-1 text-xs font-semibold text-[var(--landing-text)] line-through">Design system</p>
                   </div>
@@ -207,26 +194,26 @@ export function LandingPage() {
           </div>
 
           <div>
-            <div className="mb-4 inline-block text-xs font-mono font-bold uppercase tracking-[0.2em] text-[var(--landing-orange)]">
+            <div className="mb-3 inline-block text-[11px] font-mono font-bold uppercase tracking-[0.2em] text-[var(--landing-orange)]">
               01. Boards
             </div>
-            <h2 className="text-3xl font-bold leading-tight tracking-tight sm:text-5xl text-[var(--landing-text)]">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight tracking-tight text-[var(--landing-text)]">
               Everything starts with a board
               <span className="text-[var(--landing-orange)]">.</span>
             </h2>
-            <p className="mt-5 text-base sm:text-lg font-medium leading-relaxed text-[var(--landing-text)]/80">
+            <p className="mt-4 text-sm sm:text-base font-normal leading-relaxed text-[var(--landing-muted)]">
               Boards give projects a visible structure. Instead of burying action items inside deep spreadsheet rows or buried chat threads, Plana renders your entire delivery pipeline as a crisp horizontal landscape.
             </p>
-            <div className="mt-8 flex flex-wrap items-center gap-2 text-xs font-mono font-semibold text-[var(--landing-text)]/80">
-              <span className="rounded-sm border border-[var(--landing-line)] bg-[var(--landing-panel)] px-3.5 py-2">
+            <div className="mt-7 flex flex-wrap items-center gap-2 text-xs font-mono font-semibold text-[var(--landing-text)]/80">
+              <span className="rounded-none border border-[var(--landing-line)] bg-[var(--landing-panel)] px-3.5 py-2">
                 Idea → Backlog
               </span>
               <ChevronRight className="size-4 text-[var(--landing-orange)]" />
-              <span className="rounded-sm border border-[var(--landing-orange)] bg-[var(--landing-orange-soft)] px-3.5 py-2 text-[var(--landing-orange)] font-bold">
+              <span className="rounded-none border border-[var(--landing-orange)] bg-[var(--landing-orange-soft)] px-3.5 py-2 text-[var(--landing-orange)] font-bold">
                 In progress
               </span>
               <ChevronRight className="size-4 text-[var(--landing-orange)]" />
-              <span className="rounded-sm border border-[var(--landing-line)] bg-[var(--landing-panel)] px-3.5 py-2">
+              <span className="rounded-none border border-[var(--landing-line)] bg-[var(--landing-panel)] px-3.5 py-2">
                 Done
               </span>
             </div>
@@ -237,38 +224,38 @@ export function LandingPage() {
       {/* ── 02. WORKFLOW SECTION ── */}
       <section
         id="workflow"
-        className="relative scroll-mt-20 mx-auto max-w-6xl px-5 py-20 sm:py-24"
+        className="relative scroll-mt-20 mx-auto max-w-7xl 2xl:max-w-[1440px] px-4 sm:px-6 lg:px-8 py-20 sm:py-24"
       >
         <div className="grid items-center gap-12 lg:grid-cols-[0.95fr_1.05fr]">
           <div>
-            <div className="mb-4 inline-block text-xs font-mono font-bold uppercase tracking-[0.2em] text-[var(--landing-orange)]">
+            <div className="mb-3 inline-block text-[11px] font-mono font-bold uppercase tracking-[0.2em] text-[var(--landing-orange)]">
               02. Workflow
             </div>
-            <h2 className="text-3xl font-bold leading-tight tracking-tight sm:text-5xl text-[var(--landing-text)]">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight tracking-tight text-[var(--landing-text)]">
               Turn ideas into an actual workflow
               <span className="text-[var(--landing-orange)]">.</span>
             </h2>
-            <p className="mt-5 text-base sm:text-lg font-medium leading-relaxed text-[var(--landing-text)]/80">
+            <p className="mt-4 text-sm sm:text-base font-normal leading-relaxed text-[var(--landing-muted)]">
               Start with raw thoughts in your backlog. Shape them into structured cards, estimate priorities, and glide them steadily through execution toward Done.
             </p>
             <ul className="mt-6 space-y-3 text-sm font-semibold text-[var(--landing-text)]/80">
               <li className="flex items-center gap-2.5">
-                <span className="size-1.5 rounded-sm bg-[var(--landing-orange)]" />
+                <span className="size-1.5 rounded-none bg-[var(--landing-orange)]" />
                 Zero bloated forms — write only what is needed
               </li>
               <li className="flex items-center gap-2.5">
-                <span className="size-1.5 rounded-sm bg-[var(--landing-orange)]" />
-                Tactile rectangular cards with sharp rounded corners
+                <span className="size-1.5 rounded-none bg-[var(--landing-orange)]" />
+                Tactile rectangular cards with sharp edges
               </li>
               <li className="flex items-center gap-2.5">
-                <span className="size-1.5 rounded-sm bg-[var(--landing-orange)]" />
+                <span className="size-1.5 rounded-none bg-[var(--landing-orange)]" />
                 Instant drag-and-drop feedback across lists
               </li>
             </ul>
           </div>
 
           {/* Productivity Pipeline Diagram Component */}
-          <div className="rounded-md border border-[var(--landing-line)] bg-[var(--landing-panel)] p-5 shadow-xl">
+          <div className="rounded-none border border-[var(--landing-line)] bg-[var(--landing-panel)] p-5 shadow-xl">
             <div className="mb-4 flex items-center justify-between border-b border-[var(--landing-line)] pb-3 text-xs font-mono">
               <span className="text-[var(--landing-text)] font-bold">PIPELINE EXECUTION MODEL</span>
               <span className="text-[var(--landing-orange)] font-semibold">3-STAGE FLOW</span>
@@ -276,8 +263,8 @@ export function LandingPage() {
 
             <div className="space-y-3">
               {/* Step 1: Capture */}
-              <div className="rounded-sm border border-[var(--landing-line)] bg-[var(--landing-panel-strong)] p-3.5 flex items-start gap-3.5">
-                <div className="grid size-7 place-items-center rounded-sm border border-[var(--landing-line)] bg-[var(--landing-panel)] text-xs font-mono font-bold text-[var(--landing-orange)] shrink-0">
+              <div className="rounded-none border border-[var(--landing-line)] bg-[var(--landing-panel-strong)] p-3.5 flex items-start gap-3.5">
+                <div className="grid size-7 place-items-center rounded-none border border-[var(--landing-line)] bg-[var(--landing-panel)] text-xs font-mono font-bold text-[var(--landing-orange)] shrink-0">
                   01
                 </div>
                 <div>
@@ -287,8 +274,8 @@ export function LandingPage() {
               </div>
 
               {/* Step 2: Prioritize */}
-              <div className="rounded-sm border border-[var(--landing-orange)] bg-[var(--landing-orange-soft)]/35 p-3.5 flex items-start gap-3.5">
-                <div className="grid size-7 place-items-center rounded-sm bg-[var(--landing-orange)] text-xs font-mono font-bold text-[var(--landing-orange-foreground)] shrink-0">
+              <div className="rounded-none border border-[var(--landing-orange)] bg-[var(--landing-orange-soft)]/35 p-3.5 flex items-start gap-3.5">
+                <div className="grid size-7 place-items-center rounded-none bg-[var(--landing-orange)] text-xs font-mono font-bold text-[var(--landing-orange-foreground)] shrink-0">
                   02
                 </div>
                 <div>
@@ -298,8 +285,8 @@ export function LandingPage() {
               </div>
 
               {/* Step 3: Complete */}
-              <div className="rounded-sm border border-[var(--landing-line)] bg-[var(--landing-panel-strong)] p-3.5 flex items-start gap-3.5">
-                <div className="grid size-7 place-items-center rounded-sm border border-[var(--landing-line)] bg-[var(--landing-panel)] text-xs font-mono font-bold text-[var(--landing-orange)] shrink-0">
+              <div className="rounded-none border border-[var(--landing-line)] bg-[var(--landing-panel-strong)] p-3.5 flex items-start gap-3.5">
+                <div className="grid size-7 place-items-center rounded-none border border-[var(--landing-line)] bg-[var(--landing-panel)] text-xs font-mono font-bold text-[var(--landing-orange)] shrink-0">
                   03
                 </div>
                 <div>
@@ -315,35 +302,35 @@ export function LandingPage() {
       {/* ── 03. ACTIVITY & CARD ANATOMY ── */}
       <section
         id="activity"
-        className="relative scroll-mt-20 border-y border-[var(--landing-line)] bg-[var(--landing-panel)]/40 px-5 py-20 sm:py-24"
+        className="relative scroll-mt-20 px-4 sm:px-6 lg:px-8 py-20 sm:py-24"
       >
-        <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
+        <div className="mx-auto grid max-w-7xl 2xl:max-w-[1440px] items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
           <div className="space-y-4">
             {/* Live Audit Log Feed */}
-            <div className="rounded-md border border-[var(--landing-line)] bg-[var(--landing-panel)] p-4 shadow-xl">
+            <div className="rounded-none border border-[var(--landing-line)] bg-[var(--landing-panel)] p-4 shadow-xl">
               <div className="mb-3 flex items-center justify-between border-b border-[var(--landing-line)] pb-2.5 text-xs font-mono">
                 <span className="font-bold text-[var(--landing-text)]">WORKSPACE ACTIVITY AUDIT</span>
                 <span className="text-[var(--landing-orange)] font-semibold">● ACTIVE STREAM</span>
               </div>
               <div className="space-y-2.5 text-xs">
-                <div className="flex items-center justify-between rounded-sm border border-[var(--landing-line)] bg-[var(--landing-panel-strong)] p-2.5">
+                <div className="flex items-center justify-between rounded-none border border-[var(--landing-line)] bg-[var(--landing-panel-strong)] p-2.5">
                   <div className="flex items-center gap-2">
-                    <span className="size-1.5 rounded-sm bg-[var(--landing-orange)]" />
-                    <span className="font-semibold text-[var(--landing-text)]">Prashanth moved &ldquo;Landing Page&rdquo; to In Progress</span>
+                    <span className="size-1.5 rounded-none bg-[var(--landing-orange)]" />
+                    <span className="font-semibold text-[var(--landing-text)]">Keshav moved Landing Page to In Progress</span>
                   </div>
                   <span className="font-mono text-[10px] text-[var(--landing-muted)]">3m ago</span>
                 </div>
-                <div className="flex items-center justify-between rounded-sm border border-[var(--landing-line)] bg-[var(--landing-panel-strong)] p-2.5">
+                <div className="flex items-center justify-between rounded-none border border-[var(--landing-line)] bg-[var(--landing-panel-strong)] p-2.5">
                   <div className="flex items-center gap-2">
-                    <span className="size-1.5 rounded-sm bg-[var(--landing-orange)]" />
-                    <span className="font-semibold text-[var(--landing-text)]">Aditi completed &ldquo;Database Schema&rdquo; in Done</span>
+                    <span className="size-1.5 rounded-none bg-[var(--landing-orange)]" />
+                    <span className="font-semibold text-[var(--landing-text)]">Ozair completed Database Schema in Done</span>
                   </div>
                   <span className="font-mono text-[10px] text-[var(--landing-muted)]">18m ago</span>
                 </div>
-                <div className="flex items-center justify-between rounded-sm border border-[var(--landing-line)] bg-[var(--landing-panel-strong)] p-2.5">
+                <div className="flex items-center justify-between rounded-none border border-[var(--landing-line)] bg-[var(--landing-panel-strong)] p-2.5">
                   <div className="flex items-center gap-2">
-                    <span className="size-1.5 rounded-sm bg-[var(--landing-muted)]" />
-                    <span className="font-semibold text-[var(--landing-text)]">Rahul added checklist to &ldquo;Authentication&rdquo;</span>
+                    <span className="size-1.5 rounded-none bg-[var(--landing-muted)]" />
+                    <span className="font-semibold text-[var(--landing-text)]">Raj added checklist to Authentication</span>
                   </div>
                   <span className="font-mono text-[10px] text-[var(--landing-muted)]">45m ago</span>
                 </div>
@@ -351,13 +338,13 @@ export function LandingPage() {
             </div>
 
             {/* Live Card Anatomy Component */}
-            <div className="rounded-md border border-[var(--landing-line)] bg-[var(--landing-panel)] p-4 shadow-xl">
+            <div className="rounded-none border border-[var(--landing-line)] bg-[var(--landing-panel)] p-4 shadow-xl">
               <div className="mb-3 flex items-center justify-between border-b border-[var(--landing-line)] pb-2.5 text-xs font-mono">
                 <span className="text-[var(--landing-orange)] font-bold">#backend / TASK-04</span>
-                <span className="rounded-sm bg-[var(--landing-orange)]/15 px-2 py-0.5 text-[10px] text-[var(--landing-orange)] font-bold">HIGH PRIORITY</span>
+                <span className="rounded-none bg-[var(--landing-orange)]/15 px-2 py-0.5 text-[10px] text-[var(--landing-orange)] font-bold">HIGH PRIORITY</span>
               </div>
               <h3 className="text-sm font-bold text-[var(--landing-text)]">Authentication &amp; Organization Roles</h3>
-              <div className="mt-3 rounded-sm border border-[var(--landing-line)] bg-[var(--landing-panel-strong)] p-2.5">
+              <div className="mt-3 rounded-none border border-[var(--landing-line)] bg-[var(--landing-panel-strong)] p-2.5">
                 <div className="flex items-center justify-between text-[11px] font-mono text-[var(--landing-muted)]">
                   <span className="flex items-center gap-1.5 font-semibold text-[var(--landing-text)]">
                     <CheckSquare className="size-3 text-[var(--landing-orange)]" /> Checklist (2/4)
@@ -366,21 +353,21 @@ export function LandingPage() {
                 </div>
                 <div className="mt-2 space-y-1.5 text-xs text-[var(--landing-text)]">
                   <div className="flex items-center gap-2 text-[var(--landing-muted)] line-through">
-                    <span className="size-3 rounded-sm bg-[var(--landing-orange)] text-[var(--landing-orange-foreground)] grid place-items-center text-[8px]">✓</span>
+                    <span className="size-3 rounded-none bg-[var(--landing-orange)] text-[var(--landing-orange-foreground)] grid place-items-center text-[8px]">✓</span>
                     Configure OAuth 2.0 PKCE flow
                   </div>
                   <div className="flex items-center gap-2 text-[var(--landing-muted)] line-through">
-                    <span className="size-3 rounded-sm bg-[var(--landing-orange)] text-[var(--landing-orange-foreground)] grid place-items-center text-[8px]">✓</span>
+                    <span className="size-3 rounded-none bg-[var(--landing-orange)] text-[var(--landing-orange-foreground)] grid place-items-center text-[8px]">✓</span>
                     Define workspace role access control
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="size-3 rounded-sm border border-[var(--landing-line)]" />
+                    <span className="size-3 rounded-none border border-[var(--landing-line)]" />
                     Audit session token expiration
                   </div>
                 </div>
               </div>
               <div className="mt-3 flex items-center justify-between text-[10px] font-mono text-[var(--landing-muted)]">
-                <span>Owner: Rahul (Lead)</span>
+                <span>Owner: Keshav (Lead)</span>
                 <span className="flex items-center gap-1 text-[var(--landing-orange)] font-semibold">
                   <Clock className="size-3" /> Due Oct 28
                 </span>
@@ -389,17 +376,17 @@ export function LandingPage() {
           </div>
 
           <div>
-            <div className="mb-4 inline-block text-xs font-mono font-bold uppercase tracking-[0.2em] text-[var(--landing-orange)]">
+            <div className="mb-3 inline-block text-[11px] font-mono font-bold uppercase tracking-[0.2em] text-[var(--landing-orange)]">
               03. Timeline &amp; Cards
             </div>
-            <h2 className="text-3xl font-bold leading-tight tracking-tight sm:text-5xl text-[var(--landing-text)]">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight tracking-tight text-[var(--landing-text)]">
               Know what changed
               <span className="text-[var(--landing-orange)]">.</span>
             </h2>
-            <p className="mt-5 text-base sm:text-lg font-medium leading-relaxed text-[var(--landing-text)]/80">
-              Never ask &ldquo;what&apos;s the status of this ticket?&rdquo; in standup again. Plana logs every card movement, assignee change, and task completion into an immutable workspace activity stream.
+            <p className="mt-4 text-sm sm:text-base font-normal leading-relaxed text-[var(--landing-muted)]">
+              Never ask for status updates in standup again. Plana logs every card movement, assignee change, and task completion into an immutable workspace activity stream.
             </p>
-            <p className="mt-4 text-base sm:text-lg font-medium leading-relaxed text-[var(--landing-text)]/80">
+            <p className="mt-3 text-sm sm:text-base font-normal leading-relaxed text-[var(--landing-muted)]">
               Click any card to reveal its full execution anatomy: interactive subtask checklists, assigned owners, due date warnings, and live revision histories.
             </p>
           </div>
@@ -407,16 +394,16 @@ export function LandingPage() {
       </section>
 
       {/* ── 04. DYNAMIC INTERACTIVE WORKSPACES ── */}
-      <section id="workspaces" className="relative scroll-mt-20 mx-auto max-w-6xl px-5 py-20 sm:py-24">
-        <div className="rounded-md border border-[var(--landing-line)] bg-[var(--landing-panel)] p-6 sm:p-8 shadow-2xl">
-          <div className="mb-4 text-xs font-mono font-bold uppercase tracking-[0.2em] text-[var(--landing-orange)]">
+      <section id="workspaces" className="relative scroll-mt-20 mx-auto max-w-7xl 2xl:max-w-[1440px] px-4 sm:px-6 lg:px-8 py-20 sm:py-24">
+        <div className="rounded-none border border-[var(--landing-line)] bg-[var(--landing-panel)] p-6 sm:p-8 shadow-2xl">
+          <div className="mb-3 text-[11px] font-mono font-bold uppercase tracking-[0.2em] text-[var(--landing-orange)]">
             04. Dynamic Workspaces
           </div>
-          <h2 className="max-w-xl text-3xl font-bold leading-tight tracking-tight sm:text-5xl text-[var(--landing-text)]">
+          <h2 className="max-w-xl text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight tracking-tight text-[var(--landing-text)]">
             One workspace. Every project
             <span className="text-[var(--landing-orange)]">.</span>
           </h2>
-          <p className="mt-4 max-w-2xl text-base sm:text-lg font-medium leading-relaxed text-[var(--landing-text)]/80">
+          <p className="mt-3 max-w-2xl text-sm sm:text-base font-normal leading-relaxed text-[var(--landing-muted)]">
             Organize multiple concurrent initiatives under a single cohesive roof. Click any project tab below to preview live boards and lists.
           </p>
 
@@ -427,7 +414,7 @@ export function LandingPage() {
                 key={ws.name}
                 type="button"
                 onClick={() => setActiveWorkspace(i)}
-                className={`rounded-md border p-3.5 text-left transition-all duration-200 cursor-pointer ${
+                className={`rounded-none border p-3.5 text-left transition-all duration-200 cursor-pointer ${
                   activeWorkspace === i
                     ? "border-[var(--landing-orange)] bg-[var(--landing-orange-soft)] shadow-[0_0_16px_rgba(255,118,25,0.15)]"
                     : "border-[var(--landing-line)] bg-[var(--landing-panel-strong)] hover:border-[var(--landing-orange)]/60"
@@ -450,18 +437,18 @@ export function LandingPage() {
           {/* Interactive Dynamic Board Preview */}
           <div
             key={activeWorkspace}
-            className="mt-6 rounded-md border border-[var(--landing-line)] bg-[var(--landing-panel-strong)] p-4 sm:p-5 animate-fade-in-up"
+            className="mt-6 rounded-none border border-[var(--landing-line)] bg-[var(--landing-panel-strong)] p-4 sm:p-5 animate-fade-in-up"
           >
             <div className="mb-4 flex flex-wrap items-center justify-between gap-2 border-b border-[var(--landing-line)] pb-3">
               <div className="flex items-center gap-2">
-                <span className="size-2 rounded-sm bg-[var(--landing-orange)]" />
+                <span className="size-2 rounded-none bg-[var(--landing-orange)]" />
                 <span className="text-sm font-bold text-[var(--landing-text)]">
                   ACTIVE BOARD:{" "}
                   <span className="text-[var(--landing-orange)]">
                     {currentWorkspace.name}
                   </span>
                 </span>
-                <span className="rounded-sm bg-[var(--landing-panel)] px-2 py-0.5 text-[11px] font-mono text-[var(--landing-muted)]">
+                <span className="rounded-none bg-[var(--landing-panel)] px-2 py-0.5 text-[11px] font-mono text-[var(--landing-muted)]">
                   {currentWorkspace.tag}
                 </span>
               </div>
@@ -474,11 +461,11 @@ export function LandingPage() {
               {currentWorkspace.lists.map((list) => (
                 <div
                   key={list.name}
-                  className="rounded-sm border border-[var(--landing-line)] bg-[var(--landing-panel)] p-3 shadow-sm transition-colors duration-200 hover:border-[var(--landing-orange)]/70"
+                  className="rounded-none border border-[var(--landing-line)] bg-[var(--landing-panel)] p-3 shadow-sm transition-colors duration-200 hover:border-[var(--landing-orange)]/70"
                 >
                   <div className="mb-3 flex items-center justify-between text-xs font-mono font-bold text-[var(--landing-text)]">
                     <span>{list.name}</span>
-                    <span className="rounded-sm bg-[var(--landing-panel-strong)] px-2 py-0.5 text-[10px] text-[var(--landing-orange)]">
+                    <span className="rounded-none bg-[var(--landing-panel-strong)] px-2 py-0.5 text-[10px] text-[var(--landing-orange)]">
                       {list.items.length}
                     </span>
                   </div>
@@ -486,7 +473,7 @@ export function LandingPage() {
                     {list.items.map((item) => (
                       <div
                         key={item}
-                        className="rounded-sm border border-[var(--landing-line)] bg-[var(--landing-panel-strong)] p-2.5 text-xs font-semibold text-[var(--landing-text)] transition-all duration-200 hover:border-[var(--landing-orange)] hover:translate-x-0.5"
+                        className="rounded-none border border-[var(--landing-line)] bg-[var(--landing-panel-strong)] p-2.5 text-xs font-semibold text-[var(--landing-text)] transition-all duration-200 hover:border-[var(--landing-orange)] hover:translate-x-0.5"
                       >
                         {item}
                       </div>
@@ -500,21 +487,21 @@ export function LandingPage() {
       </section>
 
       {/* ── CALL TO ACTION ── */}
-      <section className="relative border-t border-[var(--landing-line)] px-5 py-20 sm:py-24 text-center">
+      <section className="relative px-4 sm:px-6 lg:px-8 py-20 sm:py-24 text-center">
         <div className="mx-auto max-w-2xl">
-          <div className="mb-4 inline-block text-xs font-mono font-bold uppercase tracking-[0.2em] text-[var(--landing-orange)]">
+          <div className="mb-3 inline-block text-[11px] font-mono font-bold uppercase tracking-[0.2em] text-[var(--landing-orange)]">
             Get started today
           </div>
-          <h2 className="text-4xl font-extrabold tracking-tight sm:text-5xl text-[var(--landing-text)]">
+          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[var(--landing-text)]">
             Put your work in motion
             <span className="text-[var(--landing-orange)]">.</span>
           </h2>
-          <p className="mx-auto mt-4 max-w-md text-base font-medium leading-relaxed text-[var(--landing-muted)]">
+          <p className="mx-auto mt-3 max-w-md text-sm sm:text-base font-normal leading-relaxed text-[var(--landing-muted)]">
             Plan clearly. Work together. Finish with confidence.
           </p>
           <Link
             href="/sign-up"
-            className="mt-7 inline-flex h-11 items-center gap-2 rounded-md bg-[var(--landing-orange)] px-8 text-sm font-bold text-[var(--landing-orange-foreground)] transition-all duration-200 hover:brightness-110 hover:shadow-[0_0_20px_rgba(255,118,25,0.3)]"
+            className="mt-7 inline-flex h-11 items-center gap-2 rounded-none bg-[var(--landing-orange)] px-8 text-sm font-bold text-[var(--landing-orange-foreground)] transition-all duration-200 hover:brightness-110 hover:shadow-[0_0_20px_rgba(255,118,25,0.3)]"
           >
             Get started <ArrowRight className="size-4" />
           </Link>

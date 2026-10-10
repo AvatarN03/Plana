@@ -1,124 +1,189 @@
 "use client";
 
 import Link from "next/link";
-
-import { Accordion } from "@/components/ui/accordion";
-import { Button } from "@/components/ui/button";
+import { usePathname } from "next/navigation";
+import { useOrganization } from "@clerk/nextjs";
+import { useQuery } from "@tanstack/react-query";
+import { fetcher } from "@/lib/fetcher";
+import { Board } from "@/lib/generated/prisma/client";
+import Logo from "@/components/custom/Logo";
+import { cn } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
+import {
+  Activity,
+  CreditCard,
+  LayoutGrid,
+  Settings,
+  Users,
+} from "lucide-react";
 
-import { NavItem, OrganizationProps } from "./NavItem";
+const PIN_COLORS = [
+  "bg-orange-500",
+  "bg-amber-500",
+  "bg-yellow-500",
+  "bg-emerald-500",
+  "bg-purple-500",
+  "bg-blue-500",
+];
 
-import { Plus } from "lucide-react";
-import { useLocalStorage } from "usehooks-ts";
-import { useOrganization, useOrganizationList } from "@clerk/nextjs";
+export const Sidebar = () => {
+  const pathname = usePathname();
+  const { organization, isLoaded } = useOrganization();
 
+  const orgId = organization?.id;
 
-type SidebarProps = {
-  storageKey?: string
-}
-
-const Sidebar = ({ storageKey = "t-sidebar-state" }: SidebarProps) => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [expanded, setExpanded] = useLocalStorage<Record<string, any>>(storageKey, {});
-
-  const { organization: activeOrganization, isLoaded: isLoadedOrg } = useOrganization();
-
-  const { userMemberships, isLoaded: isLoadedOrgList } = useOrganizationList({
-    userMemberships: {
-      infinite: true
-    }
+  const { data: boards, isLoading: isLoadingBoards } = useQuery<Board[]>({
+    queryKey: ["boards", orgId],
+    queryFn: () => fetcher("/api/boards"),
+    enabled: !!orgId,
   });
 
-  const defaultAccordianValue: string[] = Object.keys(expanded).reduce((acc: string[], key: string) => {
-    if (expanded[key]) {
-      acc.push(key);
-    }
+  const routes = [
+    {
+      label: "Boards",
+      icon: LayoutGrid,
+      href: `/organization/${orgId}`,
+    },
+    {
+      label: "Activity",
+      icon: Activity,
+      href: `/organization/${orgId}/activity`,
+    },
+    {
+      label: "Team Members",
+      icon: Users,
+      href: `/organization/${orgId}/members`,
+    },
+    {
+      label: "Settings",
+      icon: Settings,
+      href: `/organization/${orgId}/settings`,
+    },
+    {
+      label: "Billing",
+      icon: CreditCard,
+      href: `/organization/${orgId}/billing`,
+    },
+  ];
 
-    return acc;
-  }, [])
+  const boardCount = boards?.length ?? 0;
+  const maxFreeBoards = 5;
+  const percentage = Math.min(100, Math.round((boardCount / maxFreeBoards) * 100));
 
-  const onExpand = (id: string) => {
-    setExpanded((curr) => ({
-      ...curr,
-      [id]: !expanded[id]
-
-    }))
-  }
-
-  if (!isLoadedOrg || !isLoadedOrgList || userMemberships.isLoading) {
+  if (!isLoaded) {
     return (
-      <div className="space-y-4">
-        <div className="flex items-center justify-between px-2">
-          <Skeleton className="h-4 w-24 rounded-sm" />
-          <Skeleton className="h-6 w-6 rounded-sm" />
+      <div className="flex flex-col h-full p-4 space-y-6">
+        <div className="h-10 w-32">
+          <Skeleton className="h-full w-full rounded-sm" />
         </div>
         <div className="space-y-2">
-          <NavItem.Skeleton />
-          <NavItem.Skeleton />
-          <NavItem.Skeleton />
+          <Skeleton className="h-8 w-full rounded-sm" />
+          <Skeleton className="h-8 w-full rounded-sm" />
+          <Skeleton className="h-8 w-full rounded-sm" />
         </div>
       </div>
     );
   }
 
   return (
-    <div className="flex flex-col h-full justify-between space-y-6">
-      <div>
-        <div className="font-medium text-xs flex items-center mb-2 px-2 text-[var(--landing-muted)]">
-          <span className="font-mono uppercase tracking-wider text-[11px] font-semibold">Workspaces</span>
-          <Button
-            asChild
-            variant={"ghost"}
-            size={"icon"}
-            className="ml-auto h-6 w-6 rounded-sm text-[var(--landing-muted)] hover:text-[var(--landing-text)] hover:bg-[var(--landing-panel-strong)]"
-          >
-            <Link href="/select-org">
-              <Plus className="w-3.5 h-3.5" />
-            </Link>
-          </Button>
+    <aside className="w-64 h-full bg-[var(--landing-bg)] flex flex-col justify-between py-5 px-4 select-none">
+      {/* Top Branding & Main Menus */}
+      <div className="space-y-6">
+        {/* Brand Logo matching concept image */}
+        <div className="px-2">
+          <Logo />
         </div>
-        <Accordion
-          type="multiple"
-          className="space-y-1.5"
-          defaultValue={defaultAccordianValue}
-        >
-          {userMemberships.data.map(({ organization }) => (
-            <NavItem
-              key={organization.id}
-              isExpanded={expanded[organization.id]}
-              onExpand={onExpand}
-              organization={organization as OrganizationProps}
-              isActive={activeOrganization?.id === organization.id}
-            />
-          ))}
-        </Accordion>
+
+        {/* Workspace Menu */}
+        <div className="space-y-1">
+          <div className="px-2 pb-1.5">
+            <span className="text-[10px] font-mono uppercase tracking-wider text-[var(--landing-muted)] font-semibold">
+              Workspace
+            </span>
+          </div>
+          <nav className="space-y-0.5">
+            {routes.map((route) => {
+              const isActive = pathname === route.href;
+              const Icon = route.icon;
+
+              return (
+                <Link
+                  key={route.href}
+                  href={orgId ? route.href : "/select-org"}
+                  className={cn(
+                    "flex items-center gap-3 px-3 py-2 text-xs font-medium rounded-sm transition-all",
+                    isActive
+                      ? "bg-[var(--landing-panel-strong)] text-[var(--landing-text)] font-semibold border-l-2 border-[var(--landing-orange)] shadow-2xs"
+                      : "text-[var(--landing-muted)] hover:text-[var(--landing-text)] hover:bg-[var(--landing-panel)]"
+                  )}
+                >
+                  <Icon className={cn("w-4 h-4 shrink-0", isActive ? "text-[var(--landing-orange)]" : "text-[var(--landing-muted)]")} />
+                  <span className="truncate">{route.label}</span>
+                </Link>
+              );
+            })}
+          </nav>
+        </div>
+
+        {/* Pinned Boards Section matching concept image */}
+        <div className="space-y-2">
+          <div className="px-2">
+            <span className="text-[10px] font-mono uppercase tracking-wider text-[var(--landing-muted)] font-semibold">
+              Pinned Boards
+            </span>
+          </div>
+
+          {isLoadingBoards ? (
+            <div className="space-y-2 px-2">
+              <Skeleton className="h-6 w-full rounded-sm" />
+              <Skeleton className="h-6 w-full rounded-sm" />
+            </div>
+          ) : (
+            <div className="space-y-1">
+              {boards && boards.length > 0 ? (
+                boards.slice(0, 5).map((board, idx) => {
+                  const colorClass = PIN_COLORS[idx % PIN_COLORS.length];
+                  return (
+                    <Link
+                      key={board.id}
+                      href={`/board/${board.id}`}
+                      className="flex items-center gap-2.5 px-3 py-1.5 text-xs text-[var(--landing-muted)] hover:text-[var(--landing-text)] hover:bg-[var(--landing-panel)] rounded-sm transition group"
+                    >
+                      <span className={cn("w-2.5 h-2.5 rounded-xs shrink-0 shadow-xs", colorClass)} />
+                      <span className="truncate group-hover:translate-x-0.5 transition-transform">{board.title}</span>
+                    </Link>
+                  );
+                })
+              ) : (
+                <p className="px-3 text-[11px] text-[var(--landing-muted)] font-mono italic">
+                  No boards pinned yet
+                </p>
+              )}
+            </div>
+          )}
+        </div>
       </div>
 
-      <div className="pt-4 border-t border-[var(--landing-line)]">
-        <div className="p-3 rounded-sm border border-[var(--landing-line)] bg-[var(--landing-panel)] space-y-2 shadow-2xs">
-          <div className="flex items-center justify-between text-xs font-medium">
-            <span className="text-[var(--landing-text)] font-semibold flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-[var(--landing-orange)] animate-pulse" />
-              Free Plan
-            </span>
-            <span className="text-[10px] font-mono text-[var(--landing-muted)]">Active</span>
-          </div>
-          <div className="w-full bg-[var(--landing-panel-strong)] h-1.5 rounded-full overflow-hidden">
-            <div className="bg-[var(--landing-orange)] h-full rounded-full w-2/5" />
-          </div>
-          <div className="flex items-center justify-between text-[10px] text-[var(--landing-muted)]">
-            <span>5 boards max</span>
-            <Link 
-              href={activeOrganization ? `/organization/${activeOrganization.id}/billing` : "/select-org"}
-              className="text-[var(--landing-orange)] hover:underline font-medium"
-            >
-              Manage
-            </Link>
-          </div>
+      {/* Bottom Quota / Storage Progress Widget matching concept image */}
+      <div className="pt-4 border-t border-[var(--landing-line)] space-y-2 px-1">
+        <div className="flex items-center justify-between text-[11px]">
+          <span className="text-[var(--landing-muted)] font-medium">Free tier usage</span>
+          <span className="font-mono text-[10px] text-[var(--landing-orange)] font-semibold">
+            {percentage}%
+          </span>
         </div>
+        <div className="w-full bg-[var(--landing-panel-strong)] h-1.5 rounded-full overflow-hidden border border-[var(--landing-line)]">
+          <div
+            className="bg-[var(--landing-orange)] h-full rounded-full transition-all duration-300"
+            style={{ width: `${percentage}%` }}
+          />
+        </div>
+        <p className="text-[10px] font-mono text-[var(--landing-muted)]">
+          Progress : {boardCount} of {maxFreeBoards} boards
+        </p>
       </div>
-    </div>
+    </aside>
   );
 };
 
-export default Sidebar
+export default Sidebar;

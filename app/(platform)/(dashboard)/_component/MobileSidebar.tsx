@@ -29,9 +29,9 @@ export const MobileSidebar = () => {
 
                 <SheetContent
                     side="left"
-                    className="p-4 pt-12 bg-[var(--landing-bg)] text-[var(--landing-text)] border-r border-[var(--landing-line)] overflow-y-auto"
+                    className="p-2 pt-6 bg-[var(--landing-bg)] text-[var(--landing-text)] border-r border-[var(--landing-line)] overflow-y-auto w-72"
                 >
-                    <Sidebar storageKey="t-sidebar-mobile-state" />
+                    <Sidebar />
                 </SheetContent>
             </Sheet>
         </div>

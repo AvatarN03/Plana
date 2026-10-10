@@ -5,7 +5,6 @@ import { startCase } from "lodash";
 
 export async function generateMetadata() {
     const { orgSlug } = await auth();
-    console.log(orgSlug);
 
     const cleanSlug = orgSlug?.split("-")[0] || "";
 

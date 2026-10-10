@@ -188,35 +188,36 @@ export const BoardCardOptions = ({ id, title }: BoardCardOptionsProps) => {
       {/* Rename Dialog */}
       <Dialog open={renameOpen} onOpenChange={setRenameOpen}>
         <DialogContent
-          className="w-full max-w-sm p-5 border-[var(--landing-line)] bg-[var(--landing-panel)] text-[var(--landing-text)] rounded-sm shadow-2xl"
+          className="w-[90vw] max-w-[280px] p-3.5 border-[var(--landing-line)] bg-[var(--landing-panel)] text-[var(--landing-text)] rounded-[8px] shadow-2xl"
           onClick={(e) => e.stopPropagation()}
         >
           <DialogHeader className="pb-2 border-b border-[var(--landing-line)]">
-            <DialogTitle className="text-xs font-mono uppercase tracking-wider text-[var(--landing-muted)]">
+            <DialogTitle className="text-[11px] font-mono uppercase tracking-wider text-[var(--landing-muted)] font-semibold">
               Rename Board
             </DialogTitle>
           </DialogHeader>
 
-          <form action={onRenameSubmit} className="space-y-4 pt-2">
+          <form action={onRenameSubmit} className="space-y-3 pt-1">
             <FormInput
               id="title"
               label="Board title"
               defaultValue={title}
               errors={fieldErrors}
               placeholder="Enter new board name..."
+              classname="h-7.5 text-xs rounded-[5px]"
               required
             />
-            <div className="flex items-center justify-end gap-2">
+            <div className="flex items-center justify-end gap-1.5 pt-1">
               <Button
                 type="button"
                 variant="ghost"
                 size="sm"
                 onClick={() => setRenameOpen(false)}
-                className="h-8 text-xs rounded-sm text-[var(--landing-muted)] hover:text-[var(--landing-text)]"
+                className="h-7.5 px-2.5 text-xs rounded-[5px] text-[var(--landing-muted)] hover:text-[var(--landing-text)] cursor-pointer"
               >
                 Cancel
               </Button>
-              <FormSubmit classname="h-8 px-3 text-xs rounded-sm bg-[var(--landing-orange)] text-[var(--landing-orange-foreground)] font-semibold hover:brightness-110">
+              <FormSubmit classname="h-7.5 px-3 text-xs rounded-[5px] bg-[var(--landing-orange)] text-[var(--landing-orange-foreground)] font-semibold hover:brightness-110 cursor-pointer">
                 Save
               </FormSubmit>
             </div>

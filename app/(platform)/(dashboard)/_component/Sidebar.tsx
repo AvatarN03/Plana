@@ -14,9 +14,12 @@ import {
   Activity,
   CreditCard,
   LayoutGrid,
+  Plus,
   Settings,
   Users,
 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { FormPopover } from "@/components/forms/form-popover";
 
 const PIN_COLORS = [
   "bg-orange-500",
@@ -97,6 +100,19 @@ export const Sidebar = () => {
         {/* Brand Logo matching concept image */}
         <div className="px-2">
           <Logo />
+        </div>
+
+        {/* Primary Create Board Action above Workspace session */}
+        <div className="px-2">
+          <FormPopover>
+            <Button
+              size="sm"
+              className="w-full flex items-center justify-center gap-2 h-9 bg-[var(--landing-orange)] text-[var(--landing-orange-foreground)] hover:brightness-110 font-bold text-xs rounded-[6px] shadow-sm cursor-pointer transition-all hover:shadow-[0_0_16px_rgba(255,118,25,0.3)]"
+            >
+              <Plus className="size-4" />
+              <span>Create Board</span>
+            </Button>
+          </FormPopover>
         </div>
 
         {/* Workspace Menu */}

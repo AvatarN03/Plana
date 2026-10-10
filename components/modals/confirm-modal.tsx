@@ -43,20 +43,20 @@ export const ConfirmModal = ({
       <AlertDialogTrigger asChild disabled={disabled}>
         {children}
       </AlertDialogTrigger>
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>{header}</AlertDialogTitle>
-          <AlertDialogDescription>{description}</AlertDialogDescription>
+      <AlertDialogContent className="w-[90vw] max-w-[320px] p-4 bg-[var(--landing-panel)] border-[var(--landing-line)] text-[var(--landing-text)] rounded-[8px] shadow-2xl">
+        <AlertDialogHeader className="text-left pb-1">
+          <AlertDialogTitle className="text-sm font-semibold text-[var(--landing-text)]">{header}</AlertDialogTitle>
+          <AlertDialogDescription className="text-xs text-[var(--landing-muted)]">{description}</AlertDialogDescription>
         </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel disabled={disabled}>Cancel</AlertDialogCancel>
+        <AlertDialogFooter className="flex-row justify-end gap-2 mt-2">
+          <AlertDialogCancel disabled={disabled} className="h-7.5 px-3 text-xs rounded-[5px] text-[var(--landing-muted)] hover:text-[var(--landing-text)] border-[var(--landing-line)] bg-transparent hover:bg-[var(--landing-panel-strong)] cursor-pointer">Cancel</AlertDialogCancel>
           <AlertDialogAction
             disabled={disabled}
             onClick={handleConfirm}
             className={
               variant === "destructive"
-                ? "bg-red-600 hover:bg-red-700 text-white focus-visible:ring-red-600"
-                : ""
+                ? "h-7.5 px-3 text-xs rounded-[5px] bg-red-600 hover:bg-red-700 text-white font-medium cursor-pointer"
+                : "h-7.5 px-3 text-xs rounded-[5px] bg-[var(--landing-orange)] text-[var(--landing-orange-foreground)] font-semibold cursor-pointer"
             }
           >
             {confirmText}

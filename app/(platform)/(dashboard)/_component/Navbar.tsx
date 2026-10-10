@@ -1,12 +1,10 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { Plus, Search } from "lucide-react";
+import { Search } from "lucide-react";
 import Logo from "@/components/custom/Logo";
-import { Button } from "@/components/ui/button";
 import { MobileSidebar } from "./MobileSidebar";
 import { OrganizationSwitcher, UserButton } from "@clerk/nextjs";
-import { FormPopover } from "@/components/forms/form-popover";
 import { ThemeToggle } from "@/app/(marketing)/_components/theme-toggle";
 import { cn } from "@/lib/utils";
 
@@ -44,36 +42,10 @@ const Navbar = () => {
               </kbd>
             </div>
           )}
-
-          {/* Primary Create Board Button */}
-          <FormPopover side="bottom" sideOffSet={16} align="start">
-            <Button
-              size="sm"
-              className={cn(
-                "items-center gap-1.5 h-9 px-3.5 bg-[var(--landing-orange)] text-[var(--landing-orange-foreground)] hover:brightness-110 font-bold text-xs rounded-[6px] shadow-sm cursor-pointer transition-all hover:shadow-[0_0_16px_rgba(255,118,25,0.3)] shrink-0",
-                !isBoardPage ? "hidden md:inline-flex" : "hidden sm:inline-flex"
-              )}
-            >
-              <Plus className="size-4" />
-              <span>Create Board</span>
-            </Button>
-          </FormPopover>
         </div>
 
-        {/* Right Section: Mobile + Create, Theme Toggle, Org Switcher, User Button */}
+        {/* Right Section: Theme Toggle, Org Switcher, User Button */}
         <div className="flex items-center gap-x-2 sm:gap-x-3 shrink-0">
-          {/* Mobile + Create Board Icon Button */}
-          <FormPopover side="bottom" sideOffSet={16} align="end">
-            <Button
-              size="sm"
-              className={cn(
-                "grid size-9 place-items-center bg-[var(--landing-orange)] text-[var(--landing-orange-foreground)] rounded-[6px] p-0 cursor-pointer shadow-sm hover:brightness-110 shrink-0",
-                !isBoardPage ? "md:hidden" : "sm:hidden"
-              )}
-            >
-              <Plus className="size-4" />
-            </Button>
-          </FormPopover>
 
           <ThemeToggle />
 

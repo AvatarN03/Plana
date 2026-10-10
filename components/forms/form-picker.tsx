@@ -43,7 +43,7 @@ export const FormPicker = ({
             try {
                 const result = await unsplash.photos.getRandom({
                     collectionIds: ['317099'],
-                    count: 9
+                    count: 6
                 })
                 
                 if (result && result.response) {
@@ -62,18 +62,18 @@ export const FormPicker = ({
 
     if (isloading) {
         return (
-            <div className="flex items-center justify-center p-6">
-                <Loader2 className="w-6 h-6 text-[var(--landing-orange)] animate-spin" />
+            <div className="flex items-center justify-center p-4">
+                <Loader2 className="w-5 h-5 text-[var(--landing-orange)] animate-spin" />
             </div>
         );
     }
 
     return (
         <div className="relative">
-            <div className="grid grid-cols-3 gap-2 mb-1.5">
+            <div className="grid grid-cols-3 gap-1.5 mb-1">
                 {
-                    images.map(image => (
-                        <div className={cn("cursor-pointer relative aspect-video group hover:opacity-75 transition bg-muted rounded-[6px] overflow-hidden", pending && "opacity-50 cursor-auto hover:opacity-50")}
+                    images.slice(0, 6).map(image => (
+                        <div className={cn("cursor-pointer relative aspect-video group hover:opacity-75 transition bg-muted rounded-[4px] overflow-hidden", pending && "opacity-50 cursor-auto hover:opacity-50")}
                             key={image.id}
                             onClick={() => {
                                 if (pending) return;
@@ -100,8 +100,8 @@ export const FormPicker = ({
                             {
                                 selectedImage === image.id && (
                                     <div className="absolute inset-y-0 w-full h-full flex justify-center items-center border border-[var(--landing-orange)] bg-black/40">
-                                        <div className="w-5 h-5 rounded-full bg-[var(--landing-orange)] flex items-center justify-center">
-                                            <Check className="w-3 h-3 text-white" />
+                                        <div className="w-4 h-4 rounded-full bg-[var(--landing-orange)] flex items-center justify-center">
+                                            <Check className="w-2.5 h-2.5 text-white" />
                                         </div>
                                     </div>
                                 )
@@ -110,7 +110,7 @@ export const FormPicker = ({
                                 <Link
                                     href={image.links.html}
                                     target="_blank"
-                                    className="bg-black/50 text-white group-hover:opacity-100 opacity-0 absolute bottom-0 left-0 truncate text-xs w-full p-1 text-center">
+                                    className="bg-black/50 text-white group-hover:opacity-100 opacity-0 absolute bottom-0 left-0 truncate text-[10px] w-full py-0.5 px-1 text-center">
                                     {image.user.name}
                                 </Link>
                             )}

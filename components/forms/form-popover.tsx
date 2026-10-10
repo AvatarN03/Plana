@@ -64,9 +64,9 @@ export const FormPopover = ({ children }: FormPopoverProps) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="w-[92vw] max-w-[360px] p-4 sm:p-5 border-[var(--landing-line)] bg-[var(--landing-panel)] text-[var(--landing-text)] rounded-[10px] shadow-2xl">
-        <DialogHeader className="pb-2.5 border-b border-[var(--landing-line)]">
-          <DialogTitle className="text-xs font-mono uppercase tracking-wider text-center text-[var(--landing-muted)] font-semibold">
+      <DialogContent className="w-[90vw] max-w-[290px] sm:max-w-[300px] p-3.5 border-[var(--landing-line)] bg-[var(--landing-panel)] text-[var(--landing-text)] rounded-[8px] shadow-2xl">
+        <DialogHeader className="pb-2 border-b border-[var(--landing-line)]">
+          <DialogTitle className="text-[11px] font-mono uppercase tracking-wider text-center text-[var(--landing-muted)] font-semibold">
             Create board
           </DialogTitle>
         </DialogHeader>
@@ -75,14 +75,14 @@ export const FormPopover = ({ children }: FormPopoverProps) => {
           <Button
             variant="ghost"
             size="sm"
-            className="absolute right-2.5 top-2.5 h-6 w-6 p-0 cursor-pointer rounded-[4px] text-[var(--landing-muted)] hover:text-[var(--landing-text)]"
+            className="absolute right-2 top-2 h-5 w-5 p-0 cursor-pointer rounded-[4px] text-[var(--landing-muted)] hover:text-[var(--landing-text)]"
           >
-            <X className="h-3.5 w-3.5" />
+            <X className="h-3 w-3" />
           </Button>
         </DialogClose>
 
-        <form className="space-y-3 pt-1" action={onSubmit}>
-          <div className="space-y-3">
+        <form className="space-y-2.5 pt-0.5" action={onSubmit}>
+          <div className="space-y-2">
             <FormPicker id="cover" errors={fieldErrors} />
             <FormInput
               label="Board name"
@@ -90,28 +90,28 @@ export const FormPopover = ({ children }: FormPopoverProps) => {
               type="text"
               placeholder="e.g. Project Alpha"
               errors={fieldErrors}
-              classname="h-8 rounded-[6px]"
+              classname="h-7.5 text-xs rounded-[5px]"
             />
             <div className="space-y-1">
               <label
                 htmlFor="template"
-                className="text-xs font-semibold text-[var(--landing-text)]"
+                className="text-[11px] font-semibold text-[var(--landing-text)]"
               >
                 Starter Template
               </label>
               <Select value={template} onValueChange={setTemplate}>
                 <SelectTrigger
                   id="template"
-                  className="w-full h-8 text-xs bg-[var(--landing-panel-strong)] border-[var(--landing-line)] text-[var(--landing-text)] rounded-[6px] focus-visible:ring-1 focus-visible:ring-[var(--landing-orange)] cursor-pointer"
+                  className="w-full h-7.5 text-xs bg-[var(--landing-panel-strong)] border-[var(--landing-line)] text-[var(--landing-text)] rounded-[5px] focus-visible:ring-1 focus-visible:ring-[var(--landing-orange)] cursor-pointer"
                 >
                   <SelectValue placeholder="Choose a template" />
                 </SelectTrigger>
-                <SelectContent className="bg-[var(--landing-panel)] border-[var(--landing-line)] text-[var(--landing-text)] rounded-[8px] shadow-xl">
+                <SelectContent className="bg-[var(--landing-panel)] border-[var(--landing-line)] text-[var(--landing-text)] rounded-[6px] shadow-xl">
                   <SelectItem
                     value="BLANK"
                     className="text-xs hover:bg-[var(--landing-panel-strong)] cursor-pointer"
                   >
-                    Blank Board (Start fresh)
+                    Blank Board
                   </SelectItem>
                   <SelectItem
                     value="SOFTWARE"
@@ -129,7 +129,7 @@ export const FormPopover = ({ children }: FormPopoverProps) => {
               </Select>
             </div>
           </div>
-          <FormSubmit classname="w-full cursor-pointer bg-[var(--landing-orange)] text-[var(--landing-orange-foreground)] hover:brightness-110 rounded-[6px] text-xs font-bold h-8.5 mt-2">
+          <FormSubmit classname="w-full cursor-pointer bg-[var(--landing-orange)] text-[var(--landing-orange-foreground)] hover:brightness-110 rounded-[6px] text-xs font-bold h-8 mt-1.5">
             Create board
           </FormSubmit>
         </form>

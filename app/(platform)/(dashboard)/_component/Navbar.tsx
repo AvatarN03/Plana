@@ -50,7 +50,7 @@ const Navbar = () => {
             <Button
               size="sm"
               className={cn(
-                "items-center gap-1.5 h-9 px-3.5 bg-[var(--landing-orange)] text-[var(--landing-orange-foreground)] hover:brightness-110 font-bold text-xs rounded-sm shadow-sm cursor-pointer transition-all hover:shadow-[0_0_16px_rgba(255,118,25,0.3)] shrink-0",
+                "items-center gap-1.5 h-9 px-3.5 bg-[var(--landing-orange)] text-[var(--landing-orange-foreground)] hover:brightness-110 font-bold text-xs rounded-[6px] shadow-sm cursor-pointer transition-all hover:shadow-[0_0_16px_rgba(255,118,25,0.3)] shrink-0",
                 !isBoardPage ? "hidden md:inline-flex" : "hidden sm:inline-flex"
               )}
             >
@@ -67,7 +67,7 @@ const Navbar = () => {
             <Button
               size="sm"
               className={cn(
-                "grid size-9 place-items-center bg-[var(--landing-orange)] text-[var(--landing-orange-foreground)] rounded-sm p-0 cursor-pointer shadow-sm hover:brightness-110 shrink-0",
+                "grid size-9 place-items-center bg-[var(--landing-orange)] text-[var(--landing-orange-foreground)] rounded-[6px] p-0 cursor-pointer shadow-sm hover:brightness-110 shrink-0",
                 !isBoardPage ? "md:hidden" : "sm:hidden"
               )}
             >

@@ -10,6 +10,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../ui/dialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
 import { FormInput } from "./form-input";
 import { FormSubmit } from "./form-submit";
 import { useAction } from "@/hooks/use-action";
@@ -29,6 +36,7 @@ interface FormPopoverProps {
 
 export const FormPopover = ({ children }: FormPopoverProps) => {
   const [open, setOpen] = useState(false);
+  const [template, setTemplate] = useState<string>("BLANK");
   const closeRef = useRef<ElementRef<typeof DialogClose>>(null);
   const router = useRouter();
   const queryClient = useQueryClient();
@@ -48,18 +56,17 @@ export const FormPopover = ({ children }: FormPopoverProps) => {
   const onSubmit = async (formData: FormData) => {
     const title = formData.get("title") as string;
     const image = formData.get("cover") as string;
-    const template =
-      (formData.get("template") as "BLANK" | "SOFTWARE" | "PERSONAL") ||
-      undefined;
-    await execute({ title, image, template });
+    const selectedTemplate =
+      (template as "BLANK" | "SOFTWARE" | "PERSONAL") || undefined;
+    await execute({ title, image, template: selectedTemplate });
   };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="w-full max-w-md p-6 border-[var(--landing-line)] bg-[var(--landing-panel)] text-[var(--landing-text)] rounded-sm shadow-2xl">
-        <DialogHeader className="pb-3 border-b border-[var(--landing-line)]">
-          <DialogTitle className="text-sm font-mono uppercase tracking-wider text-center text-[var(--landing-muted)]">
+      <DialogContent className="w-[92vw] max-w-[360px] p-4 sm:p-5 border-[var(--landing-line)] bg-[var(--landing-panel)] text-[var(--landing-text)] rounded-[10px] shadow-2xl">
+        <DialogHeader className="pb-2.5 border-b border-[var(--landing-line)]">
+          <DialogTitle className="text-xs font-mono uppercase tracking-wider text-center text-[var(--landing-muted)] font-semibold">
             Create board
           </DialogTitle>
         </DialogHeader>
@@ -68,14 +75,14 @@ export const FormPopover = ({ children }: FormPopoverProps) => {
           <Button
             variant="ghost"
             size="sm"
-            className="absolute right-3 top-3 h-7 w-7 p-0 cursor-pointer rounded-sm text-[var(--landing-muted)] hover:text-[var(--landing-text)]"
+            className="absolute right-2.5 top-2.5 h-6 w-6 p-0 cursor-pointer rounded-[4px] text-[var(--landing-muted)] hover:text-[var(--landing-text)]"
           >
-            <X className="h-4 w-4" />
+            <X className="h-3.5 w-3.5" />
           </Button>
         </DialogClose>
 
-        <form className="space-y-4 pt-2" action={onSubmit}>
-          <div className="space-y-4">
+        <form className="space-y-3 pt-1" action={onSubmit}>
+          <div className="space-y-3">
             <FormPicker id="cover" errors={fieldErrors} />
             <FormInput
               label="Board name"
@@ -83,42 +90,46 @@ export const FormPopover = ({ children }: FormPopoverProps) => {
               type="text"
               placeholder="e.g. Project Alpha"
               errors={fieldErrors}
+              classname="h-8 rounded-[6px]"
             />
-            <div className="space-y-1.5">
+            <div className="space-y-1">
               <label
                 htmlFor="template"
                 className="text-xs font-semibold text-[var(--landing-text)]"
               >
                 Starter Template
               </label>
-              <select
-                name="template"
-                id="template"
-                defaultValue="BLANK"
-                className="w-full text-xs p-2 border border-[var(--landing-line)] rounded-sm bg-[var(--landing-panel-strong)] text-[var(--landing-text)] focus:outline-none focus:border-[var(--landing-orange)] cursor-pointer"
-              >
-                <option
-                  value="BLANK"
-                  className="bg-[var(--landing-panel)] text-[var(--landing-text)]"
+              <Select value={template} onValueChange={setTemplate}>
+                <SelectTrigger
+                  id="template"
+                  className="w-full h-8 text-xs bg-[var(--landing-panel-strong)] border-[var(--landing-line)] text-[var(--landing-text)] rounded-[6px] focus-visible:ring-1 focus-visible:ring-[var(--landing-orange)] cursor-pointer"
                 >
-                  Blank Board (Start from scratch)
-                </option>
-                <option
-                  value="SOFTWARE"
-                  className="bg-[var(--landing-panel)] text-[var(--landing-text)]"
-                >
-                  Software Kanban (5 lists)
-                </option>
-                <option
-                  value="PERSONAL"
-                  className="bg-[var(--landing-panel)] text-[var(--landing-text)]"
-                >
-                  Personal Tasks (4 lists)
-                </option>
-              </select>
+                  <SelectValue placeholder="Choose a template" />
+                </SelectTrigger>
+                <SelectContent className="bg-[var(--landing-panel)] border-[var(--landing-line)] text-[var(--landing-text)] rounded-[8px] shadow-xl">
+                  <SelectItem
+                    value="BLANK"
+                    className="text-xs hover:bg-[var(--landing-panel-strong)] cursor-pointer"
+                  >
+                    Blank Board (Start fresh)
+                  </SelectItem>
+                  <SelectItem
+                    value="SOFTWARE"
+                    className="text-xs hover:bg-[var(--landing-panel-strong)] cursor-pointer"
+                  >
+                    Software Kanban (5 lists)
+                  </SelectItem>
+                  <SelectItem
+                    value="PERSONAL"
+                    className="text-xs hover:bg-[var(--landing-panel-strong)] cursor-pointer"
+                  >
+                    Personal Tasks (4 lists)
+                  </SelectItem>
+                </SelectContent>
+              </Select>
             </div>
           </div>
-          <FormSubmit classname="w-full cursor-pointer bg-[var(--landing-orange)] text-[var(--landing-orange-foreground)] hover:brightness-110 rounded-sm text-xs font-bold h-9">
+          <FormSubmit classname="w-full cursor-pointer bg-[var(--landing-orange)] text-[var(--landing-orange-foreground)] hover:brightness-110 rounded-[6px] text-xs font-bold h-8.5 mt-2">
             Create board
           </FormSubmit>
         </form>

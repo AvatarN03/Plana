@@ -91,9 +91,9 @@ export const BoardList = async () => {
         <FormPopover align="center" side="right">
           <div
             role="button"
-            className="aspect-[16/10] rounded-sm flex flex-col gap-y-2 bg-[var(--landing-panel)] hover:bg-[var(--landing-panel-strong)] border border-dashed border-[var(--landing-line)] hover:border-[var(--landing-orange)] w-full h-full relative justify-center transition items-center cursor-pointer p-6 text-center group shadow-2xs"
+            className="aspect-[16/10] rounded-[8px] flex flex-col gap-y-2 bg-[var(--landing-panel)] hover:bg-[var(--landing-panel-strong)] border border-dashed border-[var(--landing-line)] hover:border-[var(--landing-orange)] w-full h-full relative justify-center transition items-center cursor-pointer p-6 text-center group shadow-2xs"
           >
-            <div className="w-9 h-9 rounded-sm bg-[var(--landing-panel-strong)] group-hover:bg-[var(--landing-orange-soft)] border border-[var(--landing-line)] group-hover:border-[var(--landing-orange)] flex items-center justify-center transition-colors">
+            <div className="w-9 h-9 rounded-[6px] bg-[var(--landing-panel-strong)] group-hover:bg-[var(--landing-orange-soft)] border border-[var(--landing-line)] group-hover:border-[var(--landing-orange)] flex items-center justify-center transition-colors">
               <Plus className="w-5 h-5 text-[var(--landing-orange)]" />
             </div>
             <div className="space-y-0.5 pt-1">

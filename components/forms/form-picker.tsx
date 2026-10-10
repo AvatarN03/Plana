@@ -70,10 +70,10 @@ export const FormPicker = ({
 
     return (
         <div className="relative">
-            <div className="grid grid-cols-3 gap-4 mb-2">
+            <div className="grid grid-cols-3 gap-2 mb-1.5">
                 {
                     images.map(image => (
-                        <div className={cn("cursor-pointer relative aspect-video  group hover:opacity-75 transition bg-muted", pending && "opacity-50 cursor-auto hover:opacity-50")}
+                        <div className={cn("cursor-pointer relative aspect-video group hover:opacity-75 transition bg-muted rounded-[6px] overflow-hidden", pending && "opacity-50 cursor-auto hover:opacity-50")}
                             key={image.id}
                             onClick={() => {
                                 if (pending) return;
@@ -95,12 +95,14 @@ export const FormPicker = ({
                                 fill
                                 src={image.urls.thumb}
                                 alt={image.alt_description || "Cover image"}
-                                className="rounded-sm object-cover"
+                                className="object-cover"
                             />
                             {
                                 selectedImage === image.id && (
-                                    <div className="absolute inset-y-0 w-full h-full flex justify-center items-center border-2 bg-black/30">
-                                        <Check className="w-4 h-4 text-white bg-indigo-400 rounded-full" />
+                                    <div className="absolute inset-y-0 w-full h-full flex justify-center items-center border border-[var(--landing-orange)] bg-black/40">
+                                        <div className="w-5 h-5 rounded-full bg-[var(--landing-orange)] flex items-center justify-center">
+                                            <Check className="w-3 h-3 text-white" />
+                                        </div>
                                     </div>
                                 )
                             }

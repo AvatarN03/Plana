@@ -50,23 +50,22 @@ export const FormPicker = ({
                     const newImages = result.response as FormPickerImage[]
                     setImages(newImages)
                 }
-            } catch (error) {
-                setImages(defaultImages as FormPickerImage[])
-                console.error('Error fetching images:', error);
+            } catch {
+                setImages(defaultImages as FormPickerImage[]);
             } finally {
                 setIsLoading(false);
             }
-        }
+        };
 
         fetchImages();
-    }, [])
+    }, []);
 
     if (isloading) {
         return (
             <div className="flex items-center justify-center p-6">
-                <Loader2 className="w-6 h-6 text-sky-700 animate-spin" />
+                <Loader2 className="w-6 h-6 text-[var(--landing-orange)] animate-spin" />
             </div>
-        )
+        );
     }
 
     return (

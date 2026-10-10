@@ -22,16 +22,15 @@ export default function SignUpPage() {
         },
         elements: {
           rootBox: "w-full",
-          cardBox: "!bg-[var(--landing-panel)] !border !border-[var(--landing-line)] !shadow-none !rounded-sm w-full",
-          card: "!bg-transparent !border-0 !shadow-none !rounded-sm w-full !text-[var(--landing-text)]",
+          cardBox: "!bg-landing-panel !border !border-landing-line !shadow-none !rounded-sm w-full",
+          card: "!bg-transparent !border-0 !shadow-none !rounded-sm w-full !text-landing-text",
           formFieldInput: "!rounded-sm",
           formButtonPrimary: "!rounded-sm",
           socialButtonsBlockButton: "!rounded-sm",
-          footer: "!bg-transparent !border-t !border-[var(--landing-line)] !border-b-0 !border-x-0 !m-0",
+          footer: "!bg-transparent !border-t !border-landing-line !border-b-0 !border-x-0 !m-0",
           footerAction: "!border-0",
         },
       }}
     />
   );
 }
-

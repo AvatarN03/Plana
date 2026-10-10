@@ -90,8 +90,8 @@ export const Description = ({ data }: DescriptionProps) => {
                                     classname="w-full mt-2"
                                     defaultValue={description || undefined}
                                 />
-                                <div className="flex items-center gap-x-4 mt-4">
-                                    <FormSubmit classname="bg-[var(--landing-orange)] text-[var(--landing-orange-foreground)] hover:brightness-110 rounded-none text-xs font-bold">
+                                <div className="flex items-center gap-x-3 mt-3">
+                                    <FormSubmit classname="bg-[var(--landing-orange)] text-[var(--landing-orange-foreground)] hover:brightness-110 rounded-sm text-xs font-semibold h-8 px-3">
                                         Save
                                     </FormSubmit>
                                     <Button
@@ -99,7 +99,7 @@ export const Description = ({ data }: DescriptionProps) => {
                                         variant={"ghost"}
                                         size={"sm"}
                                         onClick={disableEditing}
-                                        className="text-[var(--landing-muted)] hover:text-[var(--landing-text)] rounded-none"
+                                        className="text-[var(--landing-muted)] hover:text-[var(--landing-text)] rounded-sm h-8"
                                     >
                                         Cancel
                                     </Button>
@@ -107,7 +107,7 @@ export const Description = ({ data }: DescriptionProps) => {
                             </form>
                         </div>
                     ) : (
-                        <div onClick={enableEditing} role="button" className="bg-[var(--landing-panel-strong)] border border-[var(--landing-line)] hover:border-[var(--landing-orange)] min-h-24 text-sm font-medium p-3 rounded-none text-[var(--landing-text)] transition cursor-pointer">
+                        <div onClick={enableEditing} role="button" className="bg-[var(--landing-panel-strong)] border border-[var(--landing-line)] hover:border-[var(--landing-orange)] min-h-24 text-sm font-medium p-3 rounded-sm text-[var(--landing-text)] transition cursor-pointer">
                             {description || "Add more detail to your card..."}
                         </div>
                     )

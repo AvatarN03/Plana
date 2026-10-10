@@ -59,7 +59,7 @@ export const Actions = ({
             <p className="text-xs font-semibold text-[var(--landing-text)]">Actions</p>
 
             <Button
-                className="w-full flex items-center justify-start cursor-pointer border-[var(--landing-line)] bg-[var(--landing-panel)] hover:bg-[var(--landing-panel-strong)] text-[var(--landing-text)] rounded-none"
+                className="w-full flex items-center justify-start cursor-pointer border-[var(--landing-line)] bg-[var(--landing-panel)] hover:bg-[var(--landing-panel-strong)] text-[var(--landing-text)] rounded-sm"
                 variant={"outline"}
                 size={"sm"}
                 onClick={onCopy}
@@ -75,7 +75,7 @@ export const Actions = ({
                 disabled={isLoadingDelete}
             >
                 <Button
-                    className="w-full flex items-center justify-start cursor-pointer rounded-none"
+                    className="w-full flex items-center justify-start cursor-pointer rounded-sm"
                     variant={"destructive"}
                     size={"sm"}
                     disabled={isLoadingDelete}

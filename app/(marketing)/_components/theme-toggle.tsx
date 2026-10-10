@@ -38,9 +38,10 @@ export function ThemeToggle() {
             type="button"
             onClick={toggle}
             aria-label="Toggle theme"
-            className="grid size-8 place-items-center rounded-md border border-[var(--landing-line)] text-[var(--landing-muted)] hover:text-[var(--landing-orange)] transition-colors cursor-pointer"
+            title={light ? "Switch to dark mode" : "Switch to light mode"}
+            className="grid size-9 place-items-center rounded-sm border border-[var(--landing-line)] bg-[var(--landing-panel)] text-[var(--landing-muted)] hover:text-[var(--landing-orange)] hover:border-[var(--landing-orange)]/60 transition-all duration-200 cursor-pointer shadow-2xs shrink-0"
         >
-            {light ? <Moon className="size-3.5" /> : <Sun className="size-3.5" />}
+            {light ? <Moon className="size-4" /> : <Sun className="size-4 text-[var(--landing-orange)]" />}
         </button>
     );
 }

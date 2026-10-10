@@ -2,14 +2,9 @@
 
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
-
 import Sidebar from "./Sidebar";
-
-import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
-
 import { useMobileSidebar } from "@/hooks/use-mobile-sidebar";
-
 import { Menu } from "lucide-react";
 
 export const MobileSidebar = () => {
@@ -17,34 +12,28 @@ export const MobileSidebar = () => {
     const { isOpen, onOpen, onClose } = useMobileSidebar();
 
     useEffect(() => {
-        onClose()
-    }, [pathname, onClose]) // whenever our url changes then the sidebar is closed;
-
-
-
+        onClose();
+    }, [pathname, onClose]);
 
     return (
-        <div className="relative">
-            <Sheet open={isOpen} onOpenChange={onClose}  >
-                <Button
-                    size={"sm"}
-                    className="block md:hidden"
-                    variant={"ghost"}
+        <div className="relative md:hidden">
+            <Sheet open={isOpen} onOpenChange={onClose}>
+                <button
+                    type="button"
                     onClick={onOpen}
+                    aria-label="Toggle navigation menu"
+                    className="grid size-9 place-items-center rounded-sm border border-[var(--landing-line)] bg-[var(--landing-panel)] text-[var(--landing-text)] hover:text-[var(--landing-orange)] hover:border-[var(--landing-orange)]/60 transition-colors cursor-pointer"
                 >
-                    <Menu className="w-4 h-4" />
-                </Button>
+                    <Menu className="size-4" />
+                </button>
 
                 <SheetContent
                     side="left"
-                    className="p-2 pt-10 transform transition-all duration-300 ease-in-out"
-
+                    className="p-4 pt-12 bg-[var(--landing-bg)] text-[var(--landing-text)] border-r border-[var(--landing-line)] overflow-y-auto"
                 >
-                    <Sidebar
-                        storageKey="t-sidebar-mobile-state"
-                    />
+                    <Sidebar storageKey="t-sidebar-mobile-state" />
                 </SheetContent>
             </Sheet>
         </div>
-    )
-}
+    );
+};

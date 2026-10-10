@@ -10,12 +10,12 @@ interface BoardNavbarProps {
 
 export const BoardNavbar = ({ data }: BoardNavbarProps) => {
   return (
-    <div className="fixed inset-0 h-14 z-40 bg-black/50 top-14 flex items-center w-full px-6 gap-x-4 text-white">
+    <div className="fixed inset-x-0 h-14 z-40 bg-black/60 backdrop-blur-md top-16 flex items-center w-full px-6 gap-x-4 text-white border-b border-white/10 shadow-sm">
       <BoardTitleForm data={data} />
       <div className="ml-auto flex items-center gap-x-2">
         <BoardFilter />
         <BoardOptions id={data.id} />
       </div>
     </div>
-  )
-}
+  );
+};

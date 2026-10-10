@@ -5,10 +5,10 @@ import { ActivityList } from "./_components/activity-list";
 
 const ActivityPage = () => {
   return (
-    <div className="w-full mb-20">
+    <div className="w-full pb-16 space-y-6">
       <Info />
-      <Separator className="my-4" />
-      <div className="px-2 md:px-4">
+      <Separator className="bg-[var(--landing-line)]" />
+      <div>
         <Suspense fallback={<ActivityList.Skeleton />}>
           <ActivityList />
         </Suspense>
@@ -18,4 +18,3 @@ const ActivityPage = () => {
 };
 
 export default ActivityPage;
-

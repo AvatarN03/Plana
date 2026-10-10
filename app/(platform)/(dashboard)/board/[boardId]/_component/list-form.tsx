@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useRef } from "react"
-import { Plus, X } from 'lucide-react';
-import { ListWrapper } from './list-wrapper'
+import { useState, useRef } from "react";
+import { Plus, X } from "lucide-react";
+import { ListWrapper } from "./list-wrapper";
 import { useEventListener, useOnClickOutside } from "usehooks-ts";
 import { FormInput } from "@/components/forms/form-input";
 import { useParams, useRouter } from "next/navigation";
@@ -13,7 +13,6 @@ import { createList } from "@/actions/create-list";
 import { toast } from "sonner";
 
 export const ListForm = () => {
-
   const params = useParams();
   const [isEditing, setIsEditing] = useState(false);
   const formRef = useRef<HTMLFormElement>(null!);
@@ -24,18 +23,18 @@ export const ListForm = () => {
     setIsEditing(true);
     setTimeout(() => {
       inputRef?.current?.focus();
-    })
-  }
+    });
+  };
 
   const disableEditing = () => {
     setIsEditing(false);
-  }
+  };
 
   const onKeyDown = (e: KeyboardEvent) => {
-    if (e.key == 'Escape') {
+    if (e.key === "Escape") {
       disableEditing();
     }
-  }
+  };
 
   const { execute, fieldErrors } = useAction(createList, {
     onSuccess: () => {
@@ -45,10 +44,10 @@ export const ListForm = () => {
     },
     onError: (error) => {
       toast.error(error);
-    }
-  })
+    },
+  });
 
-  useEventListener('keydown', onKeyDown);
+  useEventListener("keydown", onKeyDown);
   useOnClickOutside(formRef, disableEditing);
 
   const onSubmit = async (formData: FormData) => {
@@ -56,50 +55,57 @@ export const ListForm = () => {
     const boardId = formData.get("boardId") as string;
 
     await execute({ title, boardId });
-  }
+  };
 
   if (isEditing) {
     return (
       <ListWrapper>
-        <form action={onSubmit} ref={formRef} className="w-full p-3 rounded-md bg-white space-y-4 shadow-md">
+        <form
+          action={onSubmit}
+          ref={formRef}
+          className="w-full p-3 rounded-sm bg-[var(--landing-panel)] border border-[var(--landing-line)] space-y-3 shadow-md"
+        >
           <FormInput
             id="title"
             errors={fieldErrors}
-            placeholder="Enter the list title..."
-            classname="px-2 py-1 h-7 text-sm font-medium border-transparent hover:border-input focus:border-input transition"
+            placeholder="Enter list title..."
+            classname="px-2 py-1 h-8 text-sm font-medium"
           />
 
-          <input type="text"
+          <input
+            type="text"
             hidden
-            value={params.boardId}
+            value={params.boardId as string}
             name="boardId"
           />
-          <div className="flex items-center gap-3">
-            <FormSubmit>Add List</FormSubmit>
+          <div className="flex items-center gap-2">
+            <FormSubmit classname="bg-[var(--landing-orange)] text-[var(--landing-orange-foreground)] hover:brightness-110 rounded-sm text-xs font-semibold h-8 px-3">
+              Add List
+            </FormSubmit>
             <Button
+              type="button"
               onClick={disableEditing}
-              size={"sm"}
-              variant={"destructive"}
-              className="cursor-pointer"
+              size="sm"
+              variant="ghost"
+              className="h-8 w-8 p-0 rounded-sm cursor-pointer text-[var(--landing-muted)] hover:text-[var(--landing-text)]"
             >
               <X className="w-4 h-4" />
             </Button>
           </div>
         </form>
       </ListWrapper>
-    )
+    );
   }
-
 
   return (
     <ListWrapper>
       <button
         onClick={enableEditing}
-        className='flex items-center p-4 bg-white/80 rounded-md shadow-md font-medium text-sm hover:bg-white/50 transition w-full cursor-pointer'
+        className="flex items-center p-3 bg-black/40 hover:bg-black/60 backdrop-blur-md rounded-sm border border-white/20 hover:border-white/40 shadow-sm font-medium text-xs text-white transition w-full cursor-pointer"
       >
-        <Plus className="w-4 h-4 mr-2" />
-        Add List
+        <Plus className="w-4 h-4 mr-2 text-[var(--landing-orange)]" />
+        Add another list
       </button>
     </ListWrapper>
-  )
-}
+  );
+};

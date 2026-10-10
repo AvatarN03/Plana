@@ -44,7 +44,7 @@ export const ListItem = ({
                         className="shrink-0 h-full w-68 select-none">
                         <div
                             {...provided.dragHandleProps}
-                            className="w-full rounded-md bg-[#f1f2f4] shadow-md pb-2">
+                            className="w-full rounded-sm bg-[var(--landing-panel)] border border-[var(--landing-line)] shadow-sm pb-2 text-[var(--landing-text)]">
 
                             <ListHeader
                                 data={data} onAddCard={enableEditing} />

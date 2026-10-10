@@ -1,3 +1,4 @@
+"use client";
 
 import { createCard } from "@/actions/create-card";
 import { FormSubmit } from "@/components/forms/form-submit";
@@ -11,10 +12,10 @@ import { toast } from "sonner";
 import { useEventListener, useOnClickOutside } from "usehooks-ts";
 
 interface CardFormProps {
-    listId: string,
-    enableEditing: () => void
-    disableEditing: () => void
-    isEditing: boolean
+    listId: string;
+    enableEditing: () => void;
+    disableEditing: () => void;
+    isEditing: boolean;
 }
 
 export const CardForm = forwardRef<HTMLTextAreaElement, CardFormProps>(({
@@ -23,14 +24,12 @@ export const CardForm = forwardRef<HTMLTextAreaElement, CardFormProps>(({
     disableEditing,
     isEditing
 }, ref) => {
-
     const params = useParams();
-
     const boardId = params.boardId as string;
 
     const { execute, fieldErrors } = useAction(createCard, {
         onSuccess: (data) => {
-            toast.success(`Card ${data.title} created successfully`);
+            toast.success(`Card "${data.title}" created successfully`);
             disableEditing();
         },
         onError: (error) => {
@@ -40,78 +39,80 @@ export const CardForm = forwardRef<HTMLTextAreaElement, CardFormProps>(({
 
     const formRef = useRef<HTMLFormElement>(null!);
 
-
     const onKeyDown = (e: KeyboardEvent) => {
         if (e.key === "Escape") {
             disableEditing();
         }
-    }
+    };
 
     const onTextAreaKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
         if (e.key === "Enter" && !e.shiftKey) {
             e.preventDefault();
             formRef?.current?.requestSubmit();
         }
-    }
-
+    };
 
     const onSubmit = async (formData: FormData) => {
         const title = formData.get("title") as string;
-        const listId = formData.get("listId") as string;
-        console.log( {title, boardId, listId })
-        await execute({ title, boardId, listId });
-    }
+        const targetListId = formData.get("listId") as string;
+        await execute({ title, boardId, listId: targetListId });
+    };
 
     useEventListener("keydown", onKeyDown);
     useOnClickOutside(formRef, disableEditing);
 
-
-
     if (isEditing) {
         return (
-            <form ref={formRef} action={onSubmit}
-                className="m-1 py-0.5 px-1 space-y-4"
+            <form 
+                ref={formRef} 
+                action={onSubmit}
+                className="m-1 py-1 px-1 space-y-3"
             >
                 <FormTextArea
-                    id={"title"}
+                    id="title"
                     errors={fieldErrors}
                     onKeyDown={onTextAreaKeyDown}
                     ref={ref}
-                    placeholder="Enter the card name...."
+                    placeholder="Enter card title..."
                 />
-                <input type="text"
+                <input 
+                    type="text"
                     hidden
-                    id={"listId"}
-                    name={"listId"}
+                    id="listId"
+                    name="listId"
                     defaultValue={listId}
                 />
-                <div className="flex items-center gap-x-1">
-                    <FormSubmit>
+                <div className="flex items-center gap-x-1.5">
+                    <FormSubmit classname="bg-[var(--landing-orange)] text-[var(--landing-orange-foreground)] hover:brightness-110 rounded-sm text-xs font-semibold h-8 px-3">
                         Add Card
                     </FormSubmit>
-                    <Button variant={"ghost"} onClick={disableEditing}>
-                        <X className="w-5 h-5" />
+                    <Button 
+                        type="button"
+                        variant="ghost" 
+                        size="sm"
+                        onClick={disableEditing}
+                        className="h-8 w-8 p-0 rounded-sm text-[var(--landing-muted)] hover:text-[var(--landing-text)]"
+                    >
+                        <X className="w-4 h-4" />
                     </Button>
                 </div>
             </form>
-        )
+        );
     }
 
-
     return (
-        <div className="p-2 pb-0">
+        <div className="px-2 pt-1 pb-1">
             <Button
                 onClick={enableEditing}
-                variant={"ghost"}
+                variant="ghost"
                 size="sm"
-                className="h-auto w-full flex justify-start items-center px-2 py-1.5 text-muted-foreground text-sm"
+                className="h-8 w-full flex justify-start items-center px-2 text-[var(--landing-muted)] hover:text-[var(--landing-text)] hover:bg-[var(--landing-panel-strong)] text-xs rounded-sm transition font-normal"
             >
-                <Plus className="w-4 h-4 mr-2" />
-                Add Card...
-
+                <Plus className="w-3.5 h-3.5 mr-1.5 text-[var(--landing-orange)]" />
+                Add a card...
             </Button>
         </div>
-    )
-})
+    );
+});
 
-CardForm.displayName = "CardForm"
+CardForm.displayName = "CardForm";

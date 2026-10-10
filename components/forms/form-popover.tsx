@@ -53,12 +53,12 @@ export const FormPopover = (
             <PopoverTrigger asChild >
                 {children}
             </PopoverTrigger>
-            <PopoverContent side={side} sideOffset={sideOffSet} align={align} className="w-80 p-4 border-[var(--landing-line)] bg-[var(--landing-panel)] text-[var(--landing-text)] rounded-none shadow-2xl">
+            <PopoverContent side={side} sideOffset={sideOffSet} align={align} className="w-80 p-4 border-[var(--landing-line)] bg-[var(--landing-panel)] text-[var(--landing-text)] rounded-sm shadow-2xl">
                 <div className="text-xs font-mono uppercase tracking-wider text-center text-[var(--landing-muted)] pb-3 border-b border-[var(--landing-line)]">
                     Create board
                 </div>
                 <PopoverClose ref={closeRef} asChild>
-                    <Button variant={"ghost"} size="sm" className="absolute right-2 top-2 h-7 w-7 p-0 cursor-pointer text-[var(--landing-muted)] hover:text-[var(--landing-text)]">
+                    <Button variant={"ghost"} size="sm" className="absolute right-2 top-2 h-7 w-7 p-0 cursor-pointer rounded-sm text-[var(--landing-muted)] hover:text-[var(--landing-text)]">
                         <X className="h-4 w-4" />
                     </Button>
                 </PopoverClose>
@@ -74,7 +74,7 @@ export const FormPopover = (
                                 name="template"
                                 id="template"
                                 defaultValue="BLANK"
-                                className="w-full text-xs p-2 border border-[var(--landing-line)] rounded-none bg-[var(--landing-panel-strong)] text-[var(--landing-text)] focus:outline-none focus:border-[var(--landing-orange)] cursor-pointer"
+                                className="w-full text-xs p-2 border border-[var(--landing-line)] rounded-sm bg-[var(--landing-panel-strong)] text-[var(--landing-text)] focus:outline-none focus:border-[var(--landing-orange)] cursor-pointer"
                             >
                                 <option value="BLANK" className="bg-[var(--landing-panel)] text-[var(--landing-text)]">Blank Board (Start from scratch)</option>
                                 <option value="SOFTWARE" className="bg-[var(--landing-panel)] text-[var(--landing-text)]">Software Kanban (5 lists)</option>
@@ -82,7 +82,7 @@ export const FormPopover = (
                             </select>
                         </div>
                     </div>
-                    <FormSubmit classname="w-full cursor-pointer bg-[var(--landing-orange)] text-[var(--landing-orange-foreground)] hover:brightness-110 rounded-none text-xs font-bold" >
+                    <FormSubmit classname="w-full cursor-pointer bg-[var(--landing-orange)] text-[var(--landing-orange-foreground)] hover:brightness-110 rounded-sm text-xs font-bold" >
                         Create board
                     </FormSubmit>
                 </form>

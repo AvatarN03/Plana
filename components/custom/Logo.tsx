@@ -1,15 +1,13 @@
-import Image from 'next/image'
-import Link from 'next/link'
+import Image from 'next/image';
+import Link from 'next/link';
 
 const Logo = () => {
     return (
-        <Link href="/">
-            <div className="flex items-center justify-center gap-1 group">
-                <Image src="/plana-icon.svg" alt="Plana logo" width={20} height={20} className="project-logo h-5 w-5 object-contain group-hover:opacity-75" />
-                <span className="hidden md:block text-xl font-bold text-[var(--landing-text)]">Plana</span>
-            </div>
+        <Link href="/" className="flex items-center gap-2 group transition-opacity hover:opacity-90">
+            <Image src="/plana-icon.svg" alt="Plana logo" width={20} height={20} className="project-logo h-5 w-5 object-contain transition-transform group-hover:scale-105" />
+            <span className="hidden md:inline text-sm font-bold tracking-[0.08em] text-[var(--landing-text)]">PLANA</span>
         </Link>
-    )
-}
+    );
+};
 
-export default Logo
+export default Logo;

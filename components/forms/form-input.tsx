@@ -57,7 +57,7 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(({
                     onBlur={onBlur}
                     disabled={pending || disabled}
                     placeholder={placeholder}
-                    className={cn("h-8 rounded-none px-2 text-sm bg-[var(--landing-panel-strong)] border-[var(--landing-line)] text-[var(--landing-text)] focus-visible:ring-1 focus-visible:ring-[var(--landing-orange)]", classname)}
+                    className={cn("h-8 rounded-sm px-2.5 text-sm bg-[var(--landing-panel-strong)] border-[var(--landing-line)] text-[var(--landing-text)] focus-visible:ring-1 focus-visible:ring-[var(--landing-orange)]", classname)}
                     aria-describedby={`${id}-error`}
                 />
             </div>

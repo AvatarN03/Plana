@@ -254,7 +254,9 @@ body.light-mode,
 }
 
 .landing-shell a[class*="bg-[var(--landing-orange)]"],
-.landing-shell button[class*="bg-[var(--landing-orange)]"] {
+.landing-shell a[class*="bg-landing-orange"],
+.landing-shell button[class*="bg-[var(--landing-orange)]"],
+.landing-shell button[class*="bg-landing-orange"] {
   color: var(--landing-orange-foreground) !important;
 }
 
@@ -272,7 +274,7 @@ body.light-mode,
   }
 }
 
-/* ── Clerk Overrides & Integration (Zero Rounded Corners) ── */
+/* ── Clerk Overrides & Integration (Subtle rounded-sm corners) ── */
 .cl-rootBox {
   width: 100% !important;
 }
@@ -280,7 +282,7 @@ body.light-mode,
 .cl-cardBox {
   background: var(--landing-panel) !important;
   border: 1px solid var(--landing-line) !important;
-  border-radius: 0 !important;
+  border-radius: 0.25rem !important;
   box-shadow: none !important;
   width: 100% !important;
   overflow: hidden !important;
@@ -289,7 +291,7 @@ body.light-mode,
 .cl-card {
   background: transparent !important;
   border: none !important;
-  border-radius: 0 !important;
+  border-radius: 0.25rem !important;
   box-shadow: none !important;
   color: var(--landing-text) !important;
   padding: 2rem 1.75rem 1.25rem 1.75rem !important;
@@ -318,7 +320,7 @@ body.light-mode,
   background: var(--landing-panel-strong) !important;
   border: 1px solid var(--landing-line) !important;
   color: var(--landing-text) !important;
-  border-radius: 0 !important;
+  border-radius: 0.25rem !important;
   font-weight: 600 !important;
   font-size: 0.8125rem !important;
   transition: all 180ms ease !important;
@@ -359,10 +361,16 @@ body.light-mode,
 .cl-formFieldInput {
   background: var(--landing-panel-strong) !important;
   border: 1px solid var(--landing-line) !important;
-  border-radius: 0 !important;
+  border-radius: 0.25rem !important;
   color: var(--landing-text) !important;
   font-size: 0.875rem !important;
   transition: border-color 150ms ease, box-shadow 150ms ease !important;
+}
+
+.cl-formFieldInput::placeholder {
+  color: var(--landing-muted) !important;
+  opacity: 0.85 !important;
+  -webkit-text-fill-color: var(--landing-muted) !important;
 }
 
 .cl-formFieldInput:focus {
@@ -373,7 +381,7 @@ body.light-mode,
 .cl-formButtonPrimary {
   background: var(--landing-orange) !important;
   color: var(--landing-orange-foreground) !important;
-  border-radius: 0 !important;
+  border-radius: 0.25rem !important;
   font-weight: 700 !important;
   font-size: 0.875rem !important;
   letter-spacing: 0.01em !important;
@@ -426,7 +434,7 @@ body.light-mode,
 .cl-identityPreview {
   background: var(--landing-panel-strong) !important;
   border: 1px solid var(--landing-line) !important;
-  border-radius: 0 !important;
+  border-radius: 0.25rem !important;
 }
 
 .cl-identityPreviewText {
@@ -462,21 +470,21 @@ body.light-mode,
 
 .cl-organizationPreviewAvatarContainer {
   border: 1px solid var(--landing-line) !important;
-  border-radius: 0 !important;
+  border-radius: 0.25rem !important;
 }
 
 .cl-organizationSwitcherTrigger {
   border: 1px solid var(--landing-line) !important;
   color: var(--landing-text) !important;
   background: var(--landing-panel-strong) !important;
-  border-radius: 0 !important;
+  border-radius: 0.25rem !important;
 }
 
 .cl-organizationListCreateOrganizationBtn {
   border: 1px solid var(--landing-line) !important;
   color: var(--landing-text) !important;
   background: var(--landing-panel-strong) !important;
-  border-radius: 0 !important;
+  border-radius: 0.25rem !important;
   font-weight: 600 !important;
   transition: all 180ms ease !important;
 }
@@ -511,7 +519,7 @@ body.light-mode,
 .cl-modalContent {
   background: var(--landing-panel) !important;
   border: 1px solid var(--landing-line) !important;
-  border-radius: 0 !important;
+  border-radius: 0.25rem !important;
   color: var(--landing-text) !important;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6) !important;
   padding: 1.5rem !important;
@@ -533,7 +541,7 @@ body.light-mode,
   color: var(--landing-text) !important;
   border: 1px solid var(--landing-line) !important;
   background: var(--landing-panel-strong) !important;
-  border-radius: 0 !important;
+  border-radius: 0.25rem !important;
   font-weight: 600 !important;
 }
 
@@ -546,7 +554,7 @@ body.light-mode,
 .cl-fileDropArea {
   border: 1px dashed var(--landing-line) !important;
   background: var(--landing-panel-strong) !important;
-  border-radius: 0 !important;
+  border-radius: 0.25rem !important;
   color: var(--landing-muted) !important;
 }
 
@@ -554,7 +562,7 @@ body.light-mode,
   color: var(--landing-text) !important;
   border: 1px solid var(--landing-line) !important;
   background: var(--landing-panel) !important;
-  border-radius: 0 !important;
+  border-radius: 0.25rem !important;
 }
 
 .cl-organizationListPreviewItem {

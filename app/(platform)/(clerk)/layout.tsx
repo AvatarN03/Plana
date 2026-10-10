@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeft, Check, Layers, MoveRight, ShieldCheck } from "lucide-react";
+import { ArrowLeft, Check, Clock, Layers, MoveRight, ShieldCheck } from "lucide-react";
 import { ThemeToggle } from "../../(marketing)/_components/theme-toggle";
 
 export const metadata: Metadata = {
@@ -58,75 +58,116 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
           {/* Top Headline Content */}
           <div className="relative z-10 max-w-xl">
-            <p className="mb-4 text-[10px] font-mono uppercase tracking-[0.2em] text-[var(--landing-orange)]">
-              A clear place to work
-            </p>
-            <h1 className="text-4xl font-semibold leading-[1.05] tracking-[-0.05em] sm:text-5xl xl:text-6xl text-[var(--landing-text)]">
+            <div className="mb-4 inline-flex items-center gap-2 rounded-sm border border-[var(--landing-line)] bg-[var(--landing-panel)] px-2.5 py-1 text-[10px] font-mono uppercase tracking-[0.18em] text-[var(--landing-orange)]">
+              <span className="size-1.5 rounded-full bg-[var(--landing-orange)] animate-pulse" />
+              Focused Workspace
+            </div>
+            <h1 className="text-4xl font-extrabold leading-[1.06] tracking-tight sm:text-5xl xl:text-6xl text-[var(--landing-text)]">
               Bring your work
               <br />
               <span className="text-[var(--landing-orange)]">into motion.</span>
             </h1>
-            <p className="mt-6 text-sm sm:text-base leading-relaxed text-[var(--landing-muted)] max-w-md">
-              Plana keeps projects visible, tasks actionable, and teams aligned without the usual layers of noise.
+            <p className="mt-5 text-sm sm:text-base leading-relaxed text-[var(--landing-muted)] max-w-md">
+              A high-performance workspace for turning tasks and projects into clear execution workflows. Less noise. More momentum.
             </p>
           </div>
 
-          {/* Center Micro Kanban Card */}
-          <div className="relative z-10 my-8 rounded-none border border-[var(--landing-line)] bg-[var(--landing-panel)] p-5 shadow-[12px_12px_0_-6px_var(--landing-orange)]">
-            <div className="mb-4 flex items-center justify-between border-b border-[var(--landing-line)] pb-3 text-[10px] font-mono">
-              <span className="flex items-center gap-2 text-[var(--landing-text)] font-semibold">
-                <Layers className="size-3 text-[var(--landing-orange)]" /> PRODUCT LAUNCH
+          {/* Center Micro Kanban Board (Refactored to match Landing Page UI) */}
+          <div className="relative z-10 my-8 rounded-sm border border-[var(--landing-line)] bg-[var(--landing-panel)] p-4 sm:p-5 shadow-2xl">
+            {/* Board View Header */}
+            <div className="mb-3.5 flex items-center justify-between border-b border-[var(--landing-line)] pb-3 text-[11px] font-mono">
+              <span className="flex items-center gap-2 font-bold text-[var(--landing-text)]">
+                <Layers className="size-3.5 text-[var(--landing-orange)]" /> SPRINT BOARD VIEW
               </span>
-              <span className="text-[var(--landing-orange)] font-semibold">● ACTIVE</span>
+              <span className="text-[var(--landing-orange)] font-semibold">● LIVE · WIP: 3</span>
             </div>
 
+            {/* 3 Columns */}
             <div className="grid grid-cols-3 gap-2.5">
               {/* Backlog Column */}
-              <div className="rounded-none border border-[var(--landing-line)] bg-[var(--landing-panel-strong)] p-3">
+              <div className="rounded-sm border border-[var(--landing-line)] bg-[var(--landing-panel-strong)] p-2.5">
                 <div className="flex items-center justify-between text-[9px] font-mono text-[var(--landing-muted)]">
                   <span>BACKLOG</span>
-                  <span>03</span>
+                  <span className="rounded-sm bg-[var(--landing-panel)] px-1.5 py-0.5 text-[9px]">2</span>
                 </div>
-                <p className="mt-3 text-xs font-semibold text-[var(--landing-text)]">Research</p>
-                <p className="mt-2 text-[9px] font-mono text-[var(--landing-muted)]">03 tasks</p>
+                <div className="mt-2.5 space-y-2">
+                  <div className="rounded-sm border border-[var(--landing-line)] bg-[var(--landing-panel)] p-2">
+                    <span className="text-[9px] font-mono text-[var(--landing-orange)]">#specs</span>
+                    <p className="mt-1 text-xs font-semibold text-[var(--landing-text)]">Define v2 roadmap</p>
+                    <span className="mt-1.5 block text-[9px] font-mono text-[var(--landing-muted)]">Oct 28</span>
+                  </div>
+                  <div className="rounded-sm border border-[var(--landing-line)] bg-[var(--landing-panel)] p-2">
+                    <span className="text-[9px] font-mono text-[var(--landing-muted)]">#research</span>
+                    <p className="mt-1 text-xs font-semibold text-[var(--landing-text)]">Benchmark review</p>
+                  </div>
+                </div>
               </div>
 
               {/* In Progress Column */}
-              <div className="rounded-none border border-[var(--landing-orange)] bg-[var(--landing-panel-strong)] p-3">
-                <div className="flex items-center justify-between text-[9px] font-mono text-[var(--landing-orange)] font-semibold">
+              <div className="rounded-sm border border-[var(--landing-orange)] bg-[var(--landing-orange-soft)]/25 p-2.5">
+                <div className="flex items-center justify-between text-[9px] font-mono text-[var(--landing-orange)] font-bold">
                   <span>IN PROGRESS</span>
-                  <span>02</span>
+                  <span className="rounded-sm bg-[var(--landing-orange)]/20 px-1.5 py-0.5 text-[9px] text-[var(--landing-orange)]">2</span>
                 </div>
-                <p className="mt-3 text-xs font-semibold text-[var(--landing-text)]">Launch page</p>
-                <p className="mt-2 text-[9px] font-mono text-[var(--landing-orange)]">02 tasks</p>
+                <div className="mt-2.5 space-y-2">
+                  <div className="rounded-sm border border-[var(--landing-orange)] bg-[var(--landing-panel)] p-2 shadow-xs">
+                    <div className="flex items-center justify-between text-[9px] font-mono">
+                      <span className="text-[var(--landing-orange)] font-bold">#frontend</span>
+                      <span className="text-[8px] font-bold text-[var(--landing-orange)]">HIGH</span>
+                    </div>
+                    <p className="mt-1 text-xs font-bold text-[var(--landing-text)]">Launch page polish</p>
+                    <div className="mt-1.5 flex items-center justify-between text-[9px] font-mono text-[var(--landing-muted)]">
+                      <span>✓ 2/2 done</span>
+                      <span className="text-[var(--landing-orange)] font-semibold">Keshav</span>
+                    </div>
+                  </div>
+                  <div className="rounded-sm border border-[var(--landing-line)] bg-[var(--landing-panel)] p-2">
+                    <span className="text-[9px] font-mono text-[var(--landing-orange)]">#backend</span>
+                    <p className="mt-1 text-xs font-semibold text-[var(--landing-text)]">Clerk auth routing</p>
+                    <span className="mt-1.5 block text-[9px] font-mono text-[var(--landing-muted)]">Ozair</span>
+                  </div>
+                </div>
               </div>
 
               {/* Done Column */}
-              <div className="rounded-none border border-[var(--landing-line)] bg-[var(--landing-panel-strong)] p-3">
+              <div className="rounded-sm border border-[var(--landing-line)] bg-[var(--landing-panel-strong)] p-2.5">
                 <div className="flex items-center justify-between text-[9px] font-mono text-[var(--landing-muted)]">
                   <span>DONE</span>
-                  <span>04</span>
+                  <span className="rounded-sm bg-[var(--landing-panel)] px-1.5 py-0.5 text-[9px]">2</span>
                 </div>
-                <p className="mt-3 text-xs font-semibold text-[var(--landing-text)]">Design system</p>
-                <p className="mt-2 text-[9px] font-mono text-[var(--landing-muted)]">04 tasks</p>
+                <div className="mt-2.5 space-y-2">
+                  <div className="rounded-sm border border-[var(--landing-line)] bg-[var(--landing-panel)] p-2 opacity-85">
+                    <span className="text-[9px] font-mono text-[var(--landing-muted)]">#infra</span>
+                    <p className="mt-1 text-xs font-semibold text-[var(--landing-text)] line-through">Prisma schema v7</p>
+                    <span className="mt-1.5 block text-[9px] font-mono text-[var(--landing-orange)]">✓ Shipped · Raj</span>
+                  </div>
+                  <div className="rounded-sm border border-[var(--landing-line)] bg-[var(--landing-panel)] p-2 opacity-85">
+                    <span className="text-[9px] font-mono text-[var(--landing-muted)]">#design</span>
+                    <p className="mt-1 text-xs font-semibold text-[var(--landing-text)] line-through">Design tokens</p>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <div className="mt-4 flex items-center justify-between pt-2 border-t border-[var(--landing-line)] text-[10px] font-mono text-[var(--landing-muted)]">
-              <span className="flex items-center gap-1.5">
-                <MoveRight className="size-3 text-[var(--landing-orange)]" /> Make the next step obvious.
+            {/* Bottom Stream Bar */}
+            <div className="mt-3.5 flex items-center justify-between border-t border-[var(--landing-line)] pt-2.5 text-[10px] font-mono text-[var(--landing-muted)]">
+              <span className="flex items-center gap-1.5 text-[var(--landing-text)]/90">
+                <span className="size-1.5 rounded-full bg-[var(--landing-orange)]" /> Keshav moved Landing page to In Progress
               </span>
               <span className="text-[var(--landing-orange)] font-semibold">Plana 2.0</span>
             </div>
           </div>
 
           {/* Bottom Trust Indicators */}
-          <div className="relative z-10 flex items-center gap-6 text-[11px] font-mono text-[var(--landing-muted)]">
+          <div className="relative z-10 flex flex-wrap items-center gap-5 text-[11px] font-mono text-[var(--landing-muted)]">
             <span className="flex items-center gap-1.5">
-              <Check className="size-3.5 text-[var(--landing-orange)]" /> Built for focused execution
+              <Check className="size-3.5 text-[var(--landing-orange)]" /> Focused execution
             </span>
             <span className="flex items-center gap-1.5">
               <ShieldCheck className="size-3.5 text-[var(--landing-orange)]" /> Multi-tenant isolation
+            </span>
+            <span className="flex items-center gap-1.5">
+              <Clock className="size-3.5 text-[var(--landing-orange)]" /> Real-time audit logs
             </span>
           </div>
         </section>

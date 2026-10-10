@@ -278,20 +278,27 @@ body.light-mode,
 }
 
 .cl-cardBox {
-  box-shadow: 0 16px 32px -12px rgba(0, 0, 0, 0.4) !important;
-  border-radius: 0 !important;
-  background: transparent !important;
-  width: 100% !important;
-}
-
-.cl-card {
   background: var(--landing-panel) !important;
   border: 1px solid var(--landing-line) !important;
   border-radius: 0 !important;
   box-shadow: none !important;
-  color: var(--landing-text) !important;
-  padding: 2rem 1.75rem !important;
   width: 100% !important;
+  overflow: hidden !important;
+}
+
+.cl-card {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  color: var(--landing-text) !important;
+  padding: 2rem 1.75rem 1.25rem 1.75rem !important;
+  width: 100% !important;
+}
+
+.cl-main,
+.cl-form {
+  border: none !important;
 }
 
 .cl-headerTitle {
@@ -380,14 +387,19 @@ body.light-mode,
 }
 
 .cl-footer {
-  background: transparent !important;
+  background: var(--landing-panel) !important;
   border-top: 1px solid var(--landing-line) !important;
-  padding-top: 1.25rem !important;
-  margin-top: 0.5rem !important;
+  border-bottom: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  padding: 1.25rem 1.75rem !important;
+  margin: 0 !important;
 }
 
 .cl-footerAction {
   background: transparent !important;
+  border: none !important;
+  border-top: none !important;
 }
 
 .cl-footerActionText {

@@ -34,7 +34,7 @@ export default function SelectOrgPage() {
           elements: {
             rootBox: "w-full",
             cardBox: "!bg-[var(--landing-panel)] !border !border-[var(--landing-line)] !shadow-none !rounded-none w-full",
-            card: "!bg-[var(--landing-panel)] !border !border-[var(--landing-line)] !shadow-none !rounded-none w-full !text-[var(--landing-text)]",
+            card: "!bg-transparent !border-0 !shadow-none !rounded-none w-full !text-[var(--landing-text)]",
             headerTitle: "!text-[var(--landing-text)] font-bold text-2xl tracking-tight",
             headerSubtitle: "!text-[var(--landing-muted)] text-sm",
             organizationListActionRow: "!border-b !border-[var(--landing-line)] !bg-transparent",

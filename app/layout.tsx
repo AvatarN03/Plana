@@ -7,21 +7,19 @@ import { ClerkProvider } from "@clerk/nextjs";
 const montserrat = Montserrat({
   variable: "--font-montserrat",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700", "800"],
+  display: "swap",
 });
 
-
-
 export const metadata: Metadata = {
-  title:
-  {
+  title: {
     default: siteConfig.name,
-    template: `%s | ${siteConfig.name}`, // change the tab name in particular board along with the main site name
+    template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
   icons: {
     icon: "/plana-icon.svg",
-  }
+  },
 };
 
 export default function RootLayout({
@@ -31,9 +29,22 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                if (localStorage.getItem('plana-theme') === 'light') {
+                  document.documentElement.classList.add('light-mode');
+                }
+              } catch (_) {}
+            `,
+          }}
+        />
+      </head>
       <ClerkProvider>
         <body
-          className={`${montserrat.className} antialiased min-h-screen landing-shell`}
+          className={`${montserrat.variable} ${montserrat.className} font-sans antialiased min-h-screen landing-shell`}
         >
           {children}
         </body>

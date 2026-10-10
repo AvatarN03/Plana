@@ -1,36 +1,19 @@
 import { SignIn } from "@clerk/nextjs";
 
-export default function Page() {
+export default function SignInPage() {
   return (
     <SignIn
       redirectUrl="/select-org"
       fallbackRedirectUrl="/select-org"
       appearance={{
-        variables: {
-          colorPrimary: "#ff7619",
-          colorText: "var(--landing-text)",
-          colorTextSecondary: "var(--landing-muted)",
-          colorBackground: "var(--landing-panel)",
-          colorInputBackground: "var(--landing-panel-strong)",
-          colorInputText: "var(--landing-text)",
+        layout: {
+          socialButtonsPlacement: "top",
+          shimmer: true,
         },
         elements: {
           rootBox: "w-full",
-          card: "!bg-[var(--landing-panel)] !border !border-[var(--landing-line)] !shadow-none !rounded-md w-full",
-          headerTitle: "!text-[var(--landing-text)] !text-2xl !tracking-[-0.04em]",
-          headerSubtitle: "!text-[var(--landing-muted)]",
-          formFieldLabel: "!text-[var(--landing-text)] !text-xs",
-          formFieldInput: "!bg-[var(--landing-panel-strong)] !border-[var(--landing-line)] !rounded-md !text-[var(--landing-text)]",
-          formButtonPrimary: "!bg-[var(--landing-orange)] !text-[var(--landing-orange-foreground)] !rounded-md hover:!brightness-110",
-          footerActionLink: "!text-[var(--landing-orange)] hover:!underline",
-          footerActionText: "!text-[var(--landing-muted)]",
-          socialButtonsBlockButton: "!bg-[var(--landing-panel-strong)] !border-[var(--landing-line)] !text-[var(--landing-text)] !rounded-md hover:!bg-[var(--landing-panel)]",
-          socialButtonsBlockButtonText: "!text-[var(--landing-text)]",
-          dividerLine: "!bg-[var(--landing-line)]",
-          dividerText: "!text-[var(--landing-muted)]",
-          formFieldAction: "!text-[var(--landing-orange)]",
-          identityPreviewText: "!text-[var(--landing-text)]",
-          identityPreviewEditButton: "!text-[var(--landing-orange)]",
+          cardBox: "!bg-[var(--landing-panel)] !border !border-[var(--landing-line)] !shadow-none !rounded-md w-full",
+          card: "!bg-[var(--landing-panel)] !border !border-[var(--landing-line)] !shadow-none !rounded-md w-full !text-[var(--landing-text)]",
         },
       }}
     />

@@ -6,8 +6,17 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-montserrat), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --color-landing-bg: var(--landing-bg);
+  --color-landing-panel: var(--landing-panel);
+  --color-landing-panel-strong: var(--landing-panel-strong);
+  --color-landing-line: var(--landing-line);
+  --color-landing-text: var(--landing-text);
+  --color-landing-muted: var(--landing-muted);
+  --color-landing-orange: var(--landing-orange);
+  --color-landing-orange-foreground: var(--landing-orange-foreground);
+  --color-landing-orange-soft: var(--landing-orange-soft);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -106,8 +115,8 @@ body.light-mode,
   --landing-orange: #d95405;
   --landing-orange-foreground: #fffaf4;
   --landing-orange-soft: #fff0e5;
-  --landing-photo-blend: multiply;
-  --landing-photo-opacity: 0.85;
+  --landing-photo-blend: normal;
+  --landing-photo-opacity: 1;
   color-scheme: light;
 }
 
@@ -115,12 +124,18 @@ body.light-mode,
   * {
     @apply border-border outline-ring/50;
   }
+
   html {
     scroll-behavior: smooth;
   }
-  html, body, :root, #__next {
+
+  html,
+  body,
+  :root,
+  #__next {
     height: 100%;
   }
+
   body {
     @apply bg-background text-foreground min-h-screen antialiased;
   }
@@ -172,7 +187,7 @@ body.light-mode,
   opacity: 0.22;
 }
 
-/* Decorative photo layer — blend/opacity are theme aware (screen in dark, multiply in light) */
+/* Decorative photo layer — blend/opacity are theme aware */
 .landing-photo {
   background-size: cover;
   background-position: center;
@@ -181,23 +196,28 @@ body.light-mode,
   mix-blend-mode: var(--landing-photo-blend, screen);
 }
 
-/* Scrim over the photo — light mode keeps it thinner so the image reads through */
+.landing-shell.light-mode .landing-photo {
+  opacity: 1;
+  mix-blend-mode: normal;
+}
+
+/* Scrim over the photo — in light mode, linear-gradient left-to-right from 0.5 to 0 */
 .landing-photo-wash {
-  background: linear-gradient(
-    90deg,
-    var(--landing-bg) 0%,
-    color-mix(in srgb, var(--landing-bg) 82%, transparent) 52%,
-    color-mix(in srgb, var(--landing-bg) 28%, transparent) 100%
-  );
+  background: linear-gradient(90deg,
+      var(--landing-bg) 0%,
+      color-mix(in srgb, var(--landing-bg) 82%, transparent) 52%,
+      color-mix(in srgb, var(--landing-bg) 28%, transparent) 100%);
 }
 
 .landing-shell.light-mode .landing-photo-wash {
-  background: linear-gradient(
-    90deg,
-    color-mix(in srgb, var(--landing-bg) 82%, transparent) 0%,
-    color-mix(in srgb, var(--landing-bg) 48%, transparent) 52%,
-    color-mix(in srgb, var(--landing-bg) 8%, transparent) 100%
-  );
+  background: linear-gradient(90deg,
+      color-mix(in srgb, var(--landing-bg) 50%, transparent) 0%,
+      transparent 100%);
+  opacity: 1;
+}
+
+.landing-shell.light-mode .mesh-flow {
+  display: none;
 }
 
 .mesh-flow {
@@ -211,8 +231,13 @@ body.light-mode,
 }
 
 @keyframes mesh-drift {
-  from { background-position: 0% 0%, 100% 100%, 0 0; }
-  to { background-position: 14% 8%, 86% 92%, 18px -12px; }
+  from {
+    background-position: 0% 0%, 100% 100%, 0 0;
+  }
+
+  to {
+    background-position: 14% 8%, 86% 92%, 18px -12px;
+  }
 }
 
 /* ── Smooth entrance animations (no blank/white screen on scroll) ── */
@@ -221,6 +246,7 @@ body.light-mode,
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -277,7 +303,7 @@ body.light-mode,
   position: absolute;
   z-index: -1;
   inset: 12px -16px -16px 16px;
-  border-radius: 1rem;
+  border-radius: 0.375rem;
   border: 1px solid color-mix(in srgb, var(--landing-orange) 40%, transparent);
   background: color-mix(in srgb, var(--landing-orange) 6%, transparent);
   transform: translateZ(-36px) skewY(2deg);
@@ -305,15 +331,306 @@ body.light-mode,
 }
 
 @media (max-width: 767px) {
-  .hero-board-perspective { transform: none; }
-  .hero-board-perspective:hover { transform: translateY(-3px); }
+  .hero-board-perspective {
+    transform: none;
+  }
+
+  .hero-board-perspective:hover {
+    transform: translateY(-3px);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  *, *::before, *::after {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* ── Clerk Overrides & Integration ── */
+.cl-rootBox {
+  width: 100% !important;
+}
+
+.cl-cardBox {
+  box-shadow: 0 16px 32px -12px rgba(0, 0, 0, 0.4) !important;
+  border-radius: 0.375rem !important;
+  background: transparent !important;
+  width: 100% !important;
+}
+
+.cl-card {
+  background: var(--landing-panel) !important;
+  border: 1px solid var(--landing-line) !important;
+  border-radius: 0.375rem !important;
+  box-shadow: none !important;
+  color: var(--landing-text) !important;
+  padding: 2rem 1.75rem !important;
+  width: 100% !important;
+}
+
+.cl-headerTitle {
+  color: var(--landing-text) !important;
+  font-family: var(--font-sans) !important;
+  font-weight: 700 !important;
+  font-size: 1.5rem !important;
+  letter-spacing: -0.03em !important;
+}
+
+.cl-headerSubtitle {
+  color: var(--landing-muted) !important;
+  font-size: 0.875rem !important;
+}
+
+.cl-socialButtonsBlockButton {
+  background: var(--landing-panel-strong) !important;
+  border: 1px solid var(--landing-line) !important;
+  color: var(--landing-text) !important;
+  border-radius: 0.5rem !important;
+  font-weight: 600 !important;
+  font-size: 0.8125rem !important;
+  transition: all 180ms ease !important;
+}
+
+.cl-socialButtonsBlockButton:hover {
+  background: var(--landing-panel) !important;
+  border-color: var(--landing-orange) !important;
+  transform: translateY(-1px);
+}
+
+.cl-socialButtonsBlockButtonText {
+  color: var(--landing-text) !important;
+  font-weight: 600 !important;
+}
+
+.cl-socialButtonsProviderIcon {
+  filter: none !important;
+}
+
+.cl-dividerLine {
+  background: var(--landing-line) !important;
+}
+
+.cl-dividerText {
+  color: var(--landing-muted) !important;
+  font-size: 0.75rem !important;
+  font-weight: 500 !important;
+}
+
+.cl-formFieldLabel {
+  color: var(--landing-text) !important;
+  font-size: 0.8125rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.01em !important;
+}
+
+.cl-formFieldInput {
+  background: var(--landing-panel-strong) !important;
+  border: 1px solid var(--landing-line) !important;
+  border-radius: 0.5rem !important;
+  color: var(--landing-text) !important;
+  font-size: 0.875rem !important;
+  transition: border-color 150ms ease, box-shadow 150ms ease !important;
+}
+
+.cl-formFieldInput:focus {
+  border-color: var(--landing-orange) !important;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--landing-orange) 30%, transparent) !important;
+}
+
+.cl-formButtonPrimary {
+  background: var(--landing-orange) !important;
+  color: var(--landing-orange-foreground) !important;
+  border-radius: 0.5rem !important;
+  font-weight: 700 !important;
+  font-size: 0.875rem !important;
+  letter-spacing: 0.01em !important;
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--landing-orange) 30%, transparent) !important;
+  transition: all 180ms ease !important;
+}
+
+.cl-formButtonPrimary:hover {
+  filter: brightness(1.1) !important;
+  box-shadow: 0 6px 20px color-mix(in srgb, var(--landing-orange) 45%, transparent) !important;
+}
+
+.cl-footer {
+  background: transparent !important;
+  border-top: 1px solid var(--landing-line) !important;
+  padding-top: 1.25rem !important;
+  margin-top: 0.5rem !important;
+}
+
+.cl-footerAction {
+  background: transparent !important;
+}
+
+.cl-footerActionText {
+  color: var(--landing-muted) !important;
+  font-size: 0.8125rem !important;
+}
+
+.cl-footerActionLink {
+  color: var(--landing-orange) !important;
+  font-weight: 600 !important;
+  transition: opacity 150ms ease !important;
+}
+
+.cl-footerActionLink:hover {
+  text-decoration: underline !important;
+}
+
+.cl-formFieldAction {
+  color: var(--landing-orange) !important;
+  font-size: 0.75rem !important;
+  font-weight: 600 !important;
+}
+
+.cl-identityPreview {
+  background: var(--landing-panel-strong) !important;
+  border: 1px solid var(--landing-line) !important;
+  border-radius: 0.5rem !important;
+}
+
+.cl-identityPreviewText {
+  color: var(--landing-text) !important;
+}
+
+.cl-identityPreviewEditButton {
+  color: var(--landing-orange) !important;
+}
+
+.cl-internal-b3fm6y {
+  display: none !important;
+}
+
+/* Organization List & Modal styles */
+.cl-organizationListActionRow {
+  border-bottom: 1px solid var(--landing-line) !important;
+  background: transparent !important;
+}
+
+.cl-organizationPreview {
+  color: var(--landing-text) !important;
+}
+
+.cl-organizationPreviewMainIdentifier {
+  color: var(--landing-text) !important;
+  font-weight: 600 !important;
+}
+
+.cl-organizationPreviewSecondaryIdentifier {
+  color: var(--landing-muted) !important;
+}
+
+.cl-organizationPreviewAvatarContainer {
+  border: 1px solid var(--landing-line) !important;
+  border-radius: 0.375rem !important;
+}
+
+.cl-organizationSwitcherTrigger {
+  border: 1px solid var(--landing-line) !important;
+  color: var(--landing-text) !important;
+  background: var(--landing-panel-strong) !important;
+  border-radius: 0.375rem !important;
+}
+
+.cl-organizationListCreateOrganizationBtn {
+  border: 1px solid var(--landing-line) !important;
+  color: var(--landing-text) !important;
+  background: var(--landing-panel-strong) !important;
+  border-radius: 0.375rem !important;
+  font-weight: 600 !important;
+  transition: all 180ms ease !important;
+}
+
+.cl-organizationListCreateOrganizationBtn,
+.cl-organizationListCreateOrganizationBtn * {
+  color: var(--landing-text) !important;
+}
+
+.cl-organizationListCreateOrganizationBtn svg {
+  color: var(--landing-orange) !important;
+  stroke: var(--landing-orange) !important;
+}
+
+.cl-organizationListCreateOrganizationBtn:hover {
+  border-color: var(--landing-orange) !important;
+  background: var(--landing-panel) !important;
+  color: var(--landing-orange) !important;
+}
+
+.cl-organizationListCreateOrganizationBtn:hover * {
+  color: var(--landing-orange) !important;
+}
+
+/* Modal Dialog Styles (Create Organization, Org Switcher, etc.) */
+.cl-modalBackdrop {
+  background: rgba(0, 0, 0, 0.75) !important;
+  backdrop-filter: blur(4px) !important;
+  z-index: 9999 !important;
+}
+
+.cl-modalContent {
+  background: var(--landing-panel) !important;
+  border: 1px solid var(--landing-line) !important;
+  border-radius: 0.375rem !important;
+  color: var(--landing-text) !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6) !important;
+  padding: 1.5rem !important;
+}
+
+.cl-modalContent * {
+  color: var(--landing-text);
+}
+
+.cl-modalCloseButton {
+  color: var(--landing-muted) !important;
+}
+
+.cl-modalCloseButton:hover {
+  color: var(--landing-text) !important;
+}
+
+.cl-formButtonReset {
+  color: var(--landing-text) !important;
+  border: 1px solid var(--landing-line) !important;
+  background: var(--landing-panel-strong) !important;
+  border-radius: 0.375rem !important;
+  font-weight: 600 !important;
+}
+
+.cl-formButtonReset:hover {
+  border-color: var(--landing-muted) !important;
+  background: var(--landing-panel) !important;
+}
+
+.cl-avatarUploaderRoot,
+.cl-fileDropArea {
+  border: 1px dashed var(--landing-line) !important;
+  background: var(--landing-panel-strong) !important;
+  border-radius: 0.375rem !important;
+  color: var(--landing-muted) !important;
+}
+
+.cl-uploadAvatarButton {
+  color: var(--landing-text) !important;
+  border: 1px solid var(--landing-line) !important;
+  background: var(--landing-panel) !important;
+  border-radius: 0.375rem !important;
+}
+
+.cl-organizationListPreviewItem {
+  border-bottom: 1px solid var(--landing-line) !important;
+}
+
+.cl-organizationListPreviewItem:hover {
+  background: var(--landing-panel-strong) !important;
 }

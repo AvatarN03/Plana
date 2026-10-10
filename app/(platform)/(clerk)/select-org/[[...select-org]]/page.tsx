@@ -5,14 +5,14 @@ const SelectOrgPage = () => {
   return (
     <div className="w-full">
       <div className="mb-6">
-        <p className="mb-3 text-[10px] font-mono uppercase tracking-[0.18em] text-[var(--landing-orange)]">
+        <p className="mb-2 text-[10px] font-mono uppercase tracking-[0.2em] text-[var(--landing-orange)]">
           Workspace routing
         </p>
-        <h1 className="text-3xl font-semibold tracking-[-0.05em] text-[var(--landing-text)]">
+        <h1 className="text-3xl font-extrabold tracking-tight text-[var(--landing-text)]">
           Choose where to work<span className="text-[var(--landing-orange)]">.</span>
         </h1>
-        <p className="mt-3 text-sm leading-6 text-[var(--landing-muted)]">
-          Select an existing workspace or create a new one to keep projects, boards, and activity together.
+        <p className="mt-2 text-sm leading-relaxed text-[var(--landing-muted)]">
+          Select an existing organization or create a new workspace to organize boards, lists, and team activity.
         </p>
       </div>
 
@@ -21,34 +21,31 @@ const SelectOrgPage = () => {
         afterCreateOrganizationUrl="/organization/:id"
         afterSelectOrganizationUrl="/organization/:id"
         appearance={{
-          variables: {
-            colorPrimary: "#ff7619",
-            colorText: "var(--landing-text)",
-            colorTextSecondary: "var(--landing-muted)",
-            colorBackground: "var(--landing-panel)",
-            colorInputBackground: "var(--landing-panel-strong)",
-            colorInputText: "var(--landing-text)",
-          },
           elements: {
             rootBox: "w-full",
-            card: "!bg-[var(--landing-panel)] !border !border-[var(--landing-line)] !shadow-none !rounded-md w-full",
-            headerTitle: "!text-[var(--landing-text)] !text-xl !tracking-[-0.03em]",
-            headerSubtitle: "!text-[var(--landing-muted)]",
-            organizationListActionRow: "!border-[var(--landing-line)]",
+            cardBox: "!bg-[var(--landing-panel)] !border !border-[var(--landing-line)] !shadow-none !rounded-md w-full",
+            card: "!bg-[var(--landing-panel)] !border !border-[var(--landing-line)] !shadow-none !rounded-md w-full !text-[var(--landing-text)]",
+            headerTitle: "!text-[var(--landing-text)] font-bold text-2xl tracking-tight",
+            headerSubtitle: "!text-[var(--landing-muted)] text-sm",
+            organizationListActionRow: "!border-b !border-[var(--landing-line)] !bg-transparent",
+            organizationListCreateOrganizationBtn: "!bg-[var(--landing-panel-strong)] !border !border-[var(--landing-line)] !text-[var(--landing-text)] hover:!border-[var(--landing-orange)] hover:!text-[var(--landing-orange)] !rounded-md !font-semibold transition-colors",
             organizationPreviewMainIdentifier: "!text-[var(--landing-text)] font-semibold",
             organizationPreviewSecondaryIdentifier: "!text-[var(--landing-muted)]",
-            organizationSwitcherTrigger: "!rounded-md !border-[var(--landing-line)] !text-[var(--landing-text)]",
-            formButtonPrimary: "!bg-[var(--landing-orange)] !text-[var(--landing-orange-foreground)] !rounded-md hover:!brightness-110",
-            formFieldInput: "!bg-[var(--landing-panel-strong)] !border-[var(--landing-line)] !rounded-md !text-[var(--landing-text)]",
-            formFieldLabel: "!text-[var(--landing-text)]",
-            organizationListCreateOrganizationBtn: "!border-[var(--landing-line)] !text-[var(--landing-text)] hover:!bg-[var(--landing-panel-strong)]",
+            organizationSwitcherTrigger: "!rounded-md !border-[var(--landing-line)] !text-[var(--landing-text)] !bg-[var(--landing-panel-strong)]",
+            formButtonPrimary: "!bg-[var(--landing-orange)] !text-[var(--landing-orange-foreground)] !rounded-md !font-bold hover:!brightness-110",
+            formButtonReset: "!text-[var(--landing-text)] hover:!text-[var(--landing-text)] !border-[var(--landing-line)] !bg-[var(--landing-panel-strong)] !rounded-md",
+            formFieldInput: "!bg-[var(--landing-panel-strong)] !border-[var(--landing-line)] !rounded-md !text-[var(--landing-text)] focus:!border-[var(--landing-orange)]",
+            formFieldLabel: "!text-[var(--landing-text)] font-semibold",
+            modalBackdrop: "!bg-black/75 !backdrop-blur-sm",
+            modalContent: "!bg-[var(--landing-panel)] !border !border-[var(--landing-line)] !rounded-md !text-[var(--landing-text)] !shadow-2xl",
+            modalCloseButton: "!text-[var(--landing-muted)] hover:!text-[var(--landing-text)]",
           },
         }}
       />
 
-      <div className="mt-6 flex items-center gap-2 text-[10px] font-mono text-[var(--landing-muted)]">
-        <ArrowRight className="size-3 text-[var(--landing-orange)]" />
-        Switch workspaces anytime from the top bar.
+      <div className="mt-6 flex items-center gap-2 text-[11px] font-mono text-[var(--landing-muted)]">
+        <ArrowRight className="size-3.5 text-[var(--landing-orange)]" />
+        Switch organizations anytime from the board navigation bar.
       </div>
     </div>
   );

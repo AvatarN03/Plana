@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useOrganization } from "@clerk/nextjs";
 import { useQuery } from "@tanstack/react-query";
+import { useLocalStorage } from "usehooks-ts";
 import { fetcher } from "@/lib/fetcher";
 import { Board } from "@/lib/generated/prisma/client";
 import Logo from "@/components/custom/Logo";
@@ -29,6 +30,7 @@ const PIN_COLORS = [
 export const Sidebar = () => {
   const pathname = usePathname();
   const { organization, isLoaded } = useOrganization();
+  const [pinnedIds] = useLocalStorage<string[]>("plana-pinned-boards", []);
 
   const orgId = organization?.id;
 
@@ -37,6 +39,9 @@ export const Sidebar = () => {
     queryFn: () => fetcher("/api/boards"),
     enabled: !!orgId,
   });
+
+  const pinnedBoards = boards?.filter((b) => pinnedIds.includes(b.id)) || [];
+  const displayPinned = pinnedBoards.length > 0 ? pinnedBoards : (boards?.slice(0, 5) || []);
 
   const routes = [
     {
@@ -140,8 +145,8 @@ export const Sidebar = () => {
             </div>
           ) : (
             <div className="space-y-1">
-              {boards && boards.length > 0 ? (
-                boards.slice(0, 5).map((board, idx) => {
+              {displayPinned && displayPinned.length > 0 ? (
+                displayPinned.map((board, idx) => {
                   const colorClass = PIN_COLORS[idx % PIN_COLORS.length];
                   return (
                     <Link

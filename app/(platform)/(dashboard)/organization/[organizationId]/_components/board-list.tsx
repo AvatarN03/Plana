@@ -3,9 +3,10 @@ import { Hint } from "@/components/hint";
 import { Skeleton } from "@/components/ui/skeleton";
 import db from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
-import { HelpCircle, MoreHorizontal, Plus } from "lucide-react";
+import { HelpCircle, Plus } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { BoardCardOptions } from "./board-card-options";
 
 const MAX_FREE_BOARDS = 5;
 
@@ -57,11 +58,9 @@ export const BoardList = async () => {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/45 to-black/30 group-hover:from-black/95 transition-colors" />
 
-              {/* Card Top Row: 3-dot options placeholder matching concept image */}
+              {/* Card Top Row: 3-dot options menu with stopped propagation */}
               <div className="relative z-10 flex items-center justify-end">
-                <span className="p-1 rounded-sm bg-black/40 backdrop-blur-xs text-white/80 group-hover:text-white border border-white/10 opacity-70 group-hover:opacity-100 transition">
-                  <MoreHorizontal className="w-3.5 h-3.5" />
-                </span>
+                <BoardCardOptions id={board.id} title={board.title} />
               </div>
 
               {/* Card Bottom Content: Title, Task Count chip, and Category tags */}

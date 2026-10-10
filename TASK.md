@@ -17,6 +17,7 @@ This task tracker governs the phased evolution of Plana into a production-grade,
 | **Phase 6** | P1: Board Starter Templates & Empty States | ✅ Completed | 100% |
 | **Phase 7** | Quality Assurance, Verification & Documentation | ✅ Completed | 100% |
 | **Phase 8** | High-Converting SaaS Landing Page Redesign | ✅ Completed | 100% |
+| **Phase 9** | Modern Dashboard Shell, Pinned Boards & Date-Grouped Activity | ✅ Completed | 100% |
 
 ---
 
@@ -107,6 +108,25 @@ This task tracker governs the phased evolution of Plana into a production-grade,
 - [x] **8.4 Conversion Banner & Final QA**
   - Sleek dark `CtaBanner` with glow accent and direct sign-up link.
   - Verification: `npx tsc --noEmit` (0 errors), `npm run lint` (0 errors, 0 warnings), `npm run build` (compiled in 34.8s, 0 errors).
+
+---
+
+### Phase 9: Modern Dashboard Shell, Pinned Boards & Date-Grouped Activity
+- [x] **9.1 Full-Height Desktop Sidebar & Layout Restructure**
+  - Fixed full-height sidebar spanning top-to-bottom on desktop with anchored `PLANA` logo.
+  - Workspace menu: `Boards`, `Activity`, `Team Members`, `Settings`, `Billing`.
+  - Dynamic `Pinned Boards` section with custom color dots powered by `GET /api/boards`.
+  - Bottom `Free tier usage` progress widget (`X of 5 boards`).
+- [x] **9.2 Top Navigation & Clerk Dark Mode Fix**
+  - Desktop inline quick-search bar (`⌘K`) and `+ Create Board` primary orange button.
+  - Fully custom-themed Clerk `OrganizationSwitcher` variables and CSS overrides matching dark panel tokens.
+- [x] **9.3 Full-Width Boards Dashboard**
+  - Workspace header with `Verified team` badge and member avatar stack (`+X`).
+  - Removed live activity column from main board list for clean full-width 3-4 column grid.
+- [x] **9.4 Date-Grouped Activity Timeline**
+  - Grouped audit log items by date: `Today`, `Yesterday`, and formatted dates.
+- [x] **9.5 Team Members & Collaboration View**
+  - Dedicated `/organization/[id]/members` page for managing and inviting collaborators.
 
 ---
 

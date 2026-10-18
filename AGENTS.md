@@ -58,8 +58,8 @@ plana/
 │   │       └── organization/[organizationId]/
 │   │           ├── page.tsx          # Org dashboard with board list
 │   │           ├── activity/         # Org-wide activity timeline
-│   │           ├── billing/          # Billing page
-│   │           └── settings/         # Org settings (Clerk)
+│   │           ├── members/          # Team & workload planning mode + member access
+│   │           └── settings/         # Workspace settings & administration (Clerk)
 │   └── api/
 │       └── cards/[cardId]/
 │           ├── route.ts              # GET card with list name
@@ -76,6 +76,13 @@ plana/
 │   ├── update-card/
 │   ├── delete-card/
 │   ├── copy-card/
+│   ├── create-checklist-item/
+│   ├── update-checklist-item/
+│   ├── delete-checklist-item/
+│   ├── create-card-label/
+│   ├── delete-card-label/
+│   ├── assign-card-member/
+│   ├── unassign-card-member/
 │   ├── update-list-order/
 │   └── update-card-order/
 ├── components/
@@ -84,9 +91,12 @@ plana/
 │   │   │   ├── index.tsx             # Card modal shell (queries + layout)
 │   │   │   ├── Header.tsx            # Inline title editing
 │   │   │   ├── Description.tsx       # Click-to-edit description
-│   │   │   ├── Actions.tsx           # Copy/delete card (with ConfirmModal)
+│   │   │   ├── Actions.tsx           # Copy/archive/delete card (with ConfirmModal)
 │   │   │   ├── Activity.tsx          # Audit log feed
-│   │   │   └── card-meta.tsx         # Priority selector + due date picker
+│   │   │   ├── card-meta.tsx         # Priority selector + due date picker
+│   │   │   ├── checklist.tsx         # Interactive subtasks with progress bar
+│   │   │   ├── card-labels.tsx       # Color-coded label management
+│   │   │   └── card-assignees.tsx    # Member assignment & avatar chips
 │   │   └── confirm-modal.tsx         # Reusable destructive action dialog
 │   ├── forms/
 │   │   ├── form-input.tsx
@@ -194,7 +204,10 @@ import db from "@/lib/db";
 ```
 Board (id, title, orgId, imageId, imageUrl, imageUrlFull)
   └── List (id, title, order, boardId)
-       └── Card (id, title, description?, order, priority, dueDate?, listId)
+       └── Card (id, title, description?, order, priority, dueDate?, isArchived, listId)
+            ├── CardLabel (id, name, color, cardId)
+            ├── ChecklistItem (id, title, isCompleted, order, cardId)
+            └── CardAssignee (id, userId, userName, userImage, cardId)
 
 AuditLog (id, orgId, action, entityId, entityType, entityTitle, userId, userImage, userName)
 ```
@@ -202,18 +215,26 @@ AuditLog (id, orgId, action, entityId, entityType, entityTitle, userId, userImag
 ### PRIORITY Enum
 `LOW` | `MEDIUM` (default) | `HIGH` | `URGENT`
 
-### Card Fields Added in 2.0
+### Card Fields Added in 2.0+
 - `priority PRIORITY @default(MEDIUM)` — Task priority level
 - `dueDate DateTime?` — Optional due date
+- `isArchived Boolean @default(false)` — Archive/restore state flag
+- `labels CardLabel[]` — Color-coded category tags
+- `checklists ChecklistItem[]` — Interactive subtasks
+- `assignees CardAssignee[]` — Assigned workspace members
 
 ---
 
 ## 6. Component Patterns
 
 ### Card Modal (`components/modals/card-modal/`)
-- **index.tsx**: Shell with two React Query calls (`card` and `card-log`), renders Header → CardMeta → Description → Activity + Actions sidebar
-- **card-meta.tsx**: Priority popover (4 levels with color dots) and due date picker (native date input in popover, with "Remove" option)
-- **Activity.tsx**: Maps `AuditLog[]` to `ActivityItem` components
+- **index.tsx**: 2-column productivity shell with React Query calls (`card` and `card-log`), renders Header → CardMeta (Priority, Due Date, Labels, Assignees) → Description → Checklist → Activity + Actions sidebar (Copy, Archive, Delete).
+- **card-meta.tsx**: Priority popover, due date picker, CardLabels, and CardAssignees cluster.
+- **checklist.tsx**: Interactive checklist with dynamic progress bar (`X of Y (Z%)`), custom checkbox styling, inline creation, and item deletion.
+- **card-labels.tsx**: Tag chip badges with color mapping and popover for adding custom labels across 8 curated color tokens.
+- **card-assignees.tsx**: Member avatar chips with "Assign to me" quick action.
+- **Actions.tsx**: Copy, Archive/Restore, and Delete card (with `ConfirmModal`).
+- **Activity.tsx**: Maps `AuditLog[]` to `ActivityItem` components.
 
 ### Board Filtering (`list-container.tsx`)
 - `useBoardFilters()` Zustand store provides `searchQuery`, `priorityFilter`, `dueFilter`

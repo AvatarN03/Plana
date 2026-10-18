@@ -18,6 +18,8 @@ This task tracker governs the phased evolution of Plana into a production-grade,
 | **Phase 7** | Quality Assurance, Verification & Documentation | ✅ Completed | 100% |
 | **Phase 8** | High-Converting SaaS Landing Page Redesign | ✅ Completed | 100% |
 | **Phase 9** | Modern Dashboard Shell, Pinned Boards & Date-Grouped Activity | ✅ Completed | 100% |
+| **Phase 10** | Bundle Minification, Schema Expansion & 2-Column Card Modal | ✅ Completed | 100% |
+| **Phase 11** | Dark Theme Sidebar Harmonization & Team Planning Mode | ✅ Completed | 100% |
 
 ---
 
@@ -127,6 +129,82 @@ This task tracker governs the phased evolution of Plana into a production-grade,
   - Grouped audit log items by date: `Today`, `Yesterday`, and formatted dates.
 - [x] **9.5 Team Members & Collaboration View**
   - Dedicated `/organization/[id]/members` page for managing and inviting collaborators.
+
+---
+
+### Phase 10: Bundle Minification, Schema Expansion & 2-Column Card Modal
+- [x] **10.1 Bundle Minification & Pruning**
+  - Pruned unused dependencies (`recharts`, `react-resizable-panels`, `@base-ui/react`, `dns`, `embla-carousel-react`, `input-otp`).
+  - Replaced `lodash` with lightweight native string utility in `organization/[id]/layout.tsx`, removed `lodash` & `@types/lodash`.
+  - Configured `optimizePackageImports` in `next.config.ts` for `lucide-react`, `date-fns`, `radix-ui`.
+  - Converted `CardModal` in `modal-provider.tsx` to dynamic client-only import (`next/dynamic`), removing it from the critical initial render path.
+- [x] **10.2 Prisma Schema Extensions**
+  - Added `CardLabel`, `ChecklistItem`, and `CardAssignee` models with cascade deletion.
+  - Added `isArchived` Boolean flag to `Card`.
+  - Regenerated custom Prisma Client via `npx prisma generate`.
+- [x] **10.3 Mutating Server Actions & Audit Trail**
+  - Implemented 3-file pattern actions: `create-checklist-item`, `update-checklist-item`, `delete-checklist-item`.
+  - Implemented `create-card-label` and `delete-card-label`.
+  - Implemented `assign-card-member` and `unassign-card-member`.
+  - Updated `update-card` and `copy-card` to support archiving, labels, and subtasks.
+- [x] **10.4 2-Column Card Modal & Rich Kanban Badges**
+  - Built interactive `Checklist` with progress bar, custom checkbox styling, item counter (`X/Y`), and inline creation.
+  - Built `CardLabels` popover with 8 curated preset colors and tag chip removal.
+  - Built `CardAssignees` popover with one-click "Assign to me" and member chips.
+  - Added `Archive / Restore` button in Card Actions sidebar.
+  - Enriched `CardItem` with colored label badges, checklist progress ratio (`3/5`), and assignee avatar stacks.
+  - Upgraded board search filter in `list-container.tsx` to match card titles, labels, and descriptions.
+- [x] **10.5 Board Navbar, Title Form Fixes, Pinning & Cover Image Customizer**
+  - Fixed title editing space/whitespace glitch in `board-title-form.tsx`: trims input, blocks redundant database mutations when unchanged or whitespace.
+  - Added `.trim()` and image payload handling to `actions/update-board`.
+  - Added Pin / Unpin option in `BoardOptions` synchronized with `plana-pinned-boards` localStorage.
+  - Built `BoardCoverModal` with curated Unsplash wallpaper selector and custom client image upload (with canvas compression).
+  - Redesigned `BoardFilter`: dark theme styling, viewport collision handling (`align="end"`, `sideOffset={8}`, `collisionPadding={16}`), increased padding, typography, and `rounded-md`/`rounded-lg` corners.
+- [x] **10.6 List Menu & Board Cards Dark Theme Contrast**
+  - Eliminated white hover flashes and transparent menu gaps in `list-options.tsx` with dark glass styling and rounded-md corners.
+  - Elevated board card items with `slate-950/85` background and `hover:bg-slate-900 border-slate-800/80` for crisp visual hierarchy.
+  - Upgraded list container with `rounded-lg bg-[var(--landing-panel)]/95 shadow-md`.
+- [x] **10.7 Card Detail Modal Complete Layout & Productivity Overhaul**
+  - Modernized `CardModal` shell into a 2-column productivity layout (`md:grid-cols-7`, 70% main column, 30% action sidebar).
+  - Built Metadata HUD in `card-meta.tsx` (Priority, Due Date, Assignees, Labels) with rounded-lg containers and dark popovers.
+  - Standardized section icon badges (`bg-[var(--landing-orange)]/15 border border-[var(--landing-orange)]/30`) across Header, Description, Checklist, and Activity.
+  - Polished `Checklist` with dynamic gradient progress bar, percentage pill badge, custom checkbox accent, and inline subtask creation.
+  - Enhanced `Actions` dock with Copy, Archive/Restore, and Delete buttons, plus integrated keyboard shortcut reminders (`Esc`, `Enter`).
+- [x] **10.8 Clerk User Avatar & Popover Dark Theme Polish**
+  - Configured dark theme appearance variables, popover card tokens, and action button hover states on `UserButton` in `Navbar.tsx`.
+  - Added `userProfileProps` with dark theme styling so the "Manage account" profile modal opens in dark mode.
+  - Added global dark appearance variables to root `<ClerkProvider>` in `app/layout.tsx`.
+  - Added global CSS overrides in `app/globals.css` targeting `.cl-userButtonPopover*` and `.cl-userProfile*` to eliminate all white-mode background/text leakage.
+- [x] **10.9 Database-Backed Pinned Boards & Sidebar Refactor**
+  - Added `isPinned Boolean @default(false)` to `Board` model in Prisma schema and synced via `prisma db push`.
+  - Updated `actions/update-board` (schema & handler) to validate and update `isPinned` with safe multi-path cache revalidation.
+  - Refactored `Sidebar.tsx`: removed `useLocalStorage` and mock data fallback (`boards.slice(0, 5)`). Sidebar now queries and renders strictly real database-pinned boards.
+  - Added clean empty state placeholder for pinned boards when none are pinned.
+  - Updated `BoardOptions` and `BoardCardOptions` to toggle board pins via database mutations, eliminating client localStorage dependencies.
+  - Elevated sidebar typography, icons, rounded-lg navigation links, and dark slate styling tokens.
+- [x] **10.10 Billing Deletion & Sidebar Active State Typography Polish**
+  - Completely removed the `/billing` page, related pricing components, and billing route from the application.
+  - Refined the active UI across navigation routes and pinned board items: styled with a lighter, less dark background (`bg-slate-800`), crisp full orange border (`border border-[var(--landing-orange)]`), glowing orange icon shadow, and `text-white font-semibold`.
+  - Polished sidebar typography: uppercase tracking headers (`tracking-[0.1em] text-slate-400 font-semibold`), proportioned line heights (`h-9.5 text-[13px] font-medium`), and renamed the bottom widget to Workspace Boards.
+
+---
+
+### Phase 11: Dark Theme Sidebar Harmonization & Team Planning Mode
+- [x] **11.1 Sidebar Dark Theme & Active Menu Harmonization**
+  - Replaced hardcoded slate classes (`bg-slate-950`, `bg-slate-900`, `bg-slate-800`, `text-slate-400`) in `Sidebar.tsx` with Plana's warm charcoal theme tokens (`bg-[var(--landing-bg)]`, `bg-[var(--landing-panel-strong)]`, `border-[var(--landing-line)]`, `text-[var(--landing-text)]`, `text-[var(--landing-muted)]`).
+  - Active menu items and pinned boards now use `bg-[var(--landing-panel-strong)]` with `border border-[var(--landing-orange)]/60`, orange drop-shadow icon, and crisp `text-[var(--landing-text)]` for seamless dark mode cohesion.
+  - Skeletons, empty pinned boards state, and workspace progress widget updated to match the warm dark surface palette.
+  - Eliminated duplicate border wrapper in `organization/layout.tsx`.
+- [x] **11.2 Workspace Settings Page Refinement**
+  - Re-anchored `/organization/[organizationId]/settings` as dedicated Workspace Settings & Administration hub with clear header and icons.
+- [x] **11.3 Team Members & Planning Hub (`members/page.tsx`)**
+  - Built an interactive **Team & Workload Planning Mode** featuring:
+    - Overview metrics: Active Members, Total Assigned Tasks, Urgent/High Priority Items, and Due Soon/Overdue Deadlines.
+    - Search & filter toolbar: search by member/task/board, filter by board, and filter by priority (`URGENT`, `HIGH`, `MEDIUM`, `LOW`).
+    - Member Workload Roster: capacity status (`Available`, `High Workload`, or active task count), assigned task cards with priority badge, board badge, list name, and due date.
+    - Direct integration with Plana's card modal (`useCardModal().onOpen()`) on task click.
+    - Unassigned tasks backlog section for easy task triage.
+    - Integrated "Invite & Manage Roles" tab with Clerk's `<OrganizationProfile />` styled to Plana's dark theme.
 
 ---
 

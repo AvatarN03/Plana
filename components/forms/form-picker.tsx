@@ -33,13 +33,12 @@ export const FormPicker = ({
 
     const [images, setImages] = useState<FormPickerImage[]>(defaultImages as FormPickerImage[]);
     const [isloading, setIsLoading] = useState(true);
-    const [selectedImage, setSelectedImage] = useState<string | null>(null)
+    const [selectedImage, setSelectedImage] = useState<string | null>(
+        (defaultImages as FormPickerImage[])[0]?.id || null
+    );
 
     useEffect(() => {
-
         const fetchImages = async () => {
-
-
             try {
                 const result = await unsplash.photos.getRandom({
                     collectionIds: ['317099'],
@@ -49,9 +48,15 @@ export const FormPicker = ({
                 if (result && result.response) {
                     const newImages = result.response as FormPickerImage[]
                     setImages(newImages)
+                    if (newImages.length > 0) {
+                        setSelectedImage(newImages[0].id)
+                    }
                 }
             } catch {
                 setImages(defaultImages as FormPickerImage[]);
+                if (defaultImages.length > 0) {
+                    setSelectedImage(defaultImages[0].id);
+                }
             } finally {
                 setIsLoading(false);
             }
@@ -62,7 +67,7 @@ export const FormPicker = ({
 
     if (isloading) {
         return (
-            <div className="flex items-center justify-center p-4">
+            <div className="flex items-center justify-center p-6 border border-dashed border-[var(--landing-line)] rounded-lg bg-[var(--landing-panel-strong)]">
                 <Loader2 className="w-5 h-5 text-[var(--landing-orange)] animate-spin" />
             </div>
         );
@@ -70,11 +75,16 @@ export const FormPicker = ({
 
     return (
         <div className="relative">
-            <div className="grid grid-cols-3 gap-1.5 mb-1">
+            <div className="grid grid-cols-3 gap-2 mb-1.5">
                 {
                     images.slice(0, 6).map(image => (
-                        <div className={cn("cursor-pointer relative aspect-video group hover:opacity-75 transition bg-muted rounded-[4px] overflow-hidden", pending && "opacity-50 cursor-auto hover:opacity-50")}
+                        <div
                             key={image.id}
+                            className={cn(
+                                "cursor-pointer relative aspect-video group transition-all duration-200 bg-[var(--landing-panel-strong)] rounded-lg overflow-hidden border border-[var(--landing-line)] hover:border-[var(--landing-orange)] hover:scale-[1.02]",
+                                selectedImage === image.id && "ring-2 ring-[var(--landing-orange)] border-transparent shadow-sm",
+                                pending && "opacity-50 cursor-not-allowed hover:scale-100"
+                            )}
                             onClick={() => {
                                 if (pending) return;
                                 setSelectedImage(image.id)
@@ -83,7 +93,7 @@ export const FormPicker = ({
                             <input
                                 type="radio"
                                 className="hidden"
-                                onClick={() => { }}
+                                onChange={() => { }}
                                 value={`${image.id}|${image.urls.thumb}|${image.urls.full}`}
                                 checked={selectedImage === image.id}
                                 disabled={pending}
@@ -99,9 +109,9 @@ export const FormPicker = ({
                             />
                             {
                                 selectedImage === image.id && (
-                                    <div className="absolute inset-y-0 w-full h-full flex justify-center items-center border border-[var(--landing-orange)] bg-black/40">
-                                        <div className="w-4 h-4 rounded-full bg-[var(--landing-orange)] flex items-center justify-center">
-                                            <Check className="w-2.5 h-2.5 text-white" />
+                                    <div className="absolute inset-0 flex justify-center items-center bg-black/45 backdrop-blur-[1px]">
+                                        <div className="w-5 h-5 rounded-full bg-[var(--landing-orange)] flex items-center justify-center shadow-md">
+                                            <Check className="w-3 h-3 text-white stroke-[2.5]" />
                                         </div>
                                     </div>
                                 )
@@ -110,7 +120,7 @@ export const FormPicker = ({
                                 <Link
                                     href={image.links.html}
                                     target="_blank"
-                                    className="bg-black/50 text-white group-hover:opacity-100 opacity-0 absolute bottom-0 left-0 truncate text-[10px] w-full py-0.5 px-1 text-center">
+                                    className="bg-black/60 text-white/90 group-hover:opacity-100 opacity-0 absolute bottom-0 left-0 truncate text-[10px] w-full py-0.5 px-1.5 text-center transition-opacity">
                                     {image.user.name}
                                 </Link>
                             )}

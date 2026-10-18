@@ -16,14 +16,12 @@ export interface FormInputProps {
     required?: boolean,
     disabled?: boolean,
     classname?: string,
+    labelClassname?: string,
     placeholder?: string,
     errors?: Record<string, string[] | undefined>,
     defaultValue?: string,
     onBlur?: () => void
-
 }
-
-
 
 export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(({
     id,
@@ -31,6 +29,7 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(({
     required,
     placeholder,
     classname,
+    labelClassname,
     errors,
     defaultValue = "",
     onBlur,
@@ -39,28 +38,25 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(({
 }, ref) => {
     const { pending } = useFormStatus();
     return (
-        <div className="space-y-2">
-            <div className="space-y-1">
-
-                {
-                    label &&
-                    <Label htmlFor={id} className="text-xs font-semibold text-[var(--landing-text)] leading-6 peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                        {label} {required && <span className="text-red-500">*</span>}
-                    </Label>
-                }
-                <Input
-                    ref={ref}
-                    id={id}
-                    name={id}
-                    type={type}
-                    defaultValue={defaultValue}
-                    onBlur={onBlur}
-                    disabled={pending || disabled}
-                    placeholder={placeholder}
-                    className={cn("h-8 rounded-sm px-2.5 text-sm bg-[var(--landing-panel-strong)] border-[var(--landing-line)] text-[var(--landing-text)] focus-visible:ring-1 focus-visible:ring-[var(--landing-orange)]", classname)}
-                    aria-describedby={`${id}-error`}
-                />
-            </div>
+        <div className="space-y-1.5">
+            {
+                label &&
+                <Label htmlFor={id} className={cn("text-xs font-semibold text-[var(--landing-text)] leading-5 block peer-disabled:cursor-not-allowed peer-disabled:opacity-70", labelClassname)}>
+                    {label} {required && <span className="text-red-500">*</span>}
+                </Label>
+            }
+            <Input
+                ref={ref}
+                id={id}
+                name={id}
+                type={type}
+                defaultValue={defaultValue}
+                onBlur={onBlur}
+                disabled={pending || disabled}
+                placeholder={placeholder}
+                className={cn("h-9 rounded-md px-3 text-sm bg-[var(--landing-panel-strong)] border-[var(--landing-line)] text-[var(--landing-text)] focus-visible:ring-1 focus-visible:ring-[var(--landing-orange)]", classname)}
+                aria-describedby={`${id}-error`}
+            />
             <FormErrors id={id} errors={errors} />
         </div>
     )

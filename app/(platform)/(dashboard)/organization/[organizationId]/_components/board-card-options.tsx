@@ -188,36 +188,36 @@ export const BoardCardOptions = ({ id, title }: BoardCardOptionsProps) => {
       {/* Rename Dialog */}
       <Dialog open={renameOpen} onOpenChange={setRenameOpen}>
         <DialogContent
-          className="w-[90vw] max-w-[280px] p-3.5 border-[var(--landing-line)] bg-[var(--landing-panel)] text-[var(--landing-text)] rounded-[8px] shadow-2xl"
+          className="w-[90vw] sm:max-w-[380px] p-5 border-[var(--landing-line)] bg-[var(--landing-panel)] text-[var(--landing-text)] rounded-[10px] shadow-2xl"
           onClick={(e) => e.stopPropagation()}
         >
-          <DialogHeader className="pb-2 border-b border-[var(--landing-line)]">
-            <DialogTitle className="text-[11px] font-mono uppercase tracking-wider text-[var(--landing-muted)] font-semibold">
+          <DialogHeader className="pb-2.5 border-b border-[var(--landing-line)]">
+            <DialogTitle className="text-sm font-semibold text-[var(--landing-text)]">
               Rename Board
             </DialogTitle>
           </DialogHeader>
 
-          <form action={onRenameSubmit} className="space-y-3 pt-1">
+          <form action={onRenameSubmit} className="space-y-3 pt-1.5">
             <FormInput
               id="title"
               label="Board title"
               defaultValue={title}
               errors={fieldErrors}
               placeholder="Enter new board name..."
-              classname="h-7.5 text-xs rounded-[5px]"
+              classname="h-9 text-sm rounded-md px-3 bg-[var(--landing-panel-strong)] border-[var(--landing-line)] text-[var(--landing-text)]"
               required
             />
-            <div className="flex items-center justify-end gap-1.5 pt-1">
+            <div className="flex items-center justify-end gap-2 pt-1">
               <Button
                 type="button"
                 variant="ghost"
                 size="sm"
                 onClick={() => setRenameOpen(false)}
-                className="h-7.5 px-2.5 text-xs rounded-[5px] text-[var(--landing-muted)] hover:text-[var(--landing-text)] cursor-pointer"
+                className="h-8.5 px-3 text-xs rounded-md text-[var(--landing-muted)] hover:text-[var(--landing-text)] cursor-pointer"
               >
                 Cancel
               </Button>
-              <FormSubmit classname="h-7.5 px-3 text-xs rounded-[5px] bg-[var(--landing-orange)] text-[var(--landing-orange-foreground)] font-semibold hover:brightness-110 cursor-pointer">
+              <FormSubmit classname="h-8.5 px-3.5 text-xs rounded-md bg-[var(--landing-orange)] text-[var(--landing-orange-foreground)] font-semibold hover:brightness-110 cursor-pointer">
                 Save
               </FormSubmit>
             </div>

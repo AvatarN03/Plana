@@ -1,7 +1,11 @@
 import { auth } from "@clerk/nextjs/server";
 import OrgControl from "./_components/org-control";
-import { startCase } from "lodash";
-
+function toStartCase(str: string) {
+    return str
+        .replace(/[-_]+/g, " ")
+        .replace(/\b\w/g, (char) => char.toUpperCase())
+        .trim();
+}
 
 export async function generateMetadata() {
     const { orgSlug } = await auth();
@@ -9,7 +13,7 @@ export async function generateMetadata() {
     const cleanSlug = orgSlug?.split("-")[0] || "";
 
     return {
-        title: startCase(cleanSlug) || "Organization"
+        title: toStartCase(cleanSlug) || "Organization"
     };
 }
 

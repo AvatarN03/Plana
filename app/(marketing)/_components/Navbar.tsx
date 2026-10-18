@@ -46,7 +46,27 @@ export const Navbar = async () => {
                                     <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
                                 </Link>
                             </Button>
-                            <UserButton />
+                            <UserButton
+                                appearance={{
+                                    elements: {
+                                        avatarBox: "size-8.5 rounded-md ring-1 ring-[var(--landing-line)] hover:ring-[var(--landing-orange)]/60 transition",
+                                        userButtonPopoverCard:
+                                            "!bg-[var(--landing-panel)] !border !border-[var(--landing-line)] !shadow-2xl !rounded-xl !text-[var(--landing-text)]",
+                                        userButtonPopoverActionButton:
+                                            "!text-[var(--landing-text)] hover:!bg-[var(--landing-panel-strong)] !rounded-lg",
+                                        userButtonPopoverActionButtonText:
+                                            "!text-[var(--landing-text)] font-medium text-xs",
+                                        userButtonPopoverActionButtonIcon:
+                                            "!text-[var(--landing-orange)]",
+                                        userButtonPopoverFooter:
+                                            "!border-t !border-[var(--landing-line)] !bg-[var(--landing-panel)]",
+                                        userPreviewMainIdentifier:
+                                            "!text-[var(--landing-text)] font-semibold text-xs",
+                                        userPreviewSecondaryIdentifier:
+                                            "!text-[var(--landing-muted)] text-[11px]",
+                                    },
+                                }}
+                            />
                         </>
                     ) : (
                         <div className="hidden sm:flex items-center gap-1.5">

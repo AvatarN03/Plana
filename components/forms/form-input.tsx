@@ -20,7 +20,8 @@ export interface FormInputProps {
     placeholder?: string,
     errors?: Record<string, string[] | undefined>,
     defaultValue?: string,
-    onBlur?: () => void
+    onBlur?: () => void,
+    onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void,
 }
 
 export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(({
@@ -33,6 +34,7 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(({
     errors,
     defaultValue = "",
     onBlur,
+    onKeyDown,
     type,
     disabled
 }, ref) => {
@@ -52,6 +54,7 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(({
                 type={type}
                 defaultValue={defaultValue}
                 onBlur={onBlur}
+                onKeyDown={onKeyDown}
                 disabled={pending || disabled}
                 placeholder={placeholder}
                 className={cn("h-9 rounded-md px-3 text-sm bg-[var(--landing-panel-strong)] border-[var(--landing-line)] text-[var(--landing-text)] focus-visible:ring-1 focus-visible:ring-[var(--landing-orange)]", classname)}

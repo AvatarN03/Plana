@@ -6,7 +6,7 @@ const OrganizationLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="min-h-screen bg-[var(--landing-bg)]">
       {/* Fixed Full-Height Desktop Sidebar matching concept mockup */}
-      <div className="hidden md:flex fixed inset-y-0 left-0 w-64 z-50 border-r border-[var(--landing-line)] bg-[var(--landing-bg)]">
+      <div className="hidden md:flex fixed inset-y-0 left-0 w-64 z-50 bg-[var(--landing-bg)]">
         <Sidebar />
       </div>
 

@@ -18,6 +18,14 @@ const nextConfig: NextConfig = {
       }
     ],
   },
+  experimental: {
+    optimizePackageImports: [
+      "lucide-react",
+      "date-fns",
+      "radix-ui",
+      "@radix-ui/react-slot",
+    ],
+  },
 };
 
 export default nextConfig;

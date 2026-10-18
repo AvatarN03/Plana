@@ -1,12 +1,27 @@
 import { OrganizationProfile } from "@clerk/nextjs";
 import { Info } from "../_components/Info";
 import { Separator } from "@/components/ui/separator";
+import { Sliders } from "lucide-react";
 
 export default function SettingsPage() {
   return (
     <div className="w-full pb-16 space-y-6">
       <Info />
       <Separator className="bg-[var(--landing-line)]" />
+
+      {/* Settings Header */}
+      <div className="space-y-1">
+        <div className="flex items-center gap-2">
+          <Sliders className="size-4.5 text-[var(--landing-orange)]" />
+          <h2 className="text-lg font-semibold text-[var(--landing-text)]">
+            Workspace Settings & Administration
+          </h2>
+        </div>
+        <p className="text-xs text-[var(--landing-muted)]">
+          Manage workspace identity, organization branding, security settings, and administrative access.
+        </p>
+      </div>
+
       <div className="rounded-sm border border-[var(--landing-line)] bg-[var(--landing-panel)] overflow-hidden shadow-2xs">
         <OrganizationProfile
           appearance={{

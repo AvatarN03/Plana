@@ -1,7 +1,6 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { Search } from "lucide-react";
 import Logo from "@/components/custom/Logo";
 import { MobileSidebar } from "./MobileSidebar";
 import { OrganizationSwitcher, UserButton } from "@clerk/nextjs";
@@ -29,17 +28,6 @@ const Navbar = () => {
           {(isBoardPage || !isBoardPage) && (
             <div className={cn("items-center", !isBoardPage ? "flex md:hidden" : "flex")}>
               <Logo />
-            </div>
-          )}
-
-          {/* Desktop Search Bar matching concept image */}
-          {!isBoardPage && (
-            <div className="hidden md:flex items-center gap-2 h-9 px-3 w-64 xl:w-80 border border-[var(--landing-line)] bg-[var(--landing-panel)] rounded-sm text-xs text-[var(--landing-muted)] transition-colors hover:border-[var(--landing-line-strong)] select-none">
-              <Search className="size-3.5 shrink-0 text-[var(--landing-muted)]" />
-              <span className="truncate">Inline quick search...</span>
-              <kbd className="ml-auto text-[10px] font-mono px-1.5 py-0.5 rounded-sm bg-[var(--landing-panel-strong)] border border-[var(--landing-line)] text-[var(--landing-muted)]">
-                Cmd+K
-              </kbd>
             </div>
           )}
         </div>
@@ -91,8 +79,62 @@ const Navbar = () => {
 
           <UserButton
             appearance={{
+              variables: {
+                colorPrimary: "#ff7619",
+                colorText: "var(--landing-text)",
+                colorTextSecondary: "var(--landing-muted)",
+                colorBackground: "var(--landing-panel)",
+                colorInputBackground: "var(--landing-panel-strong)",
+                colorInputText: "var(--landing-text)",
+              },
               elements: {
-                avatarBox: "size-8.5 rounded-sm ring-1 ring-[var(--landing-line)]",
+                avatarBox: "size-8.5 rounded-md ring-1 ring-[var(--landing-line)] hover:ring-[var(--landing-orange)]/60 transition",
+                userButtonPopoverCard:
+                  "!bg-[var(--landing-panel)] !border !border-[var(--landing-line)] !shadow-2xl !rounded-xl !text-[var(--landing-text)]",
+                userButtonPopoverRoot:
+                  "!text-[var(--landing-text)]",
+                userButtonPopoverMain:
+                  "!bg-[var(--landing-panel)] !text-[var(--landing-text)]",
+                userButtonPopoverActionButton:
+                  "!text-[var(--landing-text)] hover:!bg-[var(--landing-panel-strong)] !rounded-lg transition-colors",
+                userButtonPopoverActionButtonText:
+                  "!text-[var(--landing-text)] font-medium text-xs",
+                userButtonPopoverActionButtonIcon:
+                  "!text-[var(--landing-orange)]",
+                userButtonPopoverFooter:
+                  "!border-t !border-[var(--landing-line)] !bg-[var(--landing-panel)] !text-[var(--landing-muted)]",
+                userPreview:
+                  "!text-[var(--landing-text)]",
+                userPreviewMainIdentifier:
+                  "!text-[var(--landing-text)] font-semibold text-xs",
+                userPreviewSecondaryIdentifier:
+                  "!text-[var(--landing-muted)] text-[11px]",
+                userButtonPopoverCustomItemButton:
+                  "!text-[var(--landing-text)] hover:!bg-[var(--landing-panel-strong)] !rounded-lg",
+              },
+            }}
+            userProfileProps={{
+              appearance: {
+                variables: {
+                  colorPrimary: "#ff7619",
+                  colorText: "var(--landing-text)",
+                  colorTextSecondary: "var(--landing-muted)",
+                  colorBackground: "var(--landing-panel)",
+                  colorInputBackground: "var(--landing-panel-strong)",
+                  colorInputText: "var(--landing-text)",
+                },
+                elements: {
+                  card: "!bg-[var(--landing-panel)] !border !border-[var(--landing-line)] !text-[var(--landing-text)] !rounded-xl",
+                  navbar: "!border-r !border-[var(--landing-line)] !bg-[var(--landing-bg)]",
+                  navbarButton: "!text-[var(--landing-muted)] hover:!text-[var(--landing-text)] hover:!bg-[var(--landing-panel-strong)] !rounded-md",
+                  headerTitle: "!text-[var(--landing-text)]",
+                  headerSubtitle: "!text-[var(--landing-muted)]",
+                  profileSectionTitle: "!text-[var(--landing-text)]",
+                  profileSectionContent: "!text-[var(--landing-text)]",
+                  breadcrumbsItem: "!text-[var(--landing-muted)]",
+                  breadcrumbsItemCurrent: "!text-[var(--landing-text)]",
+                  formButtonPrimary: "!bg-[var(--landing-orange)] hover:!bg-[var(--landing-orange)]/90 !text-white",
+                },
               },
             }}
           />

@@ -42,7 +42,18 @@ export default function RootLayout({
           }}
         />
       </head>
-      <ClerkProvider>
+      <ClerkProvider
+        appearance={{
+          variables: {
+            colorPrimary: "#ff7619",
+            colorText: "#f5f4ee",
+            colorTextSecondary: "#b8b8af",
+            colorBackground: "#171815",
+            colorInputBackground: "#1d1e1b",
+            colorInputText: "#f5f4ee",
+          },
+        }}
+      >
         <body
           className={`${montserrat.variable} ${montserrat.className} font-sans antialiased min-h-screen landing-shell`}
         >

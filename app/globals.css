@@ -572,3 +572,98 @@ body.light-mode,
 .cl-organizationListPreviewItem:hover {
   background: var(--landing-panel-strong) !important;
 }
+
+/* UserButton Popover & User Profile Dark Theme Styles */
+.cl-userButtonPopoverCard {
+  background: var(--landing-panel) !important;
+  border: 1px solid var(--landing-line) !important;
+  color: var(--landing-text) !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7) !important;
+  border-radius: 0.75rem !important;
+}
+
+.cl-userButtonPopoverRoot,
+.cl-userButtonPopoverMain {
+  background: var(--landing-panel) !important;
+  color: var(--landing-text) !important;
+}
+
+.cl-userButtonPopoverActionButton {
+  color: var(--landing-text) !important;
+  border-radius: 0.5rem !important;
+  transition: all 150ms ease !important;
+}
+
+.cl-userButtonPopoverActionButton:hover {
+  background: var(--landing-panel-strong) !important;
+  color: var(--landing-text) !important;
+}
+
+.cl-userButtonPopoverActionButtonText {
+  color: var(--landing-text) !important;
+  font-size: 0.8125rem !important;
+}
+
+.cl-userButtonPopoverActionButtonIcon {
+  color: var(--landing-orange) !important;
+}
+
+.cl-userButtonPopoverFooter {
+  border-top: 1px solid var(--landing-line) !important;
+  background: var(--landing-panel) !important;
+}
+
+.cl-userButtonPopoverFooter * {
+  color: var(--landing-muted) !important;
+}
+
+.cl-userPreviewMainIdentifier {
+  color: var(--landing-text) !important;
+  font-weight: 600 !important;
+}
+
+.cl-userPreviewSecondaryIdentifier {
+  color: var(--landing-muted) !important;
+}
+
+/* User Profile Modal Dark Theme */
+.cl-userProfile-root .cl-card {
+  background: var(--landing-panel) !important;
+  border: 1px solid var(--landing-line) !important;
+  color: var(--landing-text) !important;
+  border-radius: 0.75rem !important;
+}
+
+.cl-userProfile-root .cl-navbar {
+  background: var(--landing-bg) !important;
+  border-right: 1px solid var(--landing-line) !important;
+}
+
+.cl-userProfile-root .cl-navbarButton {
+  color: var(--landing-muted) !important;
+  border-radius: 0.375rem !important;
+}
+
+.cl-userProfile-root .cl-navbarButton:hover,
+.cl-userProfile-root .cl-navbarButton[data-active="true"] {
+  background: var(--landing-panel-strong) !important;
+  color: var(--landing-text) !important;
+}
+
+.cl-userProfile-root .cl-headerTitle,
+.cl-userProfile-root .cl-profileSectionTitleText {
+  color: var(--landing-text) !important;
+}
+
+.cl-userProfile-root .cl-headerSubtitle,
+.cl-userProfile-root .cl-profileSectionSubtitle {
+  color: var(--landing-muted) !important;
+}
+
+.cl-userProfile-root .cl-breadcrumbsItem {
+  color: var(--landing-muted) !important;
+}
+
+.cl-userProfile-root .cl-breadcrumbsItemCurrent {
+  color: var(--landing-text) !important;
+}

@@ -15,116 +15,123 @@ import { toast } from "sonner";
 import { useEventListener, useOnClickOutside } from "usehooks-ts";
 
 interface DescriptionProps {
-    data: CardWithList
+  data: CardWithList;
 }
 
 export const Description = ({ data }: DescriptionProps) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
+  const formRef = useRef<HTMLFormElement>(null!);
+  const queryClient = useQueryClient();
+  const [description, setDescription] = useState(data?.description);
 
-    const [isEditing, setIsEditing] = useState(false);
-    const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
-    const formRef = useRef<HTMLFormElement>(null!);
-    const queryClient = useQueryClient();
-    const [description, setDescription] = useState(data?.description)
+  const enableEditing = () => {
+    setIsEditing(true);
+    setTimeout(() => {
+      textAreaRef?.current?.focus();
+    });
+  };
 
-    const enableEditing = () => {
-        setIsEditing(true);
-        setTimeout(() => {
-            textAreaRef?.current?.focus();
-        })
+  const disableEditing = () => {
+    setIsEditing(false);
+  };
+
+  const onKeyDown = (e: KeyboardEvent) => {
+    if (e.key === "Escape") {
+      disableEditing();
+    }
+  };
+
+  useEventListener("keydown", onKeyDown);
+  useOnClickOutside(formRef, disableEditing);
+
+  const params = useParams();
+  const boardId = params.boardId as string;
+
+  const { execute, fieldErrors } = useAction(updateCard, {
+    onSuccess: (updated) => {
+      queryClient.invalidateQueries({
+        queryKey: ["card", updated.id],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["card-log", updated.id],
+      });
+      toast.success("Card description updated");
+    },
+    onError: (error) => toast.error(error),
+  });
+
+  const onSubmit = (formData: FormData) => {
+    const raw = formData.get("description") as string;
+    const trimmed = raw?.trim();
+    if (trimmed === (data.description || "").trim()) {
+      disableEditing();
+      return;
     }
 
-    const disableEditing = () => {
-        setIsEditing(false);
-    }
+    execute({ id: data.id, boardId, description: trimmed });
+    setDescription(trimmed);
+    disableEditing();
+  };
 
-    const onKeyDown = (e: KeyboardEvent) => {
-        if (e.key === 'Escape') {
-            disableEditing();
-        }
-    }
+  return (
+    <div className="w-full space-y-2">
+      <div className="flex items-center gap-2.5 text-sm font-semibold text-slate-200">
+        <div className="p-1.5 rounded-lg bg-[var(--landing-orange)]/15 border border-[var(--landing-orange)]/30">
+          <AlignLeft className="w-4 h-4 text-[var(--landing-orange)]" />
+        </div>
+        <span>Description</span>
+      </div>
 
-    useEventListener("keydown", onKeyDown);
-    useOnClickOutside(formRef, disableEditing);
-
-    const params = useParams();
-
-    const boardId = params.boardId as string
-
-    const { execute, fieldErrors } = useAction(updateCard, {
-        onSuccess: (data) => {
-            queryClient.invalidateQueries({
-                queryKey: ["card", data.id]
-            })
-            toast.success(`Card description updated`)
-        },
-        onError: (error) => toast.error(error)
-    })
-
-
-    const onSubmit = (formData: FormData) => {
-        const description = formData.get("description") as string;
-        if (description.trim() === data.description) return
-
-        execute({ id: data.id, boardId, description })
-        setDescription(description);
-        disableEditing();
-    }
-
-
-    return (
-        <div className="flex items-start gap-x-3 w-full">
-            <AlignLeft className="h-5 w-5 mt-0.5 text-[var(--landing-orange)]" />
-            <div className="w-full">
-                <p className="font-semibold text-[var(--landing-text)] mb-2">
-                    Description
-                </p>
-                {
-                    isEditing ? (
-                        <div className="">
-                            <form action={onSubmit} ref={formRef}>
-                                <FormTextArea
-                                    errors={fieldErrors}
-                                    ref={textAreaRef}
-                                    id="description"
-                                    placeholder="Add more detail to description ..."
-                                    classname="w-full mt-2"
-                                    defaultValue={description || undefined}
-                                />
-                                <div className="flex items-center gap-x-3 mt-3">
-                                    <FormSubmit classname="bg-[var(--landing-orange)] text-[var(--landing-orange-foreground)] hover:brightness-110 rounded-sm text-xs font-semibold h-8 px-3">
-                                        Save
-                                    </FormSubmit>
-                                    <Button
-                                        type="button"
-                                        variant={"ghost"}
-                                        size={"sm"}
-                                        onClick={disableEditing}
-                                        className="text-[var(--landing-muted)] hover:text-[var(--landing-text)] rounded-sm h-8"
-                                    >
-                                        Cancel
-                                    </Button>
-                                </div>
-                            </form>
-                        </div>
-                    ) : (
-                        <div onClick={enableEditing} role="button" className="bg-[var(--landing-panel-strong)] border border-[var(--landing-line)] hover:border-[var(--landing-orange)] min-h-24 text-sm font-medium p-3 rounded-sm text-[var(--landing-text)] transition cursor-pointer">
-                            {description || "Add more detail to your card..."}
-                        </div>
-                    )
-                }
-
-            </div>
-        </div >
-    )
-}
-
-
+      {isEditing ? (
+        <form action={onSubmit} ref={formRef} className="space-y-2">
+          <FormTextArea
+            errors={fieldErrors}
+            ref={textAreaRef}
+            id="description"
+            placeholder="Add a more detailed description to this card..."
+            classname="w-full text-sm rounded-xl p-3.5 bg-slate-900 border border-slate-700 text-slate-200 placeholder:text-slate-500 focus-visible:ring-1 focus-visible:ring-[var(--landing-orange)]/60 min-h-28 leading-relaxed"
+            defaultValue={description || undefined}
+          />
+          <div className="flex items-center gap-2">
+            <FormSubmit classname="bg-[var(--landing-orange)] text-white hover:bg-[var(--landing-orange)]/90 rounded-md text-xs font-semibold h-8 px-4 cursor-pointer">
+              Save
+            </FormSubmit>
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              onClick={disableEditing}
+              className="text-slate-400 hover:text-white rounded-md h-8 text-xs cursor-pointer"
+            >
+              Cancel
+            </Button>
+          </div>
+        </form>
+      ) : (
+        <div
+          onClick={enableEditing}
+          role="button"
+          className="rounded-xl p-4 bg-slate-900/60 hover:bg-slate-900/90 border border-slate-800/80 hover:border-slate-700/80 text-sm leading-relaxed text-slate-300 min-h-24 transition cursor-pointer shadow-xs"
+        >
+          {description ? (
+            <span className="whitespace-pre-wrap">{description}</span>
+          ) : (
+            <span className="text-slate-500 italic">
+              Add more detail to this card...
+            </span>
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
 
 Description.Skeleton = function DescriptionSkeleton() {
-    return (
-        <div className="flex flex-col gap-y-2 w-full">
-            <Skeleton className="w-24 h-7 rounded-sm border border-[var(--landing-line)]" />
-            <Skeleton className="w-full h-36 rounded-sm border border-[var(--landing-line)]" />
-        </div>
-    )
-}
+  return (
+    <div className="space-y-2 w-full">
+      <Skeleton className="w-28 h-5 rounded-md bg-slate-900 border border-slate-800" />
+      <Skeleton className="w-full h-24 rounded-xl bg-slate-900 border border-slate-800" />
+    </div>
+  );
+};

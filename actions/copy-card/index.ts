@@ -35,6 +35,10 @@ const handler = async (data: InputType): Promise<ReturnType> => {
           },
         },
       },
+      include: {
+        labels: true,
+        checklists: true,
+      },
     });
 
     if (!cardToCopy) {
@@ -69,7 +73,20 @@ const handler = async (data: InputType): Promise<ReturnType> => {
         priority: cardToCopy.priority,
         dueDate: cardToCopy.dueDate,
         order: newOrder,
-      }
+        labels: {
+          create: cardToCopy.labels.map((l) => ({
+            name: l.name,
+            color: l.color,
+          })),
+        },
+        checklists: {
+          create: cardToCopy.checklists.map((c) => ({
+            title: c.title,
+            isCompleted: c.isCompleted,
+            order: c.order,
+          })),
+        },
+      },
     });
 
     await createAuditLogs({

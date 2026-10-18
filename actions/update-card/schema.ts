@@ -12,6 +12,7 @@ export const UpdateCard = z.object({
   ),
   priority: z.optional(z.enum(["LOW", "MEDIUM", "HIGH", "URGENT"])),
   dueDate: z.optional(z.string().nullable()),
+  isArchived: z.optional(z.boolean()),
   id: z.string(),
   boardId: z.string(),
 });

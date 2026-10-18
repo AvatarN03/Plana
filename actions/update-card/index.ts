@@ -33,6 +33,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     if (values.dueDate !== undefined) {
       updateData.dueDate = values.dueDate ? new Date(values.dueDate) : null;
     }
+    if (values.isArchived !== undefined) updateData.isArchived = values.isArchived;
 
     card = await db.card.update({
       where: {

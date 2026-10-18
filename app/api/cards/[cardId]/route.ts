@@ -31,6 +31,13 @@ export async function GET(
             title: true,
           },
         },
+        labels: true,
+        checklists: {
+          orderBy: {
+            order: "asc",
+          },
+        },
+        assignees: true,
       },
     });
 

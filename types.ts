@@ -1,5 +1,17 @@
-import { Card, List } from "./lib/generated/prisma/client";
+import { Card, List, CardLabel, ChecklistItem, CardAssignee } from "./lib/generated/prisma/client";
 
 export interface CardWithList extends Card {
-    list: List;
+  list: List;
+  labels?: CardLabel[];
+  checklists?: ChecklistItem[];
+  assignees?: CardAssignee[];
 }
+
+export type CardDetails = Card & {
+  list: {
+    title: string;
+  };
+  labels: CardLabel[];
+  checklists: ChecklistItem[];
+  assignees: CardAssignee[];
+};

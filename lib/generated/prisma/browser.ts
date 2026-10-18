@@ -33,6 +33,21 @@ export type List = Prisma.ListModel
  */
 export type Card = Prisma.CardModel
 /**
+ * Model CardLabel
+ * 
+ */
+export type CardLabel = Prisma.CardLabelModel
+/**
+ * Model ChecklistItem
+ * 
+ */
+export type ChecklistItem = Prisma.ChecklistItemModel
+/**
+ * Model CardAssignee
+ * 
+ */
+export type CardAssignee = Prisma.CardAssigneeModel
+/**
  * Model AuditLog
  * 
  */

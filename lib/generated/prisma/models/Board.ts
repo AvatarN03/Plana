@@ -31,6 +31,7 @@ export type BoardMinAggregateOutputType = {
   imageId: string | null
   imageUrl: string | null
   imageUrlFull: string | null
+  isPinned: boolean | null
   createdAt: Date | null
   updated: Date | null
 }
@@ -42,6 +43,7 @@ export type BoardMaxAggregateOutputType = {
   imageId: string | null
   imageUrl: string | null
   imageUrlFull: string | null
+  isPinned: boolean | null
   createdAt: Date | null
   updated: Date | null
 }
@@ -53,6 +55,7 @@ export type BoardCountAggregateOutputType = {
   imageId: number
   imageUrl: number
   imageUrlFull: number
+  isPinned: number
   createdAt: number
   updated: number
   _all: number
@@ -66,6 +69,7 @@ export type BoardMinAggregateInputType = {
   imageId?: true
   imageUrl?: true
   imageUrlFull?: true
+  isPinned?: true
   createdAt?: true
   updated?: true
 }
@@ -77,6 +81,7 @@ export type BoardMaxAggregateInputType = {
   imageId?: true
   imageUrl?: true
   imageUrlFull?: true
+  isPinned?: true
   createdAt?: true
   updated?: true
 }
@@ -88,6 +93,7 @@ export type BoardCountAggregateInputType = {
   imageId?: true
   imageUrl?: true
   imageUrlFull?: true
+  isPinned?: true
   createdAt?: true
   updated?: true
   _all?: true
@@ -172,6 +178,7 @@ export type BoardGroupByOutputType = {
   imageId: string
   imageUrl: string
   imageUrlFull: string
+  isPinned: boolean
   createdAt: Date
   updated: Date
   _count: BoardCountAggregateOutputType | null
@@ -204,6 +211,7 @@ export type BoardWhereInput = {
   imageId?: Prisma.StringFilter<"Board"> | string
   imageUrl?: Prisma.StringFilter<"Board"> | string
   imageUrlFull?: Prisma.StringFilter<"Board"> | string
+  isPinned?: Prisma.BoolFilter<"Board"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Board"> | Date | string
   updated?: Prisma.DateTimeFilter<"Board"> | Date | string
   lists?: Prisma.ListListRelationFilter
@@ -216,6 +224,7 @@ export type BoardOrderByWithRelationInput = {
   imageId?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
   imageUrlFull?: Prisma.SortOrder
+  isPinned?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updated?: Prisma.SortOrder
   lists?: Prisma.ListOrderByRelationAggregateInput
@@ -231,6 +240,7 @@ export type BoardWhereUniqueInput = Prisma.AtLeast<{
   imageId?: Prisma.StringFilter<"Board"> | string
   imageUrl?: Prisma.StringFilter<"Board"> | string
   imageUrlFull?: Prisma.StringFilter<"Board"> | string
+  isPinned?: Prisma.BoolFilter<"Board"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Board"> | Date | string
   updated?: Prisma.DateTimeFilter<"Board"> | Date | string
   lists?: Prisma.ListListRelationFilter
@@ -243,6 +253,7 @@ export type BoardOrderByWithAggregationInput = {
   imageId?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
   imageUrlFull?: Prisma.SortOrder
+  isPinned?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updated?: Prisma.SortOrder
   _count?: Prisma.BoardCountOrderByAggregateInput
@@ -260,6 +271,7 @@ export type BoardScalarWhereWithAggregatesInput = {
   imageId?: Prisma.StringWithAggregatesFilter<"Board"> | string
   imageUrl?: Prisma.StringWithAggregatesFilter<"Board"> | string
   imageUrlFull?: Prisma.StringWithAggregatesFilter<"Board"> | string
+  isPinned?: Prisma.BoolWithAggregatesFilter<"Board"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Board"> | Date | string
   updated?: Prisma.DateTimeWithAggregatesFilter<"Board"> | Date | string
 }
@@ -271,6 +283,7 @@ export type BoardCreateInput = {
   imageId: string
   imageUrl: string
   imageUrlFull: string
+  isPinned?: boolean
   createdAt?: Date | string
   updated?: Date | string
   lists?: Prisma.ListCreateNestedManyWithoutBoardInput
@@ -283,6 +296,7 @@ export type BoardUncheckedCreateInput = {
   imageId: string
   imageUrl: string
   imageUrlFull: string
+  isPinned?: boolean
   createdAt?: Date | string
   updated?: Date | string
   lists?: Prisma.ListUncheckedCreateNestedManyWithoutBoardInput
@@ -295,6 +309,7 @@ export type BoardUpdateInput = {
   imageId?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrlFull?: Prisma.StringFieldUpdateOperationsInput | string
+  isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lists?: Prisma.ListUpdateManyWithoutBoardNestedInput
@@ -307,6 +322,7 @@ export type BoardUncheckedUpdateInput = {
   imageId?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrlFull?: Prisma.StringFieldUpdateOperationsInput | string
+  isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lists?: Prisma.ListUncheckedUpdateManyWithoutBoardNestedInput
@@ -319,6 +335,7 @@ export type BoardCreateManyInput = {
   imageId: string
   imageUrl: string
   imageUrlFull: string
+  isPinned?: boolean
   createdAt?: Date | string
   updated?: Date | string
 }
@@ -330,6 +347,7 @@ export type BoardUpdateManyMutationInput = {
   imageId?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrlFull?: Prisma.StringFieldUpdateOperationsInput | string
+  isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -341,6 +359,7 @@ export type BoardUncheckedUpdateManyInput = {
   imageId?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrlFull?: Prisma.StringFieldUpdateOperationsInput | string
+  isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -352,6 +371,7 @@ export type BoardCountOrderByAggregateInput = {
   imageId?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
   imageUrlFull?: Prisma.SortOrder
+  isPinned?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updated?: Prisma.SortOrder
 }
@@ -363,6 +383,7 @@ export type BoardMaxOrderByAggregateInput = {
   imageId?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
   imageUrlFull?: Prisma.SortOrder
+  isPinned?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updated?: Prisma.SortOrder
 }
@@ -374,6 +395,7 @@ export type BoardMinOrderByAggregateInput = {
   imageId?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
   imageUrlFull?: Prisma.SortOrder
+  isPinned?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updated?: Prisma.SortOrder
 }
@@ -385,6 +407,10 @@ export type BoardScalarRelationFilter = {
 
 export type StringFieldUpdateOperationsInput = {
   set?: string
+}
+
+export type BoolFieldUpdateOperationsInput = {
+  set?: boolean
 }
 
 export type DateTimeFieldUpdateOperationsInput = {
@@ -412,6 +438,7 @@ export type BoardCreateWithoutListsInput = {
   imageId: string
   imageUrl: string
   imageUrlFull: string
+  isPinned?: boolean
   createdAt?: Date | string
   updated?: Date | string
 }
@@ -423,6 +450,7 @@ export type BoardUncheckedCreateWithoutListsInput = {
   imageId: string
   imageUrl: string
   imageUrlFull: string
+  isPinned?: boolean
   createdAt?: Date | string
   updated?: Date | string
 }
@@ -450,6 +478,7 @@ export type BoardUpdateWithoutListsInput = {
   imageId?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrlFull?: Prisma.StringFieldUpdateOperationsInput | string
+  isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -461,6 +490,7 @@ export type BoardUncheckedUpdateWithoutListsInput = {
   imageId?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   imageUrlFull?: Prisma.StringFieldUpdateOperationsInput | string
+  isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -503,6 +533,7 @@ export type BoardSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   imageId?: boolean
   imageUrl?: boolean
   imageUrlFull?: boolean
+  isPinned?: boolean
   createdAt?: boolean
   updated?: boolean
   lists?: boolean | Prisma.Board$listsArgs<ExtArgs>
@@ -516,6 +547,7 @@ export type BoardSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   imageId?: boolean
   imageUrl?: boolean
   imageUrlFull?: boolean
+  isPinned?: boolean
   createdAt?: boolean
   updated?: boolean
 }, ExtArgs["result"]["board"]>
@@ -527,6 +559,7 @@ export type BoardSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   imageId?: boolean
   imageUrl?: boolean
   imageUrlFull?: boolean
+  isPinned?: boolean
   createdAt?: boolean
   updated?: boolean
 }, ExtArgs["result"]["board"]>
@@ -538,11 +571,12 @@ export type BoardSelectScalar = {
   imageId?: boolean
   imageUrl?: boolean
   imageUrlFull?: boolean
+  isPinned?: boolean
   createdAt?: boolean
   updated?: boolean
 }
 
-export type BoardOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "orgId" | "title" | "imageId" | "imageUrl" | "imageUrlFull" | "createdAt" | "updated", ExtArgs["result"]["board"]>
+export type BoardOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "orgId" | "title" | "imageId" | "imageUrl" | "imageUrlFull" | "isPinned" | "createdAt" | "updated", ExtArgs["result"]["board"]>
 export type BoardInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   lists?: boolean | Prisma.Board$listsArgs<ExtArgs>
   _count?: boolean | Prisma.BoardCountOutputTypeDefaultArgs<ExtArgs>
@@ -562,6 +596,7 @@ export type $BoardPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     imageId: string
     imageUrl: string
     imageUrlFull: string
+    isPinned: boolean
     createdAt: Date
     updated: Date
   }, ExtArgs["result"]["board"]>
@@ -994,6 +1029,7 @@ export interface BoardFieldRefs {
   readonly imageId: Prisma.FieldRef<"Board", 'String'>
   readonly imageUrl: Prisma.FieldRef<"Board", 'String'>
   readonly imageUrlFull: Prisma.FieldRef<"Board", 'String'>
+  readonly isPinned: Prisma.FieldRef<"Board", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"Board", 'DateTime'>
   readonly updated: Prisma.FieldRef<"Board", 'DateTime'>
 }

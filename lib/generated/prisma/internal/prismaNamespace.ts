@@ -387,6 +387,9 @@ export const ModelName = {
   Board: 'Board',
   List: 'List',
   Card: 'Card',
+  CardLabel: 'CardLabel',
+  ChecklistItem: 'ChecklistItem',
+  CardAssignee: 'CardAssignee',
   AuditLog: 'AuditLog'
 } as const
 
@@ -403,7 +406,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "board" | "list" | "card" | "auditLog"
+    modelProps: "board" | "list" | "card" | "cardLabel" | "checklistItem" | "cardAssignee" | "auditLog"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -629,6 +632,228 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    CardLabel: {
+      payload: Prisma.$CardLabelPayload<ExtArgs>
+      fields: Prisma.CardLabelFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CardLabelFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardLabelPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CardLabelFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardLabelPayload>
+        }
+        findFirst: {
+          args: Prisma.CardLabelFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardLabelPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CardLabelFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardLabelPayload>
+        }
+        findMany: {
+          args: Prisma.CardLabelFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardLabelPayload>[]
+        }
+        create: {
+          args: Prisma.CardLabelCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardLabelPayload>
+        }
+        createMany: {
+          args: Prisma.CardLabelCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CardLabelCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardLabelPayload>[]
+        }
+        delete: {
+          args: Prisma.CardLabelDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardLabelPayload>
+        }
+        update: {
+          args: Prisma.CardLabelUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardLabelPayload>
+        }
+        deleteMany: {
+          args: Prisma.CardLabelDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CardLabelUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CardLabelUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardLabelPayload>[]
+        }
+        upsert: {
+          args: Prisma.CardLabelUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardLabelPayload>
+        }
+        aggregate: {
+          args: Prisma.CardLabelAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCardLabel>
+        }
+        groupBy: {
+          args: Prisma.CardLabelGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CardLabelGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CardLabelCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CardLabelCountAggregateOutputType> | number
+        }
+      }
+    }
+    ChecklistItem: {
+      payload: Prisma.$ChecklistItemPayload<ExtArgs>
+      fields: Prisma.ChecklistItemFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ChecklistItemFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChecklistItemPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ChecklistItemFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChecklistItemPayload>
+        }
+        findFirst: {
+          args: Prisma.ChecklistItemFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChecklistItemPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ChecklistItemFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChecklistItemPayload>
+        }
+        findMany: {
+          args: Prisma.ChecklistItemFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChecklistItemPayload>[]
+        }
+        create: {
+          args: Prisma.ChecklistItemCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChecklistItemPayload>
+        }
+        createMany: {
+          args: Prisma.ChecklistItemCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ChecklistItemCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChecklistItemPayload>[]
+        }
+        delete: {
+          args: Prisma.ChecklistItemDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChecklistItemPayload>
+        }
+        update: {
+          args: Prisma.ChecklistItemUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChecklistItemPayload>
+        }
+        deleteMany: {
+          args: Prisma.ChecklistItemDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ChecklistItemUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ChecklistItemUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChecklistItemPayload>[]
+        }
+        upsert: {
+          args: Prisma.ChecklistItemUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChecklistItemPayload>
+        }
+        aggregate: {
+          args: Prisma.ChecklistItemAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateChecklistItem>
+        }
+        groupBy: {
+          args: Prisma.ChecklistItemGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ChecklistItemGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ChecklistItemCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ChecklistItemCountAggregateOutputType> | number
+        }
+      }
+    }
+    CardAssignee: {
+      payload: Prisma.$CardAssigneePayload<ExtArgs>
+      fields: Prisma.CardAssigneeFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CardAssigneeFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardAssigneePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CardAssigneeFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardAssigneePayload>
+        }
+        findFirst: {
+          args: Prisma.CardAssigneeFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardAssigneePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CardAssigneeFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardAssigneePayload>
+        }
+        findMany: {
+          args: Prisma.CardAssigneeFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardAssigneePayload>[]
+        }
+        create: {
+          args: Prisma.CardAssigneeCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardAssigneePayload>
+        }
+        createMany: {
+          args: Prisma.CardAssigneeCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CardAssigneeCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardAssigneePayload>[]
+        }
+        delete: {
+          args: Prisma.CardAssigneeDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardAssigneePayload>
+        }
+        update: {
+          args: Prisma.CardAssigneeUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardAssigneePayload>
+        }
+        deleteMany: {
+          args: Prisma.CardAssigneeDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CardAssigneeUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CardAssigneeUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardAssigneePayload>[]
+        }
+        upsert: {
+          args: Prisma.CardAssigneeUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CardAssigneePayload>
+        }
+        aggregate: {
+          args: Prisma.CardAssigneeAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCardAssignee>
+        }
+        groupBy: {
+          args: Prisma.CardAssigneeGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CardAssigneeGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CardAssigneeCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CardAssigneeCountAggregateOutputType> | number
+        }
+      }
+    }
     AuditLog: {
       payload: Prisma.$AuditLogPayload<ExtArgs>
       fields: Prisma.AuditLogFieldRefs
@@ -749,6 +974,7 @@ export const BoardScalarFieldEnum = {
   imageId: 'imageId',
   imageUrl: 'imageUrl',
   imageUrlFull: 'imageUrlFull',
+  isPinned: 'isPinned',
   createdAt: 'createdAt',
   updated: 'updated'
 } as const
@@ -775,12 +1001,51 @@ export const CardScalarFieldEnum = {
   description: 'description',
   priority: 'priority',
   dueDate: 'dueDate',
+  isArchived: 'isArchived',
   listId: 'listId',
   createdAt: 'createdAt',
   updated: 'updated'
 } as const
 
 export type CardScalarFieldEnum = (typeof CardScalarFieldEnum)[keyof typeof CardScalarFieldEnum]
+
+
+export const CardLabelScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  color: 'color',
+  cardId: 'cardId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CardLabelScalarFieldEnum = (typeof CardLabelScalarFieldEnum)[keyof typeof CardLabelScalarFieldEnum]
+
+
+export const ChecklistItemScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  isCompleted: 'isCompleted',
+  order: 'order',
+  cardId: 'cardId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ChecklistItemScalarFieldEnum = (typeof ChecklistItemScalarFieldEnum)[keyof typeof ChecklistItemScalarFieldEnum]
+
+
+export const CardAssigneeScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  userName: 'userName',
+  userImage: 'userImage',
+  cardId: 'cardId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CardAssigneeScalarFieldEnum = (typeof CardAssigneeScalarFieldEnum)[keyof typeof CardAssigneeScalarFieldEnum]
 
 
 export const AuditLogScalarFieldEnum = {
@@ -841,6 +1106,13 @@ export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 
  * Reference to a field of type 'String[]'
  */
 export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -1025,6 +1297,9 @@ export type GlobalOmitConfig = {
   board?: Prisma.BoardOmit
   list?: Prisma.ListOmit
   card?: Prisma.CardOmit
+  cardLabel?: Prisma.CardLabelOmit
+  checklistItem?: Prisma.ChecklistItemOmit
+  cardAssignee?: Prisma.CardAssigneeOmit
   auditLog?: Prisma.AuditLogOmit
 }
 

@@ -21,6 +21,7 @@ model Board {
   imageId      String @db.Text
   imageUrl     String @db.Text
   imageUrlFull String @db.Text
+  isPinned     Boolean @default(false)
 
   lists List[]
 
@@ -51,14 +52,61 @@ model Card {
   description String?   @db.Text
   priority    PRIORITY  @default(MEDIUM)
   dueDate     DateTime?
+  isArchived  Boolean   @default(false)
 
   listId String
   list   List   @relation(fields: [listId], references: [id], onDelete: Cascade)
+
+  labels      CardLabel[]
+  checklists  ChecklistItem[]
+  assignees   CardAssignee[]
 
   createdAt DateTime @default(now())
   updated   DateTime @updatedAt
 
   @@index([listId])
+}
+
+model CardLabel {
+  id        String   @id @default(uuid())
+  name      String
+  color     String   // e.g. "red", "amber", "emerald", "blue", "indigo", "purple", "rose", "slate"
+  cardId    String
+  card      Card     @relation(fields: [cardId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([cardId])
+}
+
+model ChecklistItem {
+  id          String   @id @default(uuid())
+  title       String
+  isCompleted Boolean  @default(false)
+  order       Int      @default(0)
+  cardId      String
+  card        Card     @relation(fields: [cardId], references: [id], onDelete: Cascade)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([cardId])
+}
+
+model CardAssignee {
+  id        String   @id @default(uuid())
+  userId    String
+  userName  String   @db.Text
+  userImage String   @db.Text
+  cardId    String
+  card      Card     @relation(fields: [cardId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([cardId, userId])
+  @@index([cardId])
 }
 
 enum PRIORITY {

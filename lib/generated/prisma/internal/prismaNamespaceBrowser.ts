@@ -54,6 +54,9 @@ export const ModelName = {
   Board: 'Board',
   List: 'List',
   Card: 'Card',
+  CardLabel: 'CardLabel',
+  ChecklistItem: 'ChecklistItem',
+  CardAssignee: 'CardAssignee',
   AuditLog: 'AuditLog'
 } as const
 
@@ -80,6 +83,7 @@ export const BoardScalarFieldEnum = {
   imageId: 'imageId',
   imageUrl: 'imageUrl',
   imageUrlFull: 'imageUrlFull',
+  isPinned: 'isPinned',
   createdAt: 'createdAt',
   updated: 'updated'
 } as const
@@ -106,12 +110,51 @@ export const CardScalarFieldEnum = {
   description: 'description',
   priority: 'priority',
   dueDate: 'dueDate',
+  isArchived: 'isArchived',
   listId: 'listId',
   createdAt: 'createdAt',
   updated: 'updated'
 } as const
 
 export type CardScalarFieldEnum = (typeof CardScalarFieldEnum)[keyof typeof CardScalarFieldEnum]
+
+
+export const CardLabelScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  color: 'color',
+  cardId: 'cardId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CardLabelScalarFieldEnum = (typeof CardLabelScalarFieldEnum)[keyof typeof CardLabelScalarFieldEnum]
+
+
+export const ChecklistItemScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  isCompleted: 'isCompleted',
+  order: 'order',
+  cardId: 'cardId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ChecklistItemScalarFieldEnum = (typeof ChecklistItemScalarFieldEnum)[keyof typeof ChecklistItemScalarFieldEnum]
+
+
+export const CardAssigneeScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  userName: 'userName',
+  userImage: 'userImage',
+  cardId: 'cardId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CardAssigneeScalarFieldEnum = (typeof CardAssigneeScalarFieldEnum)[keyof typeof CardAssigneeScalarFieldEnum]
 
 
 export const AuditLogScalarFieldEnum = {

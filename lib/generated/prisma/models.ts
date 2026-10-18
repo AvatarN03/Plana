@@ -11,5 +11,8 @@
 export type * from './models/Board'
 export type * from './models/List'
 export type * from './models/Card'
+export type * from './models/CardLabel'
+export type * from './models/ChecklistItem'
+export type * from './models/CardAssignee'
 export type * from './models/AuditLog'
 export type * from './commonInputTypes'

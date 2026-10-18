@@ -60,7 +60,7 @@ export const BoardList = async () => {
 
               {/* Card Top Row: 3-dot options menu with stopped propagation */}
               <div className="relative z-10 flex items-center justify-end">
-                <BoardCardOptions id={board.id} title={board.title} />
+                <BoardCardOptions id={board.id} title={board.title} isPinned={board.isPinned} />
               </div>
 
               {/* Card Bottom Content: Title, Task Count chip, and Category tags */}

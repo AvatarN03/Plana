@@ -1,6 +1,6 @@
 "use client";
 
-import { List, Card } from "@/lib/generated/prisma/client";
+import { List, Card, CardLabel, ChecklistItem, CardAssignee } from "@/lib/generated/prisma/client";
 import { ListForm } from "./list-form";
 import { useEffect, useMemo, useState } from "react";
 import { ListItem } from "./list-item";
@@ -12,9 +12,14 @@ import { updateCardOrder } from "@/actions/update-card-order";
 import { useBoardFilters } from "@/hooks/use-board-filters";
 import { isPast, isToday } from "date-fns";
 
-// extend prisma List type to include cards relation
+export type CardWithDetails = Card & {
+  labels?: CardLabel[];
+  checklists?: ChecklistItem[];
+  assignees?: CardAssignee[];
+};
+
 export type ListWithCards = List & {
-  cards: Card[];
+  cards: CardWithDetails[];
 };
 
 interface ListContainerProps {
@@ -46,8 +51,13 @@ export const ListContainer = ({
         return orderedData.map((list) => ({
             ...list,
             cards: list.cards.filter((card) => {
-                if (query && !card.title.toLowerCase().includes(query)) {
-                    return false;
+                if (query) {
+                    const matchesTitle = card.title.toLowerCase().includes(query);
+                    const matchesLabel = card.labels?.some((l) => l.name.toLowerCase().includes(query));
+                    const matchesDesc = card.description?.toLowerCase().includes(query);
+                    if (!matchesTitle && !matchesLabel && !matchesDesc) {
+                        return false;
+                    }
                 }
                 if (priorityFilter && card.priority !== priorityFilter) {
                     return false;

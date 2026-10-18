@@ -16,7 +16,6 @@ import { FormSubmit } from "@/components/forms/form-submit";
 import { useAction } from "@/hooks/use-action";
 import { updateBoard } from "@/actions/update-board";
 import { deleteBoard } from "@/actions/delete-board";
-import { useLocalStorage } from "usehooks-ts";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
@@ -24,17 +23,15 @@ import { useQueryClient } from "@tanstack/react-query";
 interface BoardCardOptionsProps {
   id: string;
   title: string;
+  isPinned?: boolean;
 }
 
-export const BoardCardOptions = ({ id, title }: BoardCardOptionsProps) => {
+export const BoardCardOptions = ({ id, title, isPinned = false }: BoardCardOptionsProps) => {
   const [popoverOpen, setPopoverOpen] = useState(false);
   const [renameOpen, setRenameOpen] = useState(false);
-  const [pinnedIds, setPinnedIds] = useLocalStorage<string[]>("plana-pinned-boards", []);
 
   const router = useRouter();
   const queryClient = useQueryClient();
-
-  const isPinned = pinnedIds.includes(id);
 
   const { execute: executeUpdate, fieldErrors } = useAction(updateBoard, {
     onSuccess: (data) => {
@@ -48,11 +45,20 @@ export const BoardCardOptions = ({ id, title }: BoardCardOptionsProps) => {
     },
   });
 
+  const { execute: executeUpdatePin } = useAction(updateBoard, {
+    onSuccess: (data) => {
+      toast.success(data.isPinned ? "Board pinned to sidebar" : "Board unpinned from sidebar");
+      queryClient.invalidateQueries({ queryKey: ["boards"] });
+      router.refresh();
+    },
+    onError: (error) => {
+      toast.error(error);
+    },
+  });
+
   const { execute: executeDelete, isLoading: isDeleting } = useAction(deleteBoard, {
     onSuccess: (data) => {
       toast.success(`Board "${data.title}" deleted`);
-      // Also unpin if deleted
-      setPinnedIds((prev) => prev.filter((boardId) => boardId !== id));
       queryClient.invalidateQueries({ queryKey: ["boards"] });
       setPopoverOpen(false);
       router.refresh();
@@ -65,14 +71,7 @@ export const BoardCardOptions = ({ id, title }: BoardCardOptionsProps) => {
   const togglePin = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-
-    if (isPinned) {
-      setPinnedIds((prev) => prev.filter((boardId) => boardId !== id));
-      toast.success("Board unpinned from sidebar");
-    } else {
-      setPinnedIds((prev) => [...prev, id]);
-      toast.success("Board pinned to sidebar");
-    }
+    executeUpdatePin({ id, isPinned: !isPinned });
     setPopoverOpen(false);
   };
 

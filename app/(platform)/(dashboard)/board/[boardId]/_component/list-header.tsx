@@ -69,10 +69,10 @@ export const ListHeader = ({ data, onAddCard }: ListHeaderProps) => {
   }
 
   return (
-    <div className="p-2 pb-0 font-semibold text-sm flex items-center justify-between gap-x-2">
+    <div className="p-2.5 pb-1 font-semibold text-sm flex items-center justify-between gap-x-2">
       {
         isEditing ? (
-          <form ref={formRef} action={onSubmit} className="flex-1 px-1">
+          <form ref={formRef} action={onSubmit} className="flex-1">
             <input type="text" hidden id="id" name="id" defaultValue={data.id} />
             <input type="text" hidden id="boardId" name="boardId" defaultValue={data.boardId} />
             <FormInput
@@ -82,12 +82,13 @@ export const ListHeader = ({ data, onAddCard }: ListHeaderProps) => {
               onBlur={onBlur}
               placeholder="Edit the list name..."
               defaultValue={title}
+              classname="text-sm font-semibold bg-black/40 text-white rounded-md px-2.5 py-1 border border-white/20 focus:border-[var(--landing-orange)] h-8"
             />
             <input type="submit" hidden />
           </form>
         ) : (
 
-          <div className="w-full px-2.5 py-1 h-7 text-sm font-medium border-transparent cursor-pointer" onClick={enableEditing}>
+          <div className="w-full px-2.5 py-1 h-7 text-sm font-semibold text-[var(--landing-text)] hover:bg-white/5 rounded-md transition cursor-pointer" onClick={enableEditing}>
             {title}
           </div>
         )

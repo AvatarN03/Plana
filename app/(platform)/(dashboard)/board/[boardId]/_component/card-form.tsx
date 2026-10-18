@@ -106,7 +106,7 @@ export const CardForm = forwardRef<HTMLTextAreaElement, CardFormProps>(({
                 onClick={enableEditing}
                 variant="ghost"
                 size="sm"
-                className="h-8 w-full flex justify-start items-center px-2 text-[var(--landing-muted)] hover:text-[var(--landing-text)] hover:bg-[var(--landing-panel-strong)] text-xs rounded-sm transition font-normal"
+                className="h-8 w-full flex justify-start items-center px-2.5 text-[var(--landing-muted)] hover:text-[var(--landing-text)] hover:bg-[var(--landing-panel-strong)] text-xs rounded-md transition font-medium cursor-pointer"
             >
                 <Plus className="w-3.5 h-3.5 mr-1.5 text-[var(--landing-orange)]" />
                 Add a card...

@@ -14,7 +14,7 @@ export const BoardNavbar = ({ data }: BoardNavbarProps) => {
       <BoardTitleForm data={data} />
       <div className="ml-auto flex items-center gap-x-2">
         <BoardFilter />
-        <BoardOptions id={data.id} />
+        <BoardOptions data={data} />
       </div>
     </div>
   );

@@ -28,6 +28,14 @@ const BoardId = async ({
     },
     include: {
       cards: {
+        where: {
+          isArchived: false,
+        },
+        include: {
+          labels: true,
+          checklists: true,
+          assignees: true,
+        },
         orderBy: {
           order: "asc"
         }

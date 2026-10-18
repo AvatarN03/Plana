@@ -65,10 +65,13 @@ export default async function MembersPage() {
     id: card.id,
     title: card.title,
     order: card.order,
+    description: card.description,
     priority: card.priority,
     dueDate: card.dueDate,
+    isArchived: card.isArchived,
     listId: card.listId,
     list: {
+      id: card.list.id,
       title: card.list.title,
       board: {
         id: card.list.board.id,

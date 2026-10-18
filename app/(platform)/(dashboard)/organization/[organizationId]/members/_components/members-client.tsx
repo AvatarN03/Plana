@@ -28,18 +28,18 @@ export interface PlanningCard {
   id: string;
   title: string;
   order: number;
-  description: string | null;
+  description?: string | null;
   priority: PRIORITY;
   dueDate: Date | null;
-  isArchived: boolean;
+  isArchived?: boolean;
   listId: string;
   list: {
-    id: string;
+    id?: string;
     title: string;
     board: {
       id: string;
       title: string;
-      imageUrl: string;
+      imageUrl?: string;
     };
   };
   assignees: CardAssignee[];

@@ -2,7 +2,10 @@
 
 > **Simple project management. Clear workflows. Fast execution.**
 
+![Plana Workspace Dashboard](./public/workspace-dashboard.png)
+
 Plana is a modern, visual Kanban workspace built for teams and individuals who want to move from idea to delivery without the friction of bloated project management software.
+
 
 ---
 

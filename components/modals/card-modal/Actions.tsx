@@ -73,27 +73,27 @@ export const Actions = ({
                 Actions
             </p>
 
-            <div className="flex flex-col gap-2">
+            <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-1 gap-2">
                 <Button
-                    className="w-full flex items-center justify-start cursor-pointer border-slate-800 bg-slate-900/80 hover:bg-slate-800 text-slate-200 hover:text-white rounded-lg h-9 px-3 text-xs sm:text-sm font-medium transition shadow-2xs"
+                    className="w-full flex items-center justify-start cursor-pointer border-slate-800 bg-slate-900/80 hover:bg-slate-800 text-slate-200 hover:text-white rounded-lg h-9 px-3 text-xs sm:text-sm font-medium transition shadow-2xs min-w-0"
                     variant={"outline"}
                     size={"sm"}
                     onClick={onCopy}
                     disabled={isLoadingCopy}
                 >
-                    <Copy className="w-4 h-4 mr-2.5 text-[var(--landing-orange)]" />
-                    Copy Card
+                    <Copy className="w-4 h-4 mr-2.5 text-[var(--landing-orange)] shrink-0" />
+                    <span className="truncate">Copy Card</span>
                 </Button>
 
                 <Button
-                    className="w-full flex items-center justify-start cursor-pointer border-slate-800 bg-slate-900/80 hover:bg-slate-800 text-slate-200 hover:text-white rounded-lg h-9 px-3 text-xs sm:text-sm font-medium transition shadow-2xs"
+                    className="w-full flex items-center justify-start cursor-pointer border-slate-800 bg-slate-900/80 hover:bg-slate-800 text-slate-200 hover:text-white rounded-lg h-9 px-3 text-xs sm:text-sm font-medium transition shadow-2xs min-w-0"
                     variant={"outline"}
                     size={"sm"}
                     onClick={onArchive}
                     disabled={isLoadingArchive}
                 >
-                    <Archive className="w-4 h-4 mr-2.5 text-slate-400" />
-                    {data.isArchived ? "Restore Card" : "Archive Card"}
+                    <Archive className="w-4 h-4 mr-2.5 text-slate-400 shrink-0" />
+                    <span className="truncate">{data.isArchived ? "Restore Card" : "Archive Card"}</span>
                 </Button>
 
                 <ConfirmModal
@@ -103,13 +103,13 @@ export const Actions = ({
                     disabled={isLoadingDelete}
                 >
                     <Button
-                        className="w-full flex items-center justify-start cursor-pointer rounded-lg h-9 px-3 text-xs sm:text-sm font-medium bg-red-500/15 hover:bg-red-500/25 text-red-400 hover:text-red-300 border border-red-500/30 transition shadow-2xs"
+                        className="w-full flex items-center justify-start cursor-pointer rounded-lg h-9 px-3 text-xs sm:text-sm font-medium bg-red-500/15 hover:bg-red-500/25 text-red-400 hover:text-red-300 border border-red-500/30 transition shadow-2xs min-w-0"
                         variant={"destructive"}
                         size={"sm"}
                         disabled={isLoadingDelete}
                     >
-                        <Trash className="w-4 h-4 mr-2.5" />
-                        Delete Card
+                        <Trash className="w-4 h-4 mr-2.5 shrink-0" />
+                        <span className="truncate">Delete Card</span>
                     </Button>
                 </ConfirmModal>
             </div>
@@ -140,9 +140,11 @@ Actions.Skeleton = function ActionSkeleton() {
     return (
         <div className="w-full space-y-2.5">
             <Skeleton className="w-20 h-4 rounded-md bg-slate-900 border border-slate-800" />
-            <Skeleton className="w-full h-9 rounded-lg bg-slate-900 border border-slate-800" />
-            <Skeleton className="w-full h-9 rounded-lg bg-slate-900 border border-slate-800" />
-            <Skeleton className="w-full h-9 rounded-lg bg-slate-900 border border-slate-800" />
+            <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-1 gap-2">
+                <Skeleton className="w-full h-9 rounded-lg bg-slate-900 border border-slate-800" />
+                <Skeleton className="w-full h-9 rounded-lg bg-slate-900 border border-slate-800" />
+                <Skeleton className="w-full h-9 rounded-lg bg-slate-900 border border-slate-800" />
+            </div>
         </div>
     )
 }

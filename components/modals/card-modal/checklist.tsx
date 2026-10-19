@@ -83,14 +83,14 @@ export const Checklist = ({ cardId, items = [] }: ChecklistProps) => {
 
   return (
     <div className="w-full space-y-3.5 pt-2">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2.5 text-sm font-semibold text-slate-200">
-          <div className="p-1.5 rounded-lg bg-[var(--landing-orange)]/15 border border-[var(--landing-orange)]/30">
+      <div className="flex items-center justify-between flex-wrap gap-2">
+        <div className="flex items-center gap-2 sm:gap-2.5 text-xs sm:text-sm font-semibold text-slate-200 flex-wrap">
+          <div className="p-1.5 rounded-lg bg-[var(--landing-orange)]/15 border border-[var(--landing-orange)]/30 shrink-0">
             <CheckSquare className="w-4 h-4 text-[var(--landing-orange)]" />
           </div>
           <span>Checklist</span>
           {total > 0 && (
-            <span className="px-2 py-0.5 rounded-full text-[11px] font-mono font-medium bg-slate-900 border border-slate-800 text-slate-300">
+            <span className="px-2 py-0.5 rounded-full text-[10px] sm:text-[11px] font-mono font-medium bg-slate-900 border border-slate-800 text-slate-300">
               {completed}/{total} • {percentage}%
             </span>
           )}
@@ -100,7 +100,7 @@ export const Checklist = ({ cardId, items = [] }: ChecklistProps) => {
             size="sm"
             variant="outline"
             onClick={() => setIsAdding(true)}
-            className="h-7 px-2.5 text-xs text-slate-300 hover:text-white bg-slate-900/90 hover:bg-slate-850 border-slate-800 rounded-md cursor-pointer transition shadow-2xs"
+            className="h-7 px-2.5 text-xs text-slate-300 hover:text-white bg-slate-900/90 hover:bg-slate-850 border-slate-800 rounded-md cursor-pointer transition shadow-2xs shrink-0"
           >
             <Plus className="w-3.5 h-3.5 mr-1 text-[var(--landing-orange)]" />
             Add item
@@ -127,18 +127,18 @@ export const Checklist = ({ cardId, items = [] }: ChecklistProps) => {
         {items.map((item) => (
           <div
             key={item.id}
-            className="group flex items-center justify-between gap-3 p-2 rounded-lg bg-slate-900/30 hover:bg-slate-900/70 transition-all border border-transparent hover:border-slate-800/90"
+            className="group flex items-center justify-between gap-2.5 p-2 rounded-lg bg-slate-900/30 hover:bg-slate-900/70 transition-all border border-transparent hover:border-slate-800/90"
           >
-            <label className="flex items-center gap-3 flex-1 min-w-0 cursor-pointer">
+            <label className="flex items-center gap-2.5 sm:gap-3 flex-1 min-w-0 cursor-pointer">
               <input
                 type="checkbox"
                 checked={item.isCompleted}
                 onChange={() => onToggle(item)}
-                className="w-4 h-4 rounded-md border-slate-700 bg-slate-900 accent-[var(--landing-orange)] cursor-pointer transition-colors"
+                className="w-4 h-4 shrink-0 rounded-md border-slate-700 bg-slate-900 accent-[var(--landing-orange)] cursor-pointer transition-colors"
               />
               <span
                 className={cn(
-                  "text-xs sm:text-sm text-slate-200 break-words select-none leading-relaxed",
+                  "text-xs sm:text-sm text-slate-200 break-words select-none leading-relaxed min-w-0 flex-1",
                   item.isCompleted && "line-through text-slate-500 opacity-60"
                 )}
               >
@@ -148,7 +148,7 @@ export const Checklist = ({ cardId, items = [] }: ChecklistProps) => {
             <button
               type="button"
               onClick={() => onDelete(item.id)}
-              className="opacity-0 group-hover:opacity-100 p-1.5 text-slate-500 hover:text-red-400 hover:bg-red-500/10 rounded-md transition-all cursor-pointer"
+              className="opacity-100 sm:opacity-0 sm:group-hover:opacity-100 p-1.5 text-slate-500 hover:text-red-400 hover:bg-red-500/10 rounded-md transition-all cursor-pointer shrink-0"
               title="Delete item"
             >
               <Trash2 className="w-3.5 h-3.5" />

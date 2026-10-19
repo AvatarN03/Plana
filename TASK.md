@@ -20,6 +20,7 @@ This task tracker governs the phased evolution of Plana into a production-grade,
 | **Phase 9** | Modern Dashboard Shell, Pinned Boards & Date-Grouped Activity | ✅ Completed | 100% |
 | **Phase 10** | Bundle Minification, Schema Expansion & 2-Column Card Modal | ✅ Completed | 100% |
 | **Phase 11** | Dark Theme Sidebar Harmonization & Team Planning Mode | ✅ Completed | 100% |
+| **Phase 12** | Mobile Responsiveness, Smooth Sidebar Motion & Brand Integration | ✅ Completed | 100% |
 
 ---
 
@@ -205,6 +206,27 @@ This task tracker governs the phased evolution of Plana into a production-grade,
     - Direct integration with Plana's card modal (`useCardModal().onOpen()`) on task click.
     - Unassigned tasks backlog section for easy task triage.
     - Integrated "Invite & Manage Roles" tab with Clerk's `<OrganizationProfile />` styled to Plana's dark theme.
+
+---
+
+### Phase 12: Mobile Responsiveness, Smooth Sidebar Motion & Brand Integration
+- [x] **12.1 Card Details Modal Mobile Responsiveness**
+  - Enhanced `DialogContent` with responsive width (`w-[95vw] max-w-[calc(100vw-1rem)]`), dynamic padding (`p-4 sm:p-6 md:p-7`), and `max-h-[92vh]`.
+  - Added `pr-9 sm:pr-8` to `Header.tsx` to eliminate overlap with the modal close button on mobile, scaled title fonts, and truncated list name badge.
+  - Added `collisionPadding={12}` and `max-w-[calc(100vw-2rem)]` on Popovers (Priority, Due Date, Labels, Assignees) to guarantee viewport fit.
+  - Made checklist delete action visible on touch screens (`opacity-100 sm:opacity-0 sm:group-hover:opacity-100`) and wrapped checklist header.
+  - Restructured Actions dock on mobile with clean top divider (`pt-4 border-t border-slate-800/80 md:border-t-0`) and responsive grid layout (`grid-cols-1 sm:grid-cols-3 md:grid-cols-1`).
+  - Added word breaks and `min-w-0` to Description and Activity items to prevent horizontal layout expansion on mobile.
+- [x] **12.2 Smooth Hardware-Accelerated Sidebar Motion**
+  - Added GPU-accelerated (`will-change: transform`, `translate3d`) 60fps/120fps CSS keyframes (`sheet-slide-in-left`, `sheet-slide-out-left`, `sheet-overlay-in`, `sheet-overlay-out`) with fluid spring curve (`cubic-bezier(0.16, 1, 0.3, 1)`).
+  - Added `data-side={side}` attribute in `sheet.tsx` for clean CSS selector targeting.
+- [x] **12.3 Elimination of Duplicate Sidebar Right Border**
+  - Accepted `className?: string` on `Sidebar.tsx` and updated `MobileSidebar.tsx` to use `p-0` on `SheetContent` and pass `<Sidebar className="border-r-0" />`.
+  - Removed inner border overlap, leaving a single clean border on the mobile drawer edge.
+  - Added `<SheetTitle className="sr-only">Navigation Menu</SheetTitle>` for Radix accessibility.
+- [x] **12.4 Brand Logo & Name on Mobile**
+  - Updated `Logo.tsx` to accept `showTextOnMobile` (default `true`), ensuring both the Plana icon and "PLANA" brand text display across mobile viewports.
+  - Explicitly passed `showTextOnMobile={true}` to `Logo` in `Sidebar.tsx` for immediate brand visibility in the mobile navigation drawer.
 
 ---
 

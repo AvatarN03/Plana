@@ -59,7 +59,7 @@ export const CardMeta = ({ data }: CardMetaProps) => {
   const isDueToday = dueDate && isToday(dueDate);
 
   return (
-    <div className="rounded-xl p-4 bg-slate-900/40 border border-slate-800/80 shadow-xs grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div className="rounded-xl p-3 sm:p-4 bg-slate-900/40 border border-slate-800/80 shadow-xs grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4">
       {/* Priority Selector */}
       <div className="flex flex-col gap-1.5">
         <span className="font-semibold text-slate-400 uppercase tracking-wider text-[11px] font-mono">
@@ -80,9 +80,10 @@ export const CardMeta = ({ data }: CardMetaProps) => {
             </Button>
           </PopoverTrigger>
           <PopoverContent
-            className="w-48 p-1.5 border-slate-800 bg-slate-950 text-slate-200 rounded-lg shadow-2xl backdrop-blur-md"
+            className="w-48 max-w-[calc(100vw-2rem)] p-1.5 border-slate-800 bg-slate-950 text-slate-200 rounded-lg shadow-2xl backdrop-blur-md"
             align="start"
             sideOffset={6}
+            collisionPadding={12}
           >
             <div className="space-y-1">
               {priorities.map((item) => (
@@ -138,9 +139,10 @@ export const CardMeta = ({ data }: CardMetaProps) => {
             </Button>
           </PopoverTrigger>
           <PopoverContent
-            className="w-64 p-3 border-slate-800 bg-slate-950 text-slate-200 rounded-lg shadow-2xl backdrop-blur-md"
+            className="w-64 max-w-[calc(100vw-2rem)] p-3 border-slate-800 bg-slate-950 text-slate-200 rounded-lg shadow-2xl backdrop-blur-md"
             align="start"
             sideOffset={6}
+            collisionPadding={12}
           >
             <div className="space-y-3">
               <p className="text-xs font-semibold text-slate-200">Select due date</p>

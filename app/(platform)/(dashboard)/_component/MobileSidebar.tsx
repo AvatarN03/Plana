@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Sidebar from "./Sidebar";
-import { Sheet, SheetContent } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 import { useMobileSidebar } from "@/hooks/use-mobile-sidebar";
 import { Menu } from "lucide-react";
 
@@ -29,9 +29,10 @@ export const MobileSidebar = () => {
 
                 <SheetContent
                     side="left"
-                    className="p-2 pt-6 bg-[var(--landing-bg)] text-[var(--landing-text)] border-r border-[var(--landing-line)] overflow-y-auto w-72"
+                    className="p-0 bg-[var(--landing-bg)] text-[var(--landing-text)] border-r border-[var(--landing-line)] overflow-y-auto w-72 max-w-[85vw]"
                 >
-                    <Sidebar />
+                    <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
+                    <Sidebar className="border-r-0" />
                 </SheetContent>
             </Sheet>
         </div>

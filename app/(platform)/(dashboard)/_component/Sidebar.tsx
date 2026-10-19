@@ -30,7 +30,11 @@ const PIN_COLORS = [
   "bg-blue-500",
 ];
 
-export const Sidebar = () => {
+interface SidebarProps {
+  className?: string;
+}
+
+export const Sidebar = ({ className }: SidebarProps) => {
   const pathname = usePathname();
   const { organization, isLoaded } = useOrganization();
 
@@ -97,12 +101,17 @@ export const Sidebar = () => {
   }
 
   return (
-    <aside className="w-full h-full bg-[var(--landing-bg)] border-r border-[var(--landing-line)] flex flex-col justify-between py-5 px-4 select-none">
+    <aside
+      className={cn(
+        "w-full h-full bg-[var(--landing-bg)] border-r border-[var(--landing-line)] flex flex-col justify-between py-5 px-4 select-none",
+        className
+      )}
+    >
       {/* Top Branding & Main Menus */}
       <div className="space-y-6">
         {/* Brand Logo */}
         <div className="px-2">
-          <Logo />
+          <Logo showTextOnMobile={true} />
         </div>
 
         {/* Primary Create Board Action */}

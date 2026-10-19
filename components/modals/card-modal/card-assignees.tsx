@@ -116,9 +116,10 @@ export const CardAssignees = ({ cardId, assignees = [], hideTitle = false }: Car
             </Button>
           </PopoverTrigger>
           <PopoverContent
-            className="w-64 p-3 border-slate-800 bg-slate-950 text-slate-200 rounded-lg shadow-2xl backdrop-blur-md"
+            className="w-64 max-w-[calc(100vw-2rem)] p-3 border-slate-800 bg-slate-950 text-slate-200 rounded-lg shadow-2xl backdrop-blur-md"
             align="start"
             sideOffset={6}
+            collisionPadding={12}
           >
             <div className="space-y-2.5">
               <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-200">

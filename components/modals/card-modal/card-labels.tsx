@@ -91,15 +91,15 @@ export const CardLabels = ({ cardId, labels = [], hideTitle = false }: CardLabel
           <span
             key={label.id}
             className={cn(
-              "inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md border text-xs font-medium leading-none transition-colors",
+              "inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md border text-xs font-medium leading-none transition-colors max-w-full",
               getLabelColorClasses(label.color)
             )}
           >
-            <span>{label.name}</span>
+            <span className="truncate max-w-[120px] sm:max-w-[160px]">{label.name}</span>
             <button
               type="button"
               onClick={() => executeDelete({ id: label.id, cardId, boardId })}
-              className="hover:opacity-75 cursor-pointer ml-1 text-slate-400 hover:text-white"
+              className="hover:opacity-75 cursor-pointer ml-1 text-slate-400 hover:text-white shrink-0"
               title="Remove label"
             >
               <X className="w-3 h-3" />
@@ -119,9 +119,10 @@ export const CardLabels = ({ cardId, labels = [], hideTitle = false }: CardLabel
             </Button>
           </PopoverTrigger>
           <PopoverContent
-            className="w-64 p-3 border-slate-800 bg-slate-950 text-slate-200 rounded-lg shadow-2xl backdrop-blur-md"
+            className="w-64 max-w-[calc(100vw-2rem)] p-3 border-slate-800 bg-slate-950 text-slate-200 rounded-lg shadow-2xl backdrop-blur-md"
             align="start"
             sideOffset={6}
+            collisionPadding={12}
           >
             <form onSubmit={onAdd} className="space-y-3">
               <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-200">

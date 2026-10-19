@@ -23,21 +23,21 @@ interface ActivityItemProps {
 
 export const ActivityItem = ({ data }: ActivityItemProps) => {
   return (
-    <li className="flex items-center gap-x-2.5">
-      <Avatar className="h-8 w-8 shrink-0">
+    <li className="flex items-start gap-x-2.5 min-w-0">
+      <Avatar className="h-7 w-7 sm:h-8 sm:w-8 shrink-0 mt-0.5">
         <AvatarImage src={data.userImage} />
         <AvatarFallback className="text-xs font-semibold bg-[var(--landing-panel-strong)] text-[var(--landing-text)] border border-[var(--landing-line)]">
           {data.userName?.[0] || "U"}
         </AvatarFallback>
       </Avatar>
-      <div className="flex flex-col space-y-0.5">
-        <p className="text-sm text-[var(--landing-muted)]">
+      <div className="flex flex-col space-y-0.5 min-w-0 flex-1">
+        <p className="text-xs sm:text-sm text-[var(--landing-muted)] break-words leading-relaxed">
           <span className="font-semibold text-[var(--landing-text)]">
             {data.userName}
           </span>{" "}
           {generateLogMessage(data)}
         </p>
-        <p className="text-[11px] font-mono text-[var(--landing-muted)]">
+        <p className="text-[10px] sm:text-[11px] font-mono text-[var(--landing-muted)]">
           {format(new Date(data.createdAt), "MMM d, yyyy 'at' h:mm a")}
         </p>
       </div>

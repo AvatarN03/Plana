@@ -210,12 +210,16 @@ This task tracker governs the phased evolution of Plana into a production-grade,
 ---
 
 ### Phase 12: Mobile Responsiveness, Smooth Sidebar Motion & Brand Integration
-- [x] **12.1 Card Details Modal Mobile Responsiveness**
-  - Enhanced `DialogContent` with responsive width (`w-[95vw] max-w-[calc(100vw-1rem)]`), dynamic padding (`p-4 sm:p-6 md:p-7`), and `max-h-[92vh]`.
+- [x] **12.1 Card Details Modal Mobile Responsiveness & Y-Overflow Fix**
+  - Resolved mobile vertical Y-overflow by restructuring `DialogContent` with `flex flex-col max-h-[85dvh] sm:max-h-[88vh] overflow-hidden` and an internal scrollable body (`flex-1 overflow-y-auto`).
+  - Pinned the top Header (`shrink-0`) so card title editing and the Radix `X` close button remain visible and accessible at all times without scrolling away.
+  - Implemented responsive mobile segmented tab switcher (`[ Details ]` | `[ Activity (count) ]`):
+    - **Details Tab**: Houses Description, Checklist, and Action buttons (Copy, Archive, Delete), eliminating endless scrolling past audit logs on mobile.
+    - **Activity Tab**: Provides dedicated, distraction-free space for audit log timeline with activity count badge.
+  - Preserved standard 2-column productivity workspace on desktop (`md:` breakpoint and above).
   - Added `pr-9 sm:pr-8` to `Header.tsx` to eliminate overlap with the modal close button on mobile, scaled title fonts, and truncated list name badge.
   - Added `collisionPadding={12}` and `max-w-[calc(100vw-2rem)]` on Popovers (Priority, Due Date, Labels, Assignees) to guarantee viewport fit.
   - Made checklist delete action visible on touch screens (`opacity-100 sm:opacity-0 sm:group-hover:opacity-100`) and wrapped checklist header.
-  - Restructured Actions dock on mobile with clean top divider (`pt-4 border-t border-slate-800/80 md:border-t-0`) and responsive grid layout (`grid-cols-1 sm:grid-cols-3 md:grid-cols-1`).
   - Added word breaks and `min-w-0` to Description and Activity items to prevent horizontal layout expansion on mobile.
 - [x] **12.2 Smooth Hardware-Accelerated Sidebar Motion**
   - Added GPU-accelerated (`will-change: transform`, `translate3d`) 60fps/120fps CSS keyframes (`sheet-slide-in-left`, `sheet-slide-out-left`, `sheet-overlay-in`, `sheet-overlay-out`) with fluid spring curve (`cubic-bezier(0.16, 1, 0.3, 1)`).

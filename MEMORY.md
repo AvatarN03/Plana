@@ -260,13 +260,17 @@ npm run build
      - Integrated "Invite & Manage Roles" tab with Clerk's `<OrganizationProfile />` styled to Plana's dark theme.
 
 12. **Session 5 Changelog (Phase 12: Mobile Responsiveness, Smooth Sidebar Motion & Brand Integration)**:
-   - **Card Modal Responsiveness**:
-     - Reconfigured `DialogContent` with `w-[95vw] max-w-[calc(100vw-1rem)]`, dynamic mobile padding (`p-4 sm:p-6 md:p-7`), and `max-h-[92vh]`.
+   - **Card Modal Responsiveness & Vertical Y-Overflow Fix**:
+     - Restructured `DialogContent` to `flex flex-col max-h-[85dvh] sm:max-h-[88vh] overflow-hidden` with a pinned top `Header` (`shrink-0`) and an internal scrollable body (`flex-1 overflow-y-auto`), completely resolving mobile vertical overflow.
+     - Pinned header ensures title input and the close `X` button are always visible and accessible on mobile.
+     - Integrated segmented mobile tab switcher (`[ Details ]` | `[ Activity (count) ]`):
+       - `Details` tab contains Description, Checklist, and Action buttons (Copy, Archive, Delete), eliminating long scrolls past audit logs.
+       - `Activity` tab provides a dedicated, clean timeline for audit logs.
+     - Preserved full 2-column productivity workspace on desktop (`md:` breakpoint).
      - Added `pr-9 sm:pr-8` on `Header.tsx` to prevent the Radix close icon at `top-4 right-4` from colliding with the card title on mobile screens.
      - Scaled title input text (`text-lg sm:text-xl md:text-2xl`), added list title truncation, and set `min-w-0` on columns to prevent layout blowout.
-     - Popovers (Priority, Due Date, Labels, Assignees) now specify `collisionPadding={12}` and `max-w-[calc(100vw-2rem)]` to prevent clipping outside the viewport.
-     - Checklist item delete button now visible on touch devices (`opacity-100 sm:opacity-0 sm:group-hover:opacity-100`) and header flex-wraps gracefully.
-     - Actions sidebar transformed to responsive grid (`grid-cols-1 sm:grid-cols-3 md:grid-cols-1`) with top border separator on mobile (`pt-4 border-t border-slate-800/80 md:border-t-0`).
+     - Popovers (Priority, Due Date, Labels, Assignees) specify `collisionPadding={12}` and `max-w-[calc(100vw-2rem)]` to prevent clipping outside the viewport.
+     - Checklist item delete button visible on touch devices (`opacity-100 sm:opacity-0 sm:group-hover:opacity-100`) and header flex-wraps gracefully.
      - Description and Activity entries updated with word breaks and fluid sizing.
    - **Sidebar Animation & Smoothness**:
      - Implemented GPU-composited CSS keyframes (`translate3d`, `will-change: transform`) and Apple-spec deceleration curves (`cubic-bezier(0.16, 1, 0.3, 1)`) in `app/globals.css`.

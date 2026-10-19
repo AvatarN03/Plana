@@ -6,21 +6,19 @@ import { cn } from "@/lib/utils"
 import { CardItem } from "./card-item"
 import { Draggable, Droppable } from "@hello-pangea/dnd"
 
-
 interface ListItemProps {
-    data: ListWithCards,
-    index: number
+    data: ListWithCards;
+    index: number;
+    isDragDisabled?: boolean;
 }
 
-
 export const ListItem = ({
-    data, index
+    data, index, isDragDisabled
 }: ListItemProps) => {
 
     const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
 
     const [isEditing, setIsEditing] = useState(false);
-
 
     const enableEditing = () => {
         setIsEditing(true);
@@ -34,35 +32,61 @@ export const ListItem = ({
     }
 
     return (
-        <Draggable draggableId={data.id} index={index}>
+        <Draggable draggableId={data.id} index={index} isDragDisabled={isDragDisabled}>
             {
-                (provided) => (
-
+                (provided, snapshot) => (
                     <li
                         {...provided.draggableProps}
                         ref={provided.innerRef}
-                        className="shrink-0 h-full w-68 select-none">
+                        className={cn(
+                            "shrink-0 h-full w-68 select-none transition-shadow",
+                            snapshot.isDragging && "z-50"
+                        )}
+                        style={{
+                            ...provided.draggableProps.style,
+                            ...(snapshot.isDragging ? { zIndex: 999 } : {})
+                        }}>
                         <div
                             {...provided.dragHandleProps}
-                            className="w-full rounded-lg bg-[var(--landing-panel)]/95 border border-[var(--landing-line)] shadow-md pb-2 text-[var(--landing-text)] backdrop-blur-sm">
+                            className={cn(
+                                "w-full rounded-lg bg-[var(--landing-panel)]/95 border border-[var(--landing-line)] shadow-md pb-2 text-[var(--landing-text)] backdrop-blur-sm",
+                                snapshot.isDragging && "ring-2 ring-[var(--landing-orange)]/60 shadow-2xl"
+                            )}>
 
                             <ListHeader
                                 data={data} onAddCard={enableEditing} />
 
-                            <Droppable droppableId={data.id} type="card" >
+                            <Droppable 
+                                droppableId={data.id} 
+                                type="card"
+                                renderClone={(cloneProvided, cloneSnapshot, rubric) => {
+                                    const card = data.cards[rubric.source.index];
+                                    if (!card) return null;
+                                    return (
+                                        <CardItem
+                                            data={card}
+                                            index={rubric.source.index}
+                                            isClone
+                                            provided={cloneProvided}
+                                            snapshot={cloneSnapshot}
+                                        />
+                                    );
+                                }}
+                            >
                                 {
                                     (provided) => (
-
                                         <ol 
-                                        ref={provided.innerRef}
-                                        {...provided.droppableProps}
-                                        className={cn("mx-1 px-1 py-0.5 flex flex-col gap-y-2", data.cards.length > 0 ? "mt-2" : "mt-0")}>
+                                            ref={provided.innerRef}
+                                            {...provided.droppableProps}
+                                            className={cn("mx-1 px-1 py-0.5 flex flex-col gap-y-2", data.cards.length > 0 ? "mt-2" : "mt-0")}
+                                        >
                                             {
                                                 data.cards.map((card, index) => (
                                                     <CardItem
                                                         key={card.id}
                                                         index={index}
                                                         data={card}
+                                                        isDragDisabled={isDragDisabled}
                                                     />
                                                 ))
                                             }

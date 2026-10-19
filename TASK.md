@@ -21,6 +21,7 @@ This task tracker governs the phased evolution of Plana into a production-grade,
 | **Phase 10** | Bundle Minification, Schema Expansion & 2-Column Card Modal | ✅ Completed | 100% |
 | **Phase 11** | Dark Theme Sidebar Harmonization & Team Planning Mode | ✅ Completed | 100% |
 | **Phase 12** | Mobile Responsiveness, Smooth Sidebar Motion & Brand Integration | ✅ Completed | 100% |
+| **Phase 13** | Card Drag & Drop Logic, Stacking Context & Synchronization Fix | ✅ Completed | 100% |
 
 ---
 
@@ -231,6 +232,19 @@ This task tracker governs the phased evolution of Plana into a production-grade,
 - [x] **12.4 Brand Logo & Name on Mobile**
   - Updated `Logo.tsx` to accept `showTextOnMobile` (default `true`), ensuring both the Plana icon and "PLANA" brand text display across mobile viewports.
   - Explicitly passed `showTextOnMobile={true}` to `Logo` in `Sidebar.tsx` for immediate brand visibility in the mobile navigation drawer.
+
+---
+
+### Phase 13: Card Drag & Drop Logic, Stacking Context & Synchronization Fix
+- [x] **13.1 UI Stacking Context & Portal Clones**
+  - Resolved issue where dragged cards rendered behind adjacent lists due to parent list `<Draggable>` transform and `backdrop-blur-sm` stacking contexts.
+  - Implemented `@hello-pangea/dnd`'s native `renderClone` portal mechanism in `list-item.tsx`, portaling dragging cards directly to `document.body`.
+  - Added enhanced dragging styling in `card-item.tsx` (`shadow-2xl`, orange ring, `scale-[1.02]`, `cursor-grabbing`).
+  - Added elevated z-index and ring styling on dragged list columns.
+- [x] **13.2 Cross-List Order Persistence & Schema Streamlining**
+  - Fixed cross-list movement in `list-container.tsx` to persist both source and destination list orders in a single database transaction.
+  - Streamlined `UpdateCardOrder` and `UpdateListOrder` Zod schemas to eliminate date serialization failures on client server action calls.
+  - Implemented `draggableId` lookup and active filter protection (`isDragDisabled`).
 
 ---
 

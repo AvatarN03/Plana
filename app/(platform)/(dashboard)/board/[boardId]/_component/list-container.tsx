@@ -4,7 +4,7 @@ import { List, Card, CardLabel, ChecklistItem, CardAssignee } from "@/lib/genera
 import { ListForm } from "./list-form";
 import { useEffect, useMemo, useState } from "react";
 import { ListItem } from "./list-item";
-import { DragDropContext, Droppable } from "@hello-pangea/dnd";
+import { DragDropContext, Droppable, DropResult } from "@hello-pangea/dnd";
 import { useAction } from "@/hooks/use-action";
 import { updateListOrder } from "@/actions/update-list-order";
 import { toast } from "sonner";
@@ -41,6 +41,8 @@ export const ListContainer = ({
 
     const [orderedData, setOrderedData] = useState(data);
     const { searchQuery, priorityFilter, dueFilter } = useBoardFilters();
+
+    const isFiltered = Boolean(searchQuery.trim() || priorityFilter || dueFilter !== "ALL");
 
     const displayData = useMemo(() => {
         const query = searchQuery.trim().toLowerCase();
@@ -82,134 +84,145 @@ export const ListContainer = ({
     const { execute: executeOrderList } = useAction(updateListOrder, {
         onSuccess: () => toast.success("List Order is updated"),
         onError: (error) => toast.error(error)
-    })
+    });
 
     const { execute: executeOrderCard } = useAction(updateCardOrder, {
         onSuccess: () => toast.success("Card Order is updated"),
         onError: (error) => toast.error(error)
-    })
+    });
 
     useEffect(() => {
         setOrderedData(data);
-    }, [data])
+    }, [data]);
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const onDragEnd = (result: any) => {
-        const { destination, source, type } = result;
-        console.log(result)
+    const onDragEnd = (result: DropResult) => {
+        const { destination, source, type, draggableId } = result;
         if (!destination) return;
 
         // if the dest-source is same
-        if (destination.droppableId === source.droppableId && destination.index === source.index
-        ) return;
+        if (
+            destination.droppableId === source.droppableId &&
+            destination.index === source.index
+        ) {
+            return;
+        }
 
         if (type === 'list') {
-
             const items = reorder(orderedData, source.index, destination.index).map((item, index) => ({
-                ...item, order: index,
+                ...item,
+                order: index,
             }));
 
             setOrderedData(items);
-            // server action;
-            executeOrderList({ items, boardId })
+            executeOrderList({ items, boardId });
+            return;
         }
 
         // if the type is card
         if (type === 'card') {
             const newOrderedData = [...orderedData];
-            let sourceList: ListWithCards | undefined;
-            let destList: ListWithCards | undefined;
-            newOrderedData.map(list => {
-                if (list.id === source.droppableId) {
-                    sourceList = list;
-                }
-                if (list.id === destination.droppableId) {
-                    destList = list;
-                }
-            })
+            const sourceList = newOrderedData.find((list) => list.id === source.droppableId);
+            const destList = newOrderedData.find((list) => list.id === destination.droppableId);
 
             if (!sourceList || !destList) return;
 
             if (!sourceList.cards) {
                 sourceList.cards = [];
-
             }
 
             if (!destList.cards) {
                 destList.cards = [];
-
             }
 
-            // moving the card in same list;
+            // moving the card in same list
             if (source.droppableId === destination.droppableId) {
                 const reOrderedCards = reorder(
                     sourceList.cards,
                     source.index,
                     destination.index
-                )
+                );
 
-                reOrderedCards.forEach((card, index) => { card.order = index })
+                reOrderedCards.forEach((card, index) => {
+                    card.order = index;
+                });
 
                 sourceList.cards = reOrderedCards;
                 setOrderedData(newOrderedData);
                 executeOrderCard({ items: reOrderedCards, boardId });
             } else {
-                // moving the card to different list;
-                const [movedCard] = sourceList.cards.splice(source.index, 1);
-                
+                // moving the card to different list
+                // Find card by draggableId first for safe matching over raw index
+                const cardIndex = sourceList.cards.findIndex((c) => c.id === draggableId);
+                const sourceIndex = cardIndex !== -1 ? cardIndex : source.index;
+
+                if (sourceIndex < 0 || sourceIndex >= sourceList.cards.length) return;
+
+                const [movedCard] = sourceList.cards.splice(sourceIndex, 1);
                 movedCard.listId = destination.droppableId;
                 
                 destList.cards.splice(destination.index, 0, movedCard);
                 
-                sourceList.cards.forEach((card, idx) => card.order = idx)
-                destList.cards.forEach((card, idx) => card.order = idx)
+                sourceList.cards.forEach((card, idx) => {
+                    card.order = idx;
+                });
+                destList.cards.forEach((card, idx) => {
+                    card.order = idx;
+                });
                 
                 setOrderedData(newOrderedData);
                 
-                executeOrderCard({ items: destList.cards, boardId });
+                // Synchronize both affected lists to PostgreSQL
+                executeOrderCard({
+                    items: [...sourceList.cards, ...destList.cards],
+                    boardId,
+                });
             }
-
-
         }
-
-    }
-
+    };
 
     return (
-        <DragDropContext onDragEnd={onDragEnd}>
+        <div className="flex flex-col h-full">
+            {isFiltered && (
+                <div className="mb-2 px-3 py-1 rounded-md bg-amber-500/15 border border-amber-500/30 text-amber-300 text-xs flex items-center gap-2 max-w-fit shrink-0">
+                    <span className="inline-block w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+                    <span>Filtering active — reordering is disabled to protect workflow order integrity.</span>
+                </div>
+            )}
+            <DragDropContext onDragEnd={onDragEnd}>
+                <Droppable droppableId={"lists"} direction="horizontal" type="list">
+                    {(provided) => (
+                        <ol
+                            {...provided.droppableProps}
+                            ref={provided.innerRef}
+                            className="flex gap-x-3 h-full"
+                        >
+                            {
+                                displayData.map((list, index) => (
+                                    <ListItem
+                                        key={list.id}
+                                        index={index}
+                                        data={list}
+                                        isDragDisabled={isFiltered}
+                                    />
+                                ))
+                            }
 
-            <Droppable droppableId={"lists"} direction="horizontal" type="list">
-                {(provided) => (
-                    <ol
-                        {...provided.droppableProps}
-                        ref={provided.innerRef}
-                        className="flex gap-x-3 h-full"
-                    >
-                        {
-                            displayData.map((list, index) => (
-                                <ListItem
-                                    key={list.id}
-                                    index={index}
-                                    data={list}
-                                />
-                            ))
-                        }
+                            {provided.placeholder}
 
-                        {provided.placeholder}
+                            <ListForm />
 
-                        <ListForm />
+                            {orderedData.length === 0 && (
+                                <div className="flex flex-col items-center justify-center p-6 bg-black/20 text-white rounded-md border border-white/20 h-40 w-72 shrink-0 text-center space-y-1.5 backdrop-blur-xs">
+                                    <p className="font-semibold text-sm">No lists on this board</p>
+                                    <p className="text-xs text-white/80">Click &quot;Add a list&quot; to begin organizing your workflow.</p>
+                                </div>
+                            )}
 
-                        {orderedData.length === 0 && (
-                            <div className="flex flex-col items-center justify-center p-6 bg-black/20 text-white rounded-md border border-white/20 h-40 w-72 shrink-0 text-center space-y-1.5 backdrop-blur-xs">
-                                <p className="font-semibold text-sm">No lists on this board</p>
-                                <p className="text-xs text-white/80">Click &quot;Add a list&quot; to begin organizing your workflow.</p>
-                            </div>
-                        )}
-
-                        <div className="flex shrink w-1" />
-                    </ol>
-                )}
-            </Droppable>
-        </DragDropContext>
-    )
-}
+                            <div className="flex shrink w-1" />
+                        </ol>
+                    )}
+                </Droppable>
+            </DragDropContext>
+        </div>
+    );
+};
